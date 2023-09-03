@@ -5,53 +5,51 @@ import AppointmentNav from "./AppointmentNav";
 import AppointmentInfo from "./AppointmentInfo";
 import AppointmentServices from "./AppointmentServices";
 import AppointmentSummary from "./AppointmentSummary";
+import AppointmentCar from "./AppointmentCar";
+import AppointmentDate from "./AppointmentDate";
 
-export type myFormData = {
+
+
+export type myFormType = {
 	firstname: string,
 	lastname: string,
 	email: string,
 	phone: string,
-	services: {
-			header: string,
-			description: string,
-	} [];
+	services: string[],
+	vehicletype: string,
+	year: string,
+	brand: string,
+	model: string,
+	date: Date,
+	time: string,
+}
+export type FormDataProps = {
+	setFormData: (newFormData: myFormType) => void,
+	formData: myFormType,
 }
 export default function Appointment() {
-	const [navPage, setNavPage] = useState<string>('services');
-	const [formData, setFormData] = useState<myFormData>({
-		firstname: "alexi",
-		lastname: "ikonomou",
-		email: "jemimassyrup@gmail.com",
-		phone: "778 251 0290",
-		services: [
-			{
-				header: "Oil Change",
-				description: "Inspect, remove and new replacement of engine oil and engine oil filter. A multi-point inspection is included with this service.",
-			},
-			{
-				header: "Coolant/Anti-Freeze",
-				description: "Inspect, remove and new replacement of engine coolant/anti-freeze.",
-			},
-			{
-				header: "Transmission",
-				description: "Removal and new replacement of transmission fluid (Filter where required).",
-			},
-			{
-				header: "Brake Fluid Exchange",
-				description: "Inspect, remove and new replacement of brake fluid.",
-			},
-			{
-				header: "Power Steering Fluid",
-				description: "Removal and new replacement of power steering fluid.",
-			},
-		]
+	const [navPage, setNavPage] = useState<string>('date');
+	const [formData, setFormData] = useState<myFormType>({
+		firstname: "",
+		lastname: "",
+		email: "",
+		phone: "",
+		services: [],
+		vehicletype: "",
+		year: "",
+		brand: "",
+		model: "",		
+		date: new Date(),
+		time: "",
 	});
 	return (
-		<section  className="shadow-lg rounded-xl p-12 flex" >
-			<div className="flex-1">
+		<section className="shadow-lg rounded-xl p-12 flex" style={{ minHeight: 800}} >
+			<div className="flex-1 mr-12">
 				<AppointmentNav setNavPage={setNavPage} />
-				{navPage == 'info' && <AppointmentInfo />}
-				{navPage == 'services' && <AppointmentServices />}
+				{navPage == 'info' && <AppointmentInfo setFormData={setFormData} formData={formData} />}
+				{navPage == 'services' && <AppointmentServices setFormData={setFormData} formData={formData} />}
+				{navPage == 'car' && <AppointmentCar setFormData={setFormData} formData={formData} />}
+				{navPage == 'date' && <AppointmentDate setFormData={setFormData} formData={formData} />}
 			</div>
 			<AppointmentSummary formData={formData} />
 		</section>

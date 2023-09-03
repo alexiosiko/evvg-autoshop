@@ -1,6 +1,10 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { title } from "process";
+import Image from "next/image";
+import { useState } from "react";
+
+import Plus from "@/assets/photos/plus.png";
+import Minus from "@/assets/photos/minus.png";
 
 type Service = {
 	header: string;
@@ -14,10 +18,16 @@ type Service = {
 	}
  };
 export default function AppointmentCollapsible({ ServiceData } : AppointmentCollapsibleProps ) {
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 	return (
-		<Collapsible>
-			<CollapsibleTrigger className="mb-2 h-8">
-				{ServiceData.title}
+		<Collapsible className="shadow-sm pr-2">
+			<CollapsibleTrigger className="mb-2 pt-2 h-8 w-full" onClick={() => setIsOpen(!isOpen)}>
+				<div className="flex justify-between">
+					{ServiceData.title}
+					{isOpen 
+						? <Image src={Minus} alt="minus" width={20} height={20}/>
+						: <Image src={Plus} alt="plus" width={20} height={20}/>}
+				</div>
 			</CollapsibleTrigger>	
 			{ServiceData.services.map((service: Service, index: number) => 
 				<CollapsibleContent key={index} className="space-y-2 rounded-md border pl-2 py-3 text-sm">
@@ -26,6 +36,7 @@ export default function AppointmentCollapsible({ ServiceData } : AppointmentColl
 						<p className="ml-2">{service.header}</p>
 					</div>
 					<p className="text-xs ml-8">{service.description}</p>
+
 				</CollapsibleContent>
 			)}
 		</Collapsible>

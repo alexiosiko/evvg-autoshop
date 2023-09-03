@@ -2,38 +2,49 @@ import { Form } from '@/components/ui/form'
 import { Label } from '../ui/label'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
+import { FormDataProps, myFormType } from './Appointment'
 
 
-export default function AppountmentInfo() {
-	const handleSubmit = (data: any) => {
-		data.preventDefault();
-		console.log(data.target.firstname.value);
-		console.log(data.target.lastname.value);
-		console.log(data.target.email.value);
-		console.log(data.target.phone.value);
+
+export default function AppountmentInfo({ setFormData, formData }: FormDataProps) {
+	const handleSubmit = (e: any) => {
+		e.preventDefault();
+
+		const newFormData = {
+			firstname: e.target.firstname.value,
+			lastname: e.target.lastname.value,
+			email: e.target.email.value,
+			phone: e.target.phone.value,
+		}
+
+		setFormData({
+			...formData,
+			...newFormData
+		});
+
 	}
 	return (
-		<form onSubmit={handleSubmit}>
-			<p className='text-4pxl -ml-2'>Contact Information</p>
+		<div onSubmit={handleSubmit}>
+			<p className='text-3xl mb-8 mt-8'>Contact Information</p>
 			<div className='grid grid-cols-2 grid-rows-2 gap-4'>
 				<div>
 					<Label>First Name</Label>
-					<Input name='firstname'/>
+					<Input required={true} name='firstname'/>
 				</div>
 				<div>
 					<Label>Last Name</Label>
-					<Input name='lastname'/>
+					<Input required={true} name='lastname'/>
 				</div>
 				<div>
 					<Label>Email</Label>
-					<Input name='email'/>
+					<Input required={true} name='email'/>
 				</div>
 				<div>
 					<Label>Phone</Label>
-					<Input name='phone' />
+					<Input required={true} name='phone' />
 				</div>
 			</div>
-			<Button className='mt-4'>Submit</Button>
-		</form>
+			<Button className='mt-4'>Update</Button>
+		</div>
 	)
 }

@@ -1,36 +1,34 @@
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@radix-ui/react-collapsible";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "../ui/button";
+import { FormDataProps } from "./Appointment";
 import AppointmentCollapsible from "./AppointmentCollapsible";
 import { BrakesSteeringAndSuspensionServices, IDontKnowPleaseInspect, OilChangeAndFluidServices, TireAndWheelServices } from "@/contants/ServicesData";
 
-export default function AppointmentServices() {
+export default function AppointmentServices({ formData, setFormData }: FormDataProps) {
 	function handleSubmit(e: any) {
 		e.preventDefault();
-		const formData = new FormData(e.target); // Create a FormData object from the form
-		console.log(formData);
-    // Initialize formDataObject as an empty object
-    const formDataObject: { [key: string]: string | File } = {};
-    
-    formData.forEach((value, key) => {
-      // Check the type of the value
-      if (typeof value === 'string') {
-        formDataObject[key] = value;
-      } else if (value instanceof File) {
-        // Handle File type (e.g., omit it or handle it differently)
-      }
-    });
+		const newFormData = new FormData(e.target); // Create a FormData object from the form
 
-    console.log(formDataObject);
+
+		const services: string[] = [];
+
+		newFormData.forEach((value, key) => {
+			services.push(key);
+		})
+		
+		setFormData({
+			...formData,
+			services: services, // Update the services array in formData
+		})
+
 	}
 	return (
 		<form onSubmit={handleSubmit}>
-			<p className='text-3xl  -ml-2 mb-8'>Services</p>
+			<p className='text-3xl mb-8 mt-8'>Services</p>
 			<AppointmentCollapsible ServiceData={TireAndWheelServices} />
 			<AppointmentCollapsible ServiceData={OilChangeAndFluidServices} />
 			<AppointmentCollapsible ServiceData={BrakesSteeringAndSuspensionServices} />
 			<AppointmentCollapsible ServiceData={IDontKnowPleaseInspect} />
-			<Button className="mt-4">Submit</Button>
+			<Button className="mt-4">Update</Button>
 		</form>
 	)
 }
