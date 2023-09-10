@@ -1,4 +1,3 @@
-"use client"
 
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -18,7 +17,7 @@ function Calendar({
 	return (
 		<DayPicker
 			showOutsideDays={showOutsideDays}
-			className={cn("p-3", className)}
+			className={cn("p-3 m-auto justify-center flex", className)}
 			classNames={{
 			months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
 			month: "space-y-4",
@@ -33,12 +32,12 @@ function Calendar({
 			nav_button_next: "absolute right-1",
 			table: "w-2 border-collapse space-y-1",
 			head_row: "flex",
-			head_cell: `text-muted-foreground rounded-md m-2 w-18 text-[0.8rem]`,
+			head_cell: `text-muted-foreground rounded-md m-2 w-20 text-[0.8rem]`,
 			row: "flex w-full mt-2",
 			cell: "text-center text-sm p-0 m-2 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
 			day: cn(
 				buttonVariants({ variant: "ghost" }),
-				`h-18 w-18 p-0 font-normal aria-selected:opacity-100 rounded-2xl`
+				`h-20 w-20 p-0 font-normal aria-selected:opacity-100 rounded-2xl`
 			),
 			day_selected:
 				"bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",

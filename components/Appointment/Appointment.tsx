@@ -1,33 +1,18 @@
 "use client"
 
 import { useState } from "react";
-import AppointmentNav from "./AppointmentNav";
-import AppointmentInfo from "./AppointmentInfo";
-import AppointmentServices from "./AppointmentServices";
-import AppointmentSummary from "./AppointmentSummary";
-import AppointmentCar from "./AppointmentCar";
-import AppointmentDate from "./AppointmentDate";
+import { requestAppointment } from "@/lib/actions/appointment.actions";
+import { requestAppointmentValidation } from "@/lib/validations/appointment.validation";
+import { myFormType } from "@/contants/types/AppointmentTypes";
+import Nav from "./Nav";
+import Services from "./Services";
+import Summary from "./Summary";
+import Info from "./Info";
+import Car from "./Car";
+import Calendar from "./Calendar";
 
 
-
-export type myFormType = {
-	firstname: string,
-	lastname: string,
-	email: string,
-	phone: string,
-	services: string[],
-	vehicletype: string,
-	year: string,
-	brand: string,
-	model: string,
-	date: Date,
-	time: string,
-}
-export type FormDataProps = {
-	setFormData: (newFormData: myFormType) => void,
-	formData: myFormType,
-}
-export default function Appointment() {
+export default function Appointment({}) {
 	const [navPage, setNavPage] = useState<string>('date');
 	const [formData, setFormData] = useState<myFormType>({
 		firstname: "",
@@ -36,22 +21,40 @@ export default function Appointment() {
 		phone: "",
 		services: [],
 		vehicletype: "",
+		details: "",
 		year: "",
 		brand: "",
 		model: "",		
-		date: new Date(),
+		date: null,
 		time: "",
+		id: "",
 	});
+
+	async function handleSubmit() {
+		requestAppointmentValidation(formData)
+		.then((validationResponse) => {
+			if (validationResponse !== "success") {
+				alert(validationResponse);
+				return;
+			}
+			requestAppointment(formData)
+			.then(res => alert(res));
+		})
+	}
+	function handleClear() {
+		setFormData({firstname: "",lastname: "",email: "",phone: "",services: [],vehicletype: "",details: "",year: "",brand: "",model: "",		date:  null,time: "",id: "",
+		})
+	};
 	return (
-		<section className="shadow-lg rounded-xl p-12 flex" style={{ minHeight: 800}} >
+		<section className="rounded-xl p-12 flex outline-2 outline-white shadow-md shadow-slate-700" style={{ minHeight: 800}} >
 			<div className="flex-1 mr-12">
-				<AppointmentNav setNavPage={setNavPage} />
-				{navPage == 'info' && <AppointmentInfo setFormData={setFormData} formData={formData} />}
-				{navPage == 'services' && <AppointmentServices setFormData={setFormData} formData={formData} />}
-				{navPage == 'car' && <AppointmentCar setFormData={setFormData} formData={formData} />}
-				{navPage == 'date' && <AppointmentDate setFormData={setFormData} formData={formData} />}
+				<Nav setNavPage={setNavPage} />
+				{navPage == 'info' && <Info setFormData={setFormData} formData={formData} />}
+				{navPage == 'services' && <Services setFormData={setFormData} formData={formData} />}
+				{navPage == 'car' && <Car setFormData={setFormData} formData={formData} />}
+				{navPage == 'date' && <Calendar setFormData={setFormData} formData={formData} />}
 			</div>
-			<AppointmentSummary formData={formData} />
+			<Summary formData={formData} handleSubmit={handleSubmit} handleClear={handleClear} />
 		</section>
 	)
 }

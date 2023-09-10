@@ -2,7 +2,6 @@ import { Button } from "../ui/button";
 
 type Props = {
 	setNavPage: React.Dispatch<React.SetStateAction<string>>;
-
 }
 
 export default function AppountmentNavBar({ setNavPage }: Props) {

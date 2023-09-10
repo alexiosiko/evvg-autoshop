@@ -14,10 +14,6 @@ export const TireAndWheelServices = {
 			description: "Remove and replace seasonal tires that are already mounted on rims. A multi-point inspection is included with this service.",
 		},
 		{
-			header: "Tire Change-Over (On-Rims)",
-			description: "Remove and replace seasonal tires that are NOT mounted on rims. A multi-point inspection is included with this service.",
-		},
-		{
 			header: "Wheel Alignment",
 			description: "Inspection and adjustment of the wheel angles to the car manufacturer specifications.",
 		},
@@ -62,10 +58,6 @@ export const BrakesSteeringAndSuspensionServices = {
 		{
 			header: "Steering & Suspension",
 			description: "Inspection and service of the steering and/or suspension system (may include ball joints, tie rods, control arms, shocks, struts, etc.)",
-		},
-		{
-			header: "Wheel Alignment",
-			description: "Inspection and adjustment of the wheel angles to the car manufacturer specifications.",
 		},
 		{
 			header: "Brake Fluid Exchange",

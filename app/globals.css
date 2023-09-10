@@ -6,7 +6,8 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+
+    --background: 0 0% 95%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -38,8 +39,11 @@
   }
  
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 210 28.6% 10.5%;
+    --foreground: 210 40% 88%;
+
+	 --gradient-from: #2020d1;
+	 --gradient-to: #9b0d98;
  
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -50,7 +54,7 @@
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
  
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 217.2 32.6% 22.5%;
     --secondary-foreground: 210 40% 98%;
  
     --muted: 217.2 32.6% 17.5%;
@@ -79,4 +83,11 @@
 
 body {
 	font-family: 'Poppins-Regular';
+}
+
+.gradient-text {
+  background-image: linear-gradient(to right, var(--gradient-from), var(--gradient-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
