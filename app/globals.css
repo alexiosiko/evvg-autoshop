@@ -6,6 +6,9 @@
 
 @layer base {
   :root {
+	--scrollbar-primary: rgba(36, 36, 36, 0);
+	--scrollbar-secondary: rgba(69, 69, 69, 0.4);
+	--scrollbar-tertiary: rgba(110, 110, 110, 0.6);
 
     --background: 0 0% 95%;
     --foreground: 222.2 84% 4.9%;
@@ -39,11 +42,11 @@
   }
  
   .dark {
-    --background: 210 28.6% 10.5%;
+    --background: 210 28.6% 6.5%;
     --foreground: 210 40% 88%;
 
-	 --gradient-from: #2020d1;
-	 --gradient-to: #9b0d98;
+	 --gradient-from: #4343d4;
+	 --gradient-to: #470b46;
  
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -55,7 +58,7 @@
     --primary-foreground: 222.2 47.4% 11.2%;
  
     --secondary: 217.2 32.6% 22.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary-foreground: 210 40% 78%;
  
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
@@ -91,3 +94,40 @@ body {
   background-clip: text;
   color: transparent;
 }
+
+/* Define a keyframes animation */
+@keyframes fadeIn {
+	from {
+	  opacity: 0; /* Start from opacity 0 */
+	}
+	to {
+	  opacity: 1; /* Gradually change to opacity 1 */
+	}
+ }
+ 
+ /* Apply the animation to an element */
+ .animate {
+	opacity: 0; /* Start from opacity 0 */
+	animation: fadeIn 1s ease-in-out;
+ }
+ 
+ 
+
+*::-webkit-scrollbar {
+	width: 10px;
+ }
+ 
+ *::-webkit-scrollbar-track {
+	background: var(--scrollbar-primary);
+	border-radius: 5px;
+ }
+ 
+ *::-webkit-scrollbar-thumb {
+	background-color: var(--scrollbar-secondary);
+	border-radius: 14px;
+	border: 3px solid var(--scrollbar-primary);
+ }
+ 
+ ::-webkit-scrollbar-thumb:hover {
+	background-color: var(--scrollbar-tertiary);
+ }

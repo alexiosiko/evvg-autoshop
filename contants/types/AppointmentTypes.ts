@@ -4,12 +4,12 @@ export type myFormType = {
 	email: string,
 	phone: string,
 	services: string[],
-	vehicletype: string,
-	details: string,
+	notes: string,
 	year: string,
 	brand: string,
 	model: string,
 	date: Date | null,
+	dateCreated: Date | null,
 	time: string,
 	id: string
 }

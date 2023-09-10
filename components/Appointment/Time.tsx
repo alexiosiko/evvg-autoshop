@@ -46,6 +46,8 @@ export default function AppointmentTime({ formData, setFormData } : FormDataProp
 	function handleOnTimeClick(time: string) {
 		const hour = parseInt(time.substring(0, time.indexOf(':')));
 
+		if (!formData.date) return;
+
 		// Create a copy of formData with the updated date
 		const updatedFormData = {
 			...formData,
@@ -59,18 +61,19 @@ export default function AppointmentTime({ formData, setFormData } : FormDataProp
 		setFormData(updatedFormData);
 	}
 	function isSelectedChangeStyle(data: dayType): string {
+		if (!formData.date) return "";
 		const hour = parseInt(data.time.substring(0, data.time.indexOf(":")));
 		if (hour == formData.date.getHours())
 			return "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground";
 		return "hover:bg-gray-200 ";
 	}
 	return (
-		<section className="grid outline outline-gray-200 outline-1 p-8 rounded-xl text-center gap-y-12 grid-cols-4 items-center justify-center">
+		<section className="grid shadow-md shadow-slate-700 p-8 rounded-3xl text-center gap-y-12 grid-cols-4 items-center justify-center">
 			{fetchedData.map((data: dayType, index) => 
 				<div 
 					key={index}
 					onClick={data.avaliable ? () => handleOnTimeClick(data.time) : undefined}
-					className={`p-4 rounded-lg ${data.avaliable ? 'cursor-pointer' : ''} ${isSelectedChangeStyle(data)} `}>
+					className={`${isSelectedChangeStyle(data)} p-4 rounded-lg ${data.avaliable ? 'cursor-pointer' : 'hover:bg-inherit'}  `}>
 					<p>{data.time}</p>
 					{data.avaliable ? 
 						<Image className="m-auto" src={GreenDot} width={7} height={7} alt="dot" /> : <Image className="m-auto" src={RedDot} width={7} height={7} alt="dot" /> 

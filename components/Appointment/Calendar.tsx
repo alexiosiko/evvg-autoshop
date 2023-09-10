@@ -6,8 +6,7 @@ import { FormDataProps } from "@/contants/types/AppointmentTypes";
 type AppointmentDateType = {
 	formData: FormDataProps['formData'];
 	setFormData: FormDataProps['setFormData'];
- };
-
+};
  
 export default function AppointmentDate({ formData, setFormData }: AppointmentDateType) {
 	const [date, setDate] = useState<Date | undefined>(new Date())
@@ -28,14 +27,14 @@ export default function AppointmentDate({ formData, setFormData }: AppointmentDa
 	return (
 		<div>
 			<p className='text-4xl font-bold mb-8 mt-8'>Date</p>
-				<Calendar
-					className="outline outline-1 rounded-2xl mb-4 outline-gray-200 p-4 pt-12"
-					mode="single"
-					selected={date}
-					onSelect={setDate}
-				/>
-				{/* Times */}
-				{formData.date && <AppointmentTime formData={formData} setFormData={setFormData} />}
+			<Calendar
+				className="shadow-md shadow-slate-700 rounded-3xl mb-4 p-4 pt-12"
+				mode="single"
+				selected={date}
+				onSelect={setDate}
+			/>
+			{/* Times */}
+			{formData.date && <AppointmentTime formData={formData} setFormData={setFormData} />}
 		</div>
 	);
 }

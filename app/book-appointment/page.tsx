@@ -1,10 +1,14 @@
-import Appointment from "@/components/Appointment/Appointment";
+import Appointment from "@/components/appointment/Appointment";
+import Nav from "@/components/Nav";
+import { ClerkProvider } from "@clerk/nextjs";
 
-export default function Page() {
+export default async function Page() {
 	return (
-		<div className="max-w-screen-xl m-auto">
-				
-			<Appointment />
-		</div>
+		<ClerkProvider>
+			<Nav />
+			<div className="max-w-screen-xl m-auto">
+				<Appointment />
+			</div>
+		</ClerkProvider>
 	)
 }

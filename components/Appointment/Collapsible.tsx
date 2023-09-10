@@ -38,7 +38,7 @@ export default function AppointmentCollapsible({ ServiceData, setFormData, formD
 
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	return (
-		<Collapsible className="shadow-sm pr-2">
+		<Collapsible className="shadow-sm shadow-foreground/20 p-2 mb-4 rounded-2xl">
 			<CollapsibleTrigger className="mb-2 pt-2 h-8 w-full" onClick={() => setIsOpen(!isOpen)}>
 				<div className="flex justify-between">
 					{ServiceData.title}
@@ -48,7 +48,7 @@ export default function AppointmentCollapsible({ ServiceData, setFormData, formD
 				</div>
 			</CollapsibleTrigger>	
 			{ServiceData.services.map((service: Service, index: number) => 
-				<CollapsibleContent key={index} className="space-y-2 rounded-md border pl-2 py-3 text-sm">
+				<CollapsibleContent key={index} className="space-y-2 rounded-md mb-4 shadow-sm shadow-foreground/20 pl-2 py-3 text-sm">
 					<div className="flex flex-row ">
 						<Checkbox 
 							checked={calculateIfChecked(service.header)} 
