@@ -1,5 +1,5 @@
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { Label } from "@/components/pending-appointments/ui/label";
+import { Input } from "@/components/pending-appointments/ui/input";
 import { FormDataProps } from "@/contants/types/AppointmentTypes";
 
 export default function AppointmentCar({ formData, setFormData }: FormDataProps) {

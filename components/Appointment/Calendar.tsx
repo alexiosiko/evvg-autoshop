@@ -1,4 +1,4 @@
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar } from "@/components/pending-appointments/ui/calendar";
 import AppointmentTime from "./Time";
 import { useEffect, useState } from "react";
 import { FormDataProps } from "@/contants/types/AppointmentTypes";

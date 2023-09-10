@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/pending-appointments/ui/button';
 import { currentUser } from "@clerk/nextjs";
 
 const navButtonClass = 'text-white transition hover:bg-white hover:text-black p-2 m-2 rounded-3xl ';

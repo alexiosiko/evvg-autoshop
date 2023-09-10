@@ -1,9 +1,8 @@
 import Nav from "@/components/Nav";
+import PendingAppointment from "@/components/pending-appointments/PendingAppointment";
 import { getPendingAppointments } from "@/lib/actions/appointment.actions";
 import { ClerkProvider } from "@clerk/nextjs";
-import PendingAppointment from "@/components/manage-appointments/PendingAppointment"
 import { ObjectId } from "mongodb";
-import PendingAppointmentHeader from "@/components/manage-appointments/PendingAppointmentsHeader";
 
 export type pendingAppointmentType = {
 	_id: ObjectId,
@@ -23,15 +22,15 @@ export type pendingAppointmentType = {
 }
 export default async function Page() {
 	const pendingAppointments: pendingAppointmentType[] = await getPendingAppointments();
-	
+
 	return (
 		<ClerkProvider>
 			<div>
 				<Nav />
 			</div>
 			<section className="max-w-screen-xl m-auto">
-			{pendingAppointments.map((appointment: pendingAppointmentType) => (
-				<PendingAppointment key={appointment.id.toString()} appointment={appointment} />
+			{pendingAppointments.map((appointment: pendingAppointmentType, index: number) => (
+				<PendingAppointment key={index} appointmentSTRING={JSON.stringify(appointment)} />
 			))}
 			</section>
 

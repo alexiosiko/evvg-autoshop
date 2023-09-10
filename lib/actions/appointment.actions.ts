@@ -9,7 +9,7 @@ export async function getAppointments(): Promise<any[]> {
 	console.log("getAppointments()");
 	
 	try {
-		const db = await connectToMongoDB(); // Replace with your MongoDB connection logic
+		const db = await connectToMongoDB();
 		if (!db) {
 			console.error("Failed to connect to MongoDB.");
 			return [];
@@ -30,7 +30,7 @@ export async function getAppointments(): Promise<any[]> {
 	console.log("getAppointments()");
 	
 	try {
-		const db = await connectToMongoDB(); // Replace with your MongoDB connection logic
+		const db = await connectToMongoDB();
 		if (!db) {
 			console.error("Failed to connect to MongoDB.");
 			return [];

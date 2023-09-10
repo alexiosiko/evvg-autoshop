@@ -1,5 +1,5 @@
 import { FormDataProps } from "@/contants/types/AppointmentTypes";
-import { Textarea } from "../ui/textarea";
+import { Textarea } from "../pending-appointments/ui/textarea";
 import AppointmentCollapsible from "@/components/appointment/Collapsible";
 import { BrakesSteeringAndSuspensionServices, IDontKnowPleaseInspect, OilChangeAndFluidServices, TireAndWheelServices } from "@/contants/ServicesData";
 
