@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
 		<ClerkProvider >
 			<Nav />
-			<div className="flex gap-8 max-w-6xl m-auto ">
+			<div className="flex gap-8 max-w-6xl m-auto">
 				<SideNav />
 		      <div>{children}</div>
 			</div>

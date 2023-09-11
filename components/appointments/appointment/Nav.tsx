@@ -15,7 +15,7 @@ export default function AppountmentNavBar({ setNavPage }: Props) {
 			<Button onClick={() => setNavPage('date')} className="m-3 w-20">Date</Button>
 			</div>
 			<div className="items-center flex">
-				<UserButton />
+				<UserButton afterSignOutUrl="/" />
 			</div>
 		</div>
 	)

@@ -31,7 +31,7 @@ export default function PendingAppointment ({ appointmentSTRING }: PendingAppoin
 	appointment.date = new Date(appointment.date); // This resets the date type?
 
 	return (
-    <div className="grid grid-cols-8 gap-4 mb-4 shadow-sm shadow-foreground/50 p-4 items-center text-center justify-center align-middle rounded-3xl">
+    <div className="grid grid-cols-8 p-4 mb-4 shadow-sm shadow-foreground/50 items-center text-center justify-center align-middle rounded-3xl">
       <h1>{appointment.firstname} {appointment.lastname}</h1>
 		<div className='w-28'>{appointment.date.toDateString()} {appointment.date.getHours()}:00</div>
 		<DropdownMenu>
