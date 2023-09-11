@@ -1,6 +1,6 @@
 import { FormDataProps } from "@/contants/types/AppointmentTypes";
-import { Textarea } from "../pending-appointments/ui/textarea";
-import AppointmentCollapsible from "@/components/appointment/Collapsible";
+import { Textarea } from "../../ui/textarea";
+import AppointmentCollapsible from "@/components/appointments/appointment/Collapsible";
 import { BrakesSteeringAndSuspensionServices, IDontKnowPleaseInspect, OilChangeAndFluidServices, TireAndWheelServices } from "@/contants/ServicesData";
 
 export default function AppointmentServices({ formData, setFormData }: FormDataProps) {

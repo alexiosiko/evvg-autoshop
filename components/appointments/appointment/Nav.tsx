@@ -1,5 +1,5 @@
 import { UserButton } from "@clerk/nextjs";
-import { Button } from "../pending-appointments/ui/button";
+import { Button } from "../../ui/button";
 
 type Props = {
 	setNavPage: React.Dispatch<React.SetStateAction<string>>;

@@ -4,12 +4,12 @@ import { useState } from "react";
 import { requestAppointment } from "@/lib/actions/appointment.actions";
 import { requestAppointmentValidation } from "@/lib/validations/appointment.validation";
 import { myFormType } from "@/contants/types/AppointmentTypes";
-import Info from "@/components/appointment/Info";
-import Services from "@/components/appointment/Services";
-import Nav from "@/components/appointment/Nav";
-import Summary from "@/components/appointment/Summary";
-import Calendar from "@/components/appointment/Calendar";
-import Car from "@/components/appointment/Car";
+import Info from "@/components/appointments/appointment/Info";
+import Services from "@/components/appointments/appointment/Services";
+import Nav from "@/components/appointments/appointment/Nav";
+import Summary from "@/components/appointments/appointment/Summary";
+import Calendar from "@/components/appointments/appointment/Calendar";
+import Car from "@/components/appointments/appointment/Car";
 
 
 export default function Appointment({}) {

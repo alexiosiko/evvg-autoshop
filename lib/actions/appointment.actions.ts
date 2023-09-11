@@ -1,9 +1,8 @@
 "use server"
 
-import { myFormType } from "@/contants/types/AppointmentTypes";
+import { appointmentType, myFormType } from "@/contants/types/AppointmentTypes";
 import { connectToMongoDB } from "../mongoDB";
 import { currentUser } from "@clerk/nextjs";
-import { pendingAppointmentType } from "@/app/manage-appointments/page";
 
 export async function getAppointments(): Promise<any[]> {
 	console.log("getAppointments()");
@@ -26,7 +25,7 @@ export async function getAppointments(): Promise<any[]> {
 		return [];
 		}
  }
- export async function getPendingAppointments(): Promise<pendingAppointmentType[]> {
+ export async function getPendingAppointments(): Promise<appointmentType[]> {
 	console.log("getAppointments()");
 	
 	try {
@@ -42,7 +41,7 @@ export async function getAppointments(): Promise<any[]> {
 		const appointmentsArray = await appointmentsCollection.find({}).toArray();
 		
 		// Map MongoDB objects to pendingAppointmentType
-		const pendingAppointments: pendingAppointmentType[] = appointmentsArray.map((appointment) => ({
+		const pendingAppointments: appointmentType[] = appointmentsArray.map((appointment) => ({
 			_id: appointment._id,
 			firstname: appointment.firstname,
 			lastname: appointment.lastname,

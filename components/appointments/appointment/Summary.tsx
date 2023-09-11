@@ -1,5 +1,5 @@
 import { myFormType } from "@/contants/types/AppointmentTypes";
-import { Button } from "../pending-appointments/ui/button";
+import { Button } from "../../ui/button";
 import { useState } from "react";
 
 interface AppointmentSummaryProps {
