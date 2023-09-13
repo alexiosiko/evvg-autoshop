@@ -38,6 +38,7 @@ export async function handleApprove(objectId: ObjectId): Promise<string> {
 	}
 }
 export async function handleDecline(objectId: ObjectId): Promise<string> {
+	console.log("handleDecline()");
 	const objectIdNew = new ObjectId(objectId);
 	try {
 

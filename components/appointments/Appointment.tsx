@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Button } from "../ui/button";
 import { appointmentType } from "@/contants/types/AppointmentTypes";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { handleDecline } from "@/lib/actions/manage.appointment.actions";
 
 export default function Appointment({ appointmentSTRING }: { appointmentSTRING: string}  ) {
 	if (!appointmentSTRING) return;
@@ -58,8 +59,7 @@ export default function Appointment({ appointmentSTRING }: { appointmentSTRING: 
 				<DropdownMenuItem className='justify-center'><p>{appointment.notes}</p></DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
-		<Button variant={'destructive'}>Cancel</Button>
-
+		<Button variant={'destructive'} onClick={() => handleDecline}>Cancel</Button>
     	</div>
 	)
 }

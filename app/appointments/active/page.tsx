@@ -1,4 +1,3 @@
-
 import Appointment from "@/components/appointments/Appointment";
 import { appointmentType } from "@/contants/types/AppointmentTypes";
 import { getAppointments } from "@/lib/actions/appointment.actions";
