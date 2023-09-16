@@ -33,6 +33,25 @@ export type appointmentType = {
 	brand: string,
 	model: string,
 	date: Date,
+	dateCreated: Date,
 	time: string,
 	id: string,
+}
+export type appointmentHistoryType = {
+	_id: ObjectId,
+	firstname: string,
+	lastname: string,
+	email: string,
+	phone: string,
+	services: string[],
+	vehicletype: string,
+	notes: string,
+	year: string,
+	brand: string,
+	model: string,
+	date: Date,
+	dateCreated: Date,
+	time: string,
+	id: string,
+	completed: boolean
 }

@@ -25,6 +25,6 @@
 			"@/*": ["./*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/appointments/appointment/Info.tsx", "contants/ServicesData.js", "lib/mongoDB.ts"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/forms/appointment/Info.tsx", "contants/ServicesData.js", "lib/mongoDB.ts"],
 	"exclude": ["node_modules"]
 }

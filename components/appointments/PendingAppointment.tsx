@@ -10,28 +10,31 @@ import {
 import React from 'react';
 import Image from 'next/image';
 import Plus from "@/assets/icons/plus.png";
-import { handleApprove, handleDecline } from "@/lib/actions/manage.appointment.actions";
-import { ObjectId } from "mongodb";
+import { handleApprove as handleApproveOrDecline } from "@/lib/actions/manage.appointment.actions";
 import { Button } from "@/components/ui/button";
 import { appointmentType } from "@/contants/types/AppointmentTypes";
+import { Alert } from "../ui/alert";
 
 
 type PendingAppointmentType = {
 	appointmentSTRING: string,
+	isAdmin: boolean,
 }
-export default function PendingAppointment ({ appointmentSTRING }: PendingAppointmentType ) {
+export default function PendingAppointment ({ appointmentSTRING, isAdmin }: PendingAppointmentType ) {
 
-	function handleOnApprove(objectId: ObjectId) {
-		alert(handleApprove(objectId));
+	async function handleOnApproveOrDecline(approved: boolean) {
+		alert(await handleApproveOrDecline(appointment._id, approved));
+		window.location.reload();
 	}
-	function handleOnDecline(objectId: ObjectId) {
-		alert(handleDecline(objectId));
+	async function handleOnCancel() {
+		window.location.reload();
 	}
 	const appointment: appointmentType = JSON.parse(appointmentSTRING);
 	appointment.date = new Date(appointment.date); // This resets the date type?
 
+	console.log(process.env.ADMIN_USER_ID);
 	return (
-    <div className="grid grid-cols-8 p-4 mb-4 shadow-sm shadow-foreground/50 items-center text-center justify-center align-middle rounded-3xl">
+    <div className="grid grid-cols-9 p-4 mb-4 shadow-sm shadow-foreground/50 items-center text-center justify-center align-middle rounded-3xl ">
       <h1>{appointment.firstname} {appointment.lastname}</h1>
 		<div className='w-28'>{appointment.date.toDateString()} {appointment.date.getHours()}:00</div>
 		<DropdownMenu>
@@ -62,7 +65,7 @@ export default function PendingAppointment ({ appointmentSTRING }: PendingAppoin
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
 				<DropdownMenuItem className='justify-center'><a href={`mailto:${appointment.email}`}>Email</a></DropdownMenuItem>
-				{/* <DropdownMenuItem className='justify-center'><a href={`tel:${appointment.phone && removePhoneFormat(appointment.phone)}`}>{appointment.phone}</a></DropdownMenuItem> */}
+				<DropdownMenuItem className='justify-center'><a href={''}>{appointment.phone}</a></DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 		<DropdownMenu>
@@ -74,9 +77,24 @@ export default function PendingAppointment ({ appointmentSTRING }: PendingAppoin
 				<DropdownMenuItem className='justify-center'><p>{appointment.notes}</p></DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
-		<Button onClick={() => handleOnApprove(appointment._id)} variant={'gradient'}>Approve</Button>
-		<Button onClick={() => handleOnDecline(appointment._id)} variant={'destructive'}>Decline</Button>
-
+		<div>{appointment.dateCreated.toString()}</div>
+		{isAdmin ?
+			<>
+				<Button onClick={() => handleOnApproveOrDecline(true)} variant={'gradient'} className="m-2">
+					Approve
+				</Button>
+				<Button onClick={() => handleOnApproveOrDecline(false)} variant={'destructive'} className="m-2">
+					Decline
+				</Button> 
+			</>
+			: // Is NOT admin
+			<>
+				<Button onClick={() => handleOnCancel()} variant={'gradient'} className="m-2">
+					Cancel
+				</Button>
+			</>
+		}
+		
     </div>
   );
 };

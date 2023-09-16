@@ -2,27 +2,18 @@
 
 import Plus from "@/assets/icons/plus.png";
 import Image from 'next/image';
-import { Button } from "../ui/button";
 import { appointmentType } from "@/contants/types/AppointmentTypes";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { handleComplete } from "@/lib/actions/manage.appointment.actions";
 
-export default function Appointment({ appointmentSTRING }: { appointmentSTRING: string}  ) {
+export default function AppointmentHistory({ appointmentSTRING }: { appointmentSTRING: string}  ) {
 	if (!appointmentSTRING) return;
 
 	let appointment: appointmentType = JSON.parse(appointmentSTRING);
 	appointment.date = new Date(appointment.date); // This resets the date type?
 	
-	async function handleOnDecline() {
-		alert(await handleComplete(appointment._id, false));
-		window.location.reload();
-	}
-	async function handleOnComplete() {
-		alert(await handleComplete(appointment._id, true));
-	}
-
 	return (
-		<div className="grid grid-cols-8 gap-4 mb-4 shadow-sm shadow-foreground/50 p-4 items-center text-center rounded-3xl">
+		<div className="grid grid-cols-6 gap-4 mb-4 shadow-sm shadow-foreground/50 p-4 items-center text-center justify-center rounded-3xl">
       <h1>{appointment.firstname} {appointment.lastname}</h1>
 		<div className='w-28'>{appointment.date.toDateString()} {appointment.date.getHours()}:00</div>
 		<DropdownMenu>
@@ -67,8 +58,6 @@ export default function Appointment({ appointmentSTRING }: { appointmentSTRING: 
 				<DropdownMenuItem className='justify-center'><p>{appointment.notes}</p></DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
-		<Button variant={'gradient'} onClick={handleOnComplete}>Completed</Button>
-		<Button variant={'destructive'} onClick={handleOnDecline}>Cancel</Button>
     	</div>
 	)
 }

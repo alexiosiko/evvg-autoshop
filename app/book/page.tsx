@@ -1,4 +1,4 @@
-import Appointment from "@/components/appointments/appointment/Appointment";
+import Appointment from "@/components/forms/Appointment";
 
 export default async function Page() {
 	return (

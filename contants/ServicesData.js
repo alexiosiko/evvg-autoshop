@@ -39,10 +39,6 @@ export const OilChangeAndFluidServices = {
 			description: "Removal and new replacement of transmission fluid (Filter where required).",
 		},
 		{
-			header: "Brake Fluid Exchange",
-			description: "Inspect, remove and new replacement of brake fluid.",
-		},
-		{
 			header: "Power Steering Fluid",
 			description: "Removal and new replacement of power steering fluid.",
 		},
@@ -65,7 +61,6 @@ export const BrakesSteeringAndSuspensionServices = {
 		}
 	],
 }
-
 export const IDontKnowPleaseInspect = {
 	title: "I Dont Know, Please Inspect",
 	services: [
