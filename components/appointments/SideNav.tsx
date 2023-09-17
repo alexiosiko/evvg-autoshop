@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Key from "@/assets/icons/key.png";
 
-export default function SideNav(isAdmin: boolean) {
+export default function SideNav() {
 	const [activeButton, setActiveButton] = useState<string>('active');
 	return (
 		<div className="flex-col w-24 flex gap-4 mt-28">
