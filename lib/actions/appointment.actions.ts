@@ -4,7 +4,7 @@ import { AppointmentType, AppointmentFormType } from "@/contants/types/Appointme
 import { connectToMongoDB } from "../mongoDB";
 import { currentUser } from "@clerk/nextjs";
 
-export async function getAppointments(): Promise<any[]> {
+export async function getAppointments(id: string, isAdmin: boolean = false): Promise<AppointmentType[]> {
 	console.log("getAppointments()");
 	
 	try {
@@ -16,16 +16,22 @@ export async function getAppointments(): Promise<any[]> {
 		
 		const appointmentsCollection = db.collection('appointments');
 		
+
+		let appointmentsArray: any;
 		// Use .toArray() to await the MongoDB query result
-		const appointmentsArray = await appointmentsCollection.find({}).toArray();
+		if (isAdmin)
+			appointmentsArray = await appointmentsCollection.find({}).toArray();
+		else
+			appointmentsArray = await appointmentsCollection.find({ id: id}).toArray();
+
 		
 		return appointmentsArray; // Return MongoDB objects as JavaScript objects
 		} catch (error) {
-		console.error("Error in getAppointments:", error);
-		return [];
+			console.error("Error in getAppointments:", error);
+			return [];
 		}
  }
-export async function getPendingAppointments(id: string): Promise<AppointmentType[]> {
+export async function getPendingAppointments(id: string, isAdmin: boolean = false): Promise<AppointmentType[]> {
 	console.log("getAppointments()");
 
 	try {
@@ -37,11 +43,16 @@ export async function getPendingAppointments(id: string): Promise<AppointmentTyp
 		
 		const appointmentsCollection = db.collection('pending-appointments');
 		
+
+		let appointmentsArray: any;
 		// Use .toArray() to await the MongoDB query result
-		const appointmentsArray = await appointmentsCollection.find({ id: id}).toArray();
+		if (isAdmin)
+			appointmentsArray = await appointmentsCollection.find({}).toArray();
+		else
+			appointmentsArray = await appointmentsCollection.find({ id: id}).toArray();
 		
 		// Map MongoDB objects to pendingAppointmentType
-		const pendingAppointments: AppointmentType[] = appointmentsArray.map((appointment) => ({
+		const pendingAppointments: AppointmentType[] = appointmentsArray.map((appointment: any) => ({
 			_id: appointment._id,
 			username: appointment.username,
 			email: appointment.email,
@@ -81,7 +92,7 @@ export async function requestAppointment(body: AppointmentFormType): Promise<str
 	}
 }
 
-export async function getAppointmentHistory() {
+export async function getAppointmentHistory(id: string, isAdmin: boolean = false): Promise<AppointmentType[]> {
 	console.log("getAppointmentHistory()");
 
 	try {
@@ -92,29 +103,15 @@ export async function getAppointmentHistory() {
 		}
 		
 		const appointmentsCollection = db.collection('history');
-		
-		// Use .toArray() to await the MongoDB query result
-		const appointmentsArray = await appointmentsCollection.find({}).toArray();
-		
-		// Map MongoDB objects to pendingAppointmentType
-		const pendingAppointments: AppointmentType[] = appointmentsArray.map((appointment) => ({
-			_id: appointment._id,
-			username: appointment.username,
-			email: appointment.email,
-			phone: appointment.phone,
-			services: appointment.services,
-			vehicletype: appointment.vehicletype,
-			notes: appointment.notes,
-			year: appointment.year,
-			brand: appointment.brand,
-			model: appointment.model,
-			date: appointment.date,
-			dateCreated: appointment.dateCreated,
-			time: appointment.time,
-			id: appointment.id,
-			}));
 
-		return pendingAppointments;
+		let appointmentsArray: any;
+		// Use .toArray() to await the MongoDB query result
+		if (isAdmin)
+			appointmentsArray = await appointmentsCollection.find({}).toArray();
+		else
+			appointmentsArray = await appointmentsCollection.find({ id: id}).toArray();
+
+		return appointmentsArray;
 		} catch (error) {
 			console.error("Error in getAppointments:", error);
 			return [];

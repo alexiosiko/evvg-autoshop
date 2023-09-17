@@ -63,7 +63,7 @@ export default function PendingAppointment ({ appointmentSTRING, isAdmin }: Pend
 				<Image src={Plus} alt="minus" width={20} height={20}/>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
-				<DropdownMenuItem className='justify-center'><a href={`mailto:${appointment.email}`}>Email</a></DropdownMenuItem>
+				<DropdownMenuItem className='justify-center'><a href={`mailto:${appointment.email}`}>{appointment.email}</a></DropdownMenuItem>
 				<DropdownMenuItem className='justify-center'><a href={''}>{appointment.phone}</a></DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
@@ -76,7 +76,7 @@ export default function PendingAppointment ({ appointmentSTRING, isAdmin }: Pend
 				<DropdownMenuItem className='justify-center'><p>{appointment.notes}</p></DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
-		<div>{appointment.dateCreated.toDateString()} {appointment.dateCreated.getHours()}:00</div>
+		<div>{appointment.dateCreated.toString()}</div>
 		{isAdmin ?
 			<>
 				<Button onClick={() => handleOnApproveOrDecline(true)} variant={'gradient'} className="m-2">
@@ -88,7 +88,7 @@ export default function PendingAppointment ({ appointmentSTRING, isAdmin }: Pend
 			</>
 			: // Is NOT admin
 			<>
-				<Button onClick={() => handleOnCancel()} variant={'gradient'} className="m-2">
+				<Button onClick={() => handleOnCancel()} variant={'destructive'} className="m-2">
 					Cancel
 				</Button>
 			</>

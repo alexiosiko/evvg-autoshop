@@ -6,7 +6,9 @@ import { AppointmentType } from "@/contants/types/AppointmentTypes";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { handleComplete } from "@/lib/actions/manage.appointment.actions";
 
-export default function AppointmentHistory({ appointmentSTRING }: { appointmentSTRING: string}  ) {
+export default function AppointmentHistory({ appointmentSTRING }: { 
+	appointmentSTRING: string
+}  ) {
 	if (!appointmentSTRING) return;
 
 	let appointment: AppointmentType = JSON.parse(appointmentSTRING);
@@ -14,7 +16,7 @@ export default function AppointmentHistory({ appointmentSTRING }: { appointmentS
 	
 	return (
 		<div className="grid grid-cols-6 gap-4 mb-4 shadow-sm shadow-foreground/50 p-4 items-center text-center justify-center rounded-3xl">
-      <h1>{appointment.firstname} {appointment.lastname}</h1>
+      <h1>{appointment.username}</h1>
 		<div className='w-28'>{appointment.date.toDateString()} {appointment.date.getHours()}:00</div>
 		<DropdownMenu>
 			<DropdownMenuTrigger className='flex gap-4 justify-center'>
