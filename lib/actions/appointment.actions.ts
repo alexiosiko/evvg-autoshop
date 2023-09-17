@@ -1,6 +1,6 @@
 "use server"
 
-import { appointmentType, myFormType } from "@/contants/types/AppointmentTypes";
+import { AppointmentType, AppointmentFormType } from "@/contants/types/AppointmentTypes";
 import { connectToMongoDB } from "../mongoDB";
 import { currentUser } from "@clerk/nextjs";
 
@@ -25,7 +25,7 @@ export async function getAppointments(): Promise<any[]> {
 		return [];
 		}
  }
-export async function getPendingAppointments(id: string): Promise<appointmentType[]> {
+export async function getPendingAppointments(id: string): Promise<AppointmentType[]> {
 	console.log("getAppointments()");
 
 	try {
@@ -41,10 +41,9 @@ export async function getPendingAppointments(id: string): Promise<appointmentTyp
 		const appointmentsArray = await appointmentsCollection.find({ id: id}).toArray();
 		
 		// Map MongoDB objects to pendingAppointmentType
-		const pendingAppointments: appointmentType[] = appointmentsArray.map((appointment) => ({
+		const pendingAppointments: AppointmentType[] = appointmentsArray.map((appointment) => ({
 			_id: appointment._id,
-			firstname: appointment.firstname,
-			lastname: appointment.lastname,
+			username: appointment.username,
 			email: appointment.email,
 			phone: appointment.phone,
 			services: appointment.services,
@@ -57,7 +56,7 @@ export async function getPendingAppointments(id: string): Promise<appointmentTyp
 			dateCreated: appointment.dateCreated,
 			time: appointment.time,
 			id: appointment.id,
-			}));
+		}));
 
 		return pendingAppointments;
 		} catch (error) {
@@ -65,23 +64,8 @@ export async function getPendingAppointments(id: string): Promise<appointmentTyp
 			return [];
 	}
 }
-export async function requestAppointment(body: myFormType): Promise<string> {
+export async function requestAppointment(body: AppointmentFormType): Promise<string> {
 	console.log("requestAppointment()");
-
-	// Get user
-	const user = await currentUser();
-
-	// Store email
-	if (user && user.primaryEmailAddressId) 
-		body.email = user.primaryEmailAddressId;
-
-	// Store id
-	if (user && user.id)
-		body.id = user.id;
-
-	// Store date created
-	body.dateCreated = new Date();
-
 	try {
 		const db = await connectToMongoDB();
 		if (!db) {
@@ -90,10 +74,9 @@ export async function requestAppointment(body: myFormType): Promise<string> {
 		}
 		const pendingAppointments = db.collection('pending-appointments');
 		pendingAppointments.insertOne(body);
-		
-		return "Success";
+		return "success";
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		return "Failed to upload information";
 	}
 }
@@ -114,10 +97,9 @@ export async function getAppointmentHistory() {
 		const appointmentsArray = await appointmentsCollection.find({}).toArray();
 		
 		// Map MongoDB objects to pendingAppointmentType
-		const pendingAppointments: appointmentType[] = appointmentsArray.map((appointment) => ({
+		const pendingAppointments: AppointmentType[] = appointmentsArray.map((appointment) => ({
 			_id: appointment._id,
-			firstname: appointment.firstname,
-			lastname: appointment.lastname,
+			username: appointment.username,
 			email: appointment.email,
 			phone: appointment.phone,
 			services: appointment.services,

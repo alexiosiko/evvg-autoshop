@@ -2,10 +2,10 @@
 
 import { Db, ObjectId, Document, WithId } from "mongodb"; // Import 'Document' type
 import { connectToMongoDB } from "../mongoDB";
-import { appointmentType } from "@/contants/types/AppointmentTypes";
+import { AppointmentType } from "@/contants/types/AppointmentTypes";
 
 // Define a type for the MongoDB document you're working with
-type AppointmentDocument = WithId<Document & appointmentType>;
+type AppointmentDocument = WithId<Document & AppointmentType>;
 
 export async function handleApprove(objectId: ObjectId, approved: boolean): Promise<string> {
 	const objectIdNew = new ObjectId(objectId);

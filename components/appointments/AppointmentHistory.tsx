@@ -2,14 +2,14 @@
 
 import Plus from "@/assets/icons/plus.png";
 import Image from 'next/image';
-import { appointmentType } from "@/contants/types/AppointmentTypes";
+import { AppointmentType } from "@/contants/types/AppointmentTypes";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { handleComplete } from "@/lib/actions/manage.appointment.actions";
 
 export default function AppointmentHistory({ appointmentSTRING }: { appointmentSTRING: string}  ) {
 	if (!appointmentSTRING) return;
 
-	let appointment: appointmentType = JSON.parse(appointmentSTRING);
+	let appointment: AppointmentType = JSON.parse(appointmentSTRING);
 	appointment.date = new Date(appointment.date); // This resets the date type?
 	
 	return (

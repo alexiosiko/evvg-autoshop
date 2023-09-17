@@ -2,25 +2,21 @@ export const TireAndWheelServices = {
 	title: "Tire & Wheel Services",
 	services: [
 		{
+			id: "0",
 			header: "New Tire Installation & Balancing",
 			description: "Installation and balancing of new tires purchased at Canadian Tire. A multi-point inspection is included with this service",
 		},
 		{
+			id: "1",
 			header: "Tire Change-Over (On-Rims)",
 			description: "Remove and replace seasonal tires that are already mounted on rims. A multi-point inspection is included with this service.",
 		},
 		{
+			id: "2",
 			header: "Tire Change-Over (Off-Rims)",
 			description: "Remove and replace seasonal tires that are already mounted on rims. A multi-point inspection is included with this service.",
 		},
-		{
-			header: "Wheel Alignment",
-			description: "Inspection and adjustment of the wheel angles to the car manufacturer specifications.",
-		},
-		{
-			header: "Tire Rotation",
-			description: "Repositioning each tire to a new location based on industry recommendation to enhance the life of the tires. A multi-point inspection is included with this service.",
-		},
+
 	],
 };
 export const OilChangeAndFluidServices = {

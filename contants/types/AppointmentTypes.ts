@@ -1,8 +1,7 @@
 import { ObjectId } from "mongodb"
 
-export type myFormType = {
-	firstname: string,
-	lastname: string,
+export type AppointmentFormType = {
+	username: string,
 	email: string,
 	phone: string,
 	services: string[],
@@ -10,24 +9,18 @@ export type myFormType = {
 	year: string,
 	brand: string,
 	model: string,
-	date: Date | null,
+	date: Date | undefined,
 	dateCreated: Date | null,
 	time: string,
-	id: string
-}
-export type FormDataProps = {
-	setFormData: (newFormData: myFormType) => void,
-	formData: myFormType,
+	id: string | undefined
 }
 
-export type appointmentType = {
+export type AppointmentType = {
 	_id: ObjectId,
-	firstname: string,
-	lastname: string,
+	username: string,
 	email: string,
 	phone: string,
 	services: string[],
-	vehicletype: string,
 	notes: string,
 	year: string,
 	brand: string,
@@ -35,7 +28,7 @@ export type appointmentType = {
 	date: Date,
 	dateCreated: Date,
 	time: string,
-	id: string,
+	id: string
 }
 export type appointmentHistoryType = {
 	_id: ObjectId,
@@ -44,7 +37,6 @@ export type appointmentHistoryType = {
 	email: string,
 	phone: string,
 	services: string[],
-	vehicletype: string,
 	notes: string,
 	year: string,
 	brand: string,

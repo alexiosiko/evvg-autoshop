@@ -12,8 +12,7 @@ import Image from 'next/image';
 import Plus from "@/assets/icons/plus.png";
 import { handleApprove as handleApproveOrDecline } from "@/lib/actions/manage.appointment.actions";
 import { Button } from "@/components/ui/button";
-import { appointmentType } from "@/contants/types/AppointmentTypes";
-import { Alert } from "../ui/alert";
+import { AppointmentType } from "@/contants/types/AppointmentTypes";
 
 
 type PendingAppointmentType = {
@@ -29,14 +28,14 @@ export default function PendingAppointment ({ appointmentSTRING, isAdmin }: Pend
 	async function handleOnCancel() {
 		window.location.reload();
 	}
-	const appointment: appointmentType = JSON.parse(appointmentSTRING);
+	const appointment: AppointmentType = JSON.parse(appointmentSTRING);
 	appointment.date = new Date(appointment.date); // This resets the date type?
 
 	console.log(process.env.ADMIN_USER_ID);
 	return (
-    <div className="grid grid-cols-9 p-4 mb-4 shadow-sm shadow-foreground/50 items-center text-center justify-center align-middle rounded-3xl ">
-      <h1>{appointment.firstname} {appointment.lastname}</h1>
-		<div className='w-28'>{appointment.date.toDateString()} {appointment.date.getHours()}:00</div>
+    <div className={`${isAdmin ? 'grid-cols-9' : 'grid-cols-8'} grid p-4 mb-4 shadow-sm shadow-foreground/50 items-center text-center justify-center align-middle rounded-3xl `}>
+      <h1>{appointment.username}</h1>
+		<div>{appointment.date.toDateString()} {appointment.date.getHours()}:00</div>
 		<DropdownMenu>
 			<DropdownMenuTrigger className='flex gap-4 justify-center'>
 				<h1>Services</h1>
@@ -77,7 +76,7 @@ export default function PendingAppointment ({ appointmentSTRING, isAdmin }: Pend
 				<DropdownMenuItem className='justify-center'><p>{appointment.notes}</p></DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
-		<div>{appointment.dateCreated.toString()}</div>
+		<div>{appointment.dateCreated.toDateString()} {appointment.dateCreated.getHours()}:00</div>
 		{isAdmin ?
 			<>
 				<Button onClick={() => handleOnApproveOrDecline(true)} variant={'gradient'} className="m-2">

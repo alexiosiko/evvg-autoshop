@@ -3,14 +3,14 @@
 import Plus from "@/assets/icons/plus.png";
 import Image from 'next/image';
 import { Button } from "../ui/button";
-import { appointmentType } from "@/contants/types/AppointmentTypes";
+import { AppointmentType } from "@/contants/types/AppointmentTypes";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { handleComplete } from "@/lib/actions/manage.appointment.actions";
 
 export default function Appointment({ appointmentSTRING }: { appointmentSTRING: string}  ) {
 	if (!appointmentSTRING) return;
 
-	let appointment: appointmentType = JSON.parse(appointmentSTRING);
+	let appointment: AppointmentType = JSON.parse(appointmentSTRING);
 	appointment.date = new Date(appointment.date); // This resets the date type?
 	
 	async function handleOnDecline() {
@@ -23,7 +23,7 @@ export default function Appointment({ appointmentSTRING }: { appointmentSTRING: 
 
 	return (
 		<div className="grid grid-cols-8 gap-4 mb-4 shadow-sm shadow-foreground/50 p-4 items-center text-center rounded-3xl">
-      <h1>{appointment.firstname} {appointment.lastname}</h1>
+      <h1>{appointment.username}</h1>
 		<div className='w-28'>{appointment.date.toDateString()} {appointment.date.getHours()}:00</div>
 		<DropdownMenu>
 			<DropdownMenuTrigger className='flex gap-4 justify-center'>
