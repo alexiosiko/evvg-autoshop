@@ -31,7 +31,6 @@ export default function PendingAppointment ({ appointmentSTRING, isAdmin }: Pend
 	const appointment: AppointmentType = JSON.parse(appointmentSTRING);
 	appointment.date = new Date(appointment.date); // This resets the date type?
 
-	console.log(process.env.ADMIN_USER_ID);
 	return (
     <div className={`${isAdmin ? 'grid-cols-9' : 'grid-cols-8'} grid p-4 mb-4 shadow-sm shadow-foreground/50 items-center text-center justify-center align-middle rounded-3xl `}>
       <h1>{appointment.username}</h1>

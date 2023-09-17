@@ -4,6 +4,9 @@ import { currentUser } from "@clerk/nextjs";
 export default async function Page() {
 	const user = await currentUser();
 	return (
-		<Appointment id={user?.id} />
+		<>
+			<h1>Book an Appointment</h1>
+			<Appointment id={user?.id} />
+		</>
 	)
 }
