@@ -8,18 +8,16 @@ export const metadata = {
 }
 
 export default function RootLayout({
-  children,
+	children,
 }: {
-  children: React.ReactNode
+	children: React.ReactNode
 }) {
-  return (
-	<>
-	</>
-	// <ClerkProvider >
-	// 	<Nav />
-	// 	<div className="max-w-5xl m-auto">
-	// 		<div>{children}</div>
-	// 	</div>
-	// </ClerkProvider>
+	return (
+		<>
+			<Nav />
+			<div className="max-w-5xl m-auto">
+				<div>{children}</div>
+			</div>
+		</>
   )
 }
