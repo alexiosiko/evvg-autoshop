@@ -22,7 +22,7 @@ export default function RootLayout({
 			<ClerkProvider>
 				<body className={`${inter.className} dark`}>
 					<div className='m-auto '>
-					<UserButton />
+					<UserButton afterSignOutUrl="/" />
 						{children}
 					</div>
 				</body>
