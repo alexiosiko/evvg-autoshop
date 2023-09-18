@@ -17,7 +17,7 @@ export default async function Nav() {
 				<Button variant={'gradient'}>Manage Appointments</Button>
 			</Link>
 			<div className="flex items-center">
-				<UserButton />
+				<UserButton afterSignOutUrl="/" />
 			</div>
 		</div>
 	)

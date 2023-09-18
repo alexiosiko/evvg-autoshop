@@ -1,4 +1,5 @@
 "use client";
+
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +22,6 @@ import AppointmentDate from "../appointments/Calendar";
 import { useState } from "react";
 import { AlertContinue } from "../alerts/Continue";
 import { requestAppointment } from "@/lib/actions/appointment.actions";
-import { currentUser } from "@clerk/nextjs";
 
 
 export default function Appointment({ id }: {id : string | undefined}) {

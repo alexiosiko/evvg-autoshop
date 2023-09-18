@@ -34,11 +34,15 @@ export function AlertContinue({ alertInfo, setAlertInfo } : ContinueAlertType) {
 				</AlertDialogDescription>
 			</AlertDialogHeader>
 				<AlertDialogFooter>
-				<AlertDialogAction onClick={() => setAlertInfo({
-					title: "",
-					description: "",
-					active: false,
-					})}>
+				<AlertDialogAction onClick={() => {
+					
+					setAlertInfo({
+						title: "",
+						description: "",
+						active: false,
+						})}
+
+					}>
 				Continue
 				</AlertDialogAction>
 				</AlertDialogFooter>

@@ -64,40 +64,40 @@ export async function addAppointmentToHistory(body: AppointmentDocument, db: Db)
   }
 }
 
-export async function handleComplete(objectId: ObjectId, completed: boolean): Promise<string> {
-  console.log("handleDecline()");
-  const objectIdNew = new ObjectId(objectId);
-  try {
-    const db = await connectToMongoDB();
-    if (!db) {
-      console.error("Failed to connect to MongoDB.");
-      return "Failed to connect to MongoDB.";
-    }
+export async function handleComplete(objectId: ObjectId, completed: boolean): Promise<{
+	title: string,
+	description: string,
+	active: boolean
+}> {
+	console.log("handleDecline()");
+	const objectIdNew = new ObjectId(objectId);
+	try {
+		const db = await connectToMongoDB();
+		if (!db) {
+			return { title: "Could not connect to database", description: "It's not you, it's us. Please let IT know of this error", active: true};
+		}
 
-    // Get collections
-    const appointments = db.collection<AppointmentDocument>("history");
+		// Get collections
+		const appointments = db.collection<AppointmentDocument>("history");
 
-    // Find document
-    const foundDocument = await appointments.findOne({ _id: objectIdNew });
+		// Find document
+		const foundDocument = await appointments.findOne({ _id: objectIdNew });
 
-    if (!foundDocument) {
-      console.log("Could not find document with ObjectId: " + objectIdNew);
-      return "Could not find document with ObjectId: " + objectIdNew;
-    }
+		if (!foundDocument) {
+			return { title: "Could not find document", description: "It's not you, it's us. Please let IT know of this error", active: true};
+		}
 
-    // Remove document from pendingAppointments
-    await appointments.deleteOne(foundDocument);
+		// Remove document from pendingAppointments
+		await appointments.deleteOne(foundDocument);
 
-	 // Add complete boolean
-	 foundDocument.completed = completed;
+		// Add complete boolean
+		foundDocument.completed = completed;
 
-    // Add document to history
-	 addAppointmentToHistory(foundDocument, db);
+		// Add document to history
+		addAppointmentToHistory(foundDocument, db);
 
-    console.log("Successfully declined appointment");
-    return "Successfully declined appointment";
-  } catch (error) {
-    console.error("Failed backend:", error);
-    return "Failed backend";
-  }
+		return { title: "Successfully declined appointment!", description: "Appointment details: " + {...foundDocument}, active: true};
+	} catch (error) {
+		return { title: "Error with MongoDB", description: "It's not you, it's us. Please let IT know of this error", active: true};
+	}
 }
