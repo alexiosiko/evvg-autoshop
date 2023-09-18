@@ -13,11 +13,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-	<ClerkProvider >
-		<Nav />
-		<div className="max-w-5xl m-auto">
-			<div>{children}</div>
-		</div>
-	</ClerkProvider>
+	<>
+	</>
+	// <ClerkProvider >
+	// 	<Nav />
+	// 	<div className="max-w-5xl m-auto">
+	// 		<div>{children}</div>
+	// 	</div>
+	// </ClerkProvider>
   )
 }
