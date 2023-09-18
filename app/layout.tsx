@@ -21,8 +21,8 @@ export default function RootLayout({
 		<html lang="en">
 			<ClerkProvider>
 				<body className={`${inter.className} dark`}>
-					<UserButton />
 					<div className='m-auto '>
+					<UserButton />
 						{children}
 					</div>
 				</body>
