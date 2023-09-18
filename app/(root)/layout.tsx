@@ -16,7 +16,6 @@ export default function RootLayout({
 }) {
   return (
     <>
-		<Nav />
 		<div style={{
 			marginTop: 30,
 			backgroundImage: `url(${backgroundImage.src})`,

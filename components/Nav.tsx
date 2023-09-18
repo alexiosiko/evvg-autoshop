@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from '@/components/ui/button';
+import { UserButton } from "@clerk/nextjs";
 
 const navButtonClass = 'text-white transition hover:bg-white hover:text-black p-2 m-2 rounded-3xl ';
 
@@ -15,6 +16,9 @@ export default async function Nav() {
 			<Link href="/appointments/active" className='flex-col justify-center flex'>
 				<Button variant={'gradient'}>Manage Appointments</Button>
 			</Link>
+			<div className="flex items-center">
+				<UserButton />
+			</div>
 		</div>
 	)
 }

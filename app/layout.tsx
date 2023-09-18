@@ -1,7 +1,9 @@
 import { Metadata } from 'next/types'
 import './globals.css'
 import { Poppins } from 'next/font/google'
-import { ClerkProvider, UserButton } from '@clerk/nextjs'
+import { ClerkProvider, SignOutButton, UserButton } from '@clerk/nextjs'
+import { Router, useRouter } from 'next/router'
+import Nav from '@/components/Nav'
 
 const inter = Poppins({ subsets: ['latin'], weight: '400' })
 
@@ -17,12 +19,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-
 		<html lang="en">
 			<ClerkProvider>
 				<body className={`${inter.className} dark`}>
+				<Nav />
 					<div className='m-auto '>
-					<UserButton afterSignOutUrl="/" />
 						{children}
 					</div>
 				</body>

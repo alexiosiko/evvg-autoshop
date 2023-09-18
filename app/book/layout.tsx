@@ -13,11 +13,8 @@ export default function RootLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<>
-			<Nav />
-			<div className="max-w-5xl m-auto">
-				<div>{children}</div>
-			</div>
-		</>
+		<div className="max-w-5xl m-auto">
+			<div>{children}</div>
+		</div>
   )
 }
