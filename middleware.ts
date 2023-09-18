@@ -10,8 +10,10 @@ export default authMiddleware({
  
 export const config = {
 	matcher: [
-		"/appointments(/.*)?",
-		"/book(/.*)?",
+		"/appointments/active",
+		"/appointments/history",
+		"/appointments/pending",
+		"/book",
 	],
 };
  
