@@ -18,6 +18,8 @@ export default async function Page() {
 			{appointments && appointments.map((appointment: AppointmentType, index: number) => 
 				<AppointmentHistory  key={index} appointmentSTRING={JSON.stringify(appointment)} />
 			)}
+			{appointments.length == 0 && 
+			<h1>There are no history appointments</h1>}
 		</div>
 	)
 }

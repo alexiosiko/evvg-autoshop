@@ -14,6 +14,7 @@ type ContinueAlertType = {
 	 }) => void;
 }
 export function AlertContinue({ alertInfo, setAlertInfo } : ContinueAlertType) {
+
 	const buttonRef = useRef<HTMLButtonElement | null>(null);
 	useEffect(() => {
 		// When the alertBox becomes true, trigger a click event on the button
@@ -21,6 +22,15 @@ export function AlertContinue({ alertInfo, setAlertInfo } : ContinueAlertType) {
 		  buttonRef.current.click();
 		}
 	 }, [alertInfo?.active]);
+
+	function handleOnContinue() {
+		setAlertInfo({
+			title: "",
+			description: "",
+			active: false,
+		})
+		window.location.reload();
+	}
 	return (
 		<AlertDialog>
 			<AlertDialogTrigger asChild className='hidden'>
@@ -34,15 +44,7 @@ export function AlertContinue({ alertInfo, setAlertInfo } : ContinueAlertType) {
 				</AlertDialogDescription>
 			</AlertDialogHeader>
 				<AlertDialogFooter>
-				<AlertDialogAction onClick={() => {
-					
-					setAlertInfo({
-						title: "",
-						description: "",
-						active: false,
-						})}
-
-					}>
+				<AlertDialogAction onClick={() => handleOnContinue()}>
 				Continue
 				</AlertDialogAction>
 				</AlertDialogFooter>

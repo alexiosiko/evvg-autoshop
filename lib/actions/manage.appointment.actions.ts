@@ -78,7 +78,7 @@ export async function handleComplete(objectId: ObjectId, completed: boolean): Pr
 		}
 
 		// Get collections
-		const appointments = db.collection<AppointmentDocument>("history");
+		const appointments = db.collection<AppointmentDocument>("appointments");
 
 		// Find document
 		const foundDocument = await appointments.findOne({ _id: objectIdNew });

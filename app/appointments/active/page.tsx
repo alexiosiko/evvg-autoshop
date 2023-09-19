@@ -18,8 +18,10 @@ export default async function Page() {
 			{isAdmin && <Image src={Key} alt="admin" width={50} height={50} />}
 			<h1 className='text-4xl text-primary font-bold mb-8 text-center mt-8'>Active Appointments</h1>
 				{appointments && appointments.map((appointment: AppointmentType, index: number) => 
-				<Appointment key={index} appointmentSTRING={JSON.stringify(appointment)} />
+				<Appointment key={index} isAdmin={isAdmin} appointmentSTRING={JSON.stringify(appointment)} />
 			)}
+			{appointments.length == 0 && 
+			<h1>There are no active appointments</h1>}
 		</div>
 	)
 }

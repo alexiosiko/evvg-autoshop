@@ -18,20 +18,19 @@ import { BrakesSteeringAndSuspensionServices, IDontKnowPleaseInspect, OilChangeA
 import { AppointmentFormType as AppointmentFormType } from "@/contants/types/AppointmentTypes";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
-import AppointmentDate from "../appointments/Calendar";
+import AppointmentDate from "./Calendar";
 import { useState } from "react";
 import { AlertContinue } from "../alerts/Continue";
 import { requestAppointment } from "@/lib/actions/appointment.actions";
 
 
-export default function Appointment({ id }: {id : string | undefined}) {
+export default function Appointment({ id, activeAppointmentdates }: {id : string | undefined, activeAppointmentdates: Date[]}) {
 	const [date, setDate] = useState<Date | undefined>(undefined);
 	const [alertInfo, setAlertInfo] = useState<{
 		title: string;
 		description: string;
 		active: boolean,
 	}>({ title: "", description: "", active: false });
-
 	const form = useForm({
 		// resolver: zodResolver(UserValidation),
 		// THESE DEFAULT VALUES ARE REQUIRED
@@ -72,7 +71,6 @@ export default function Appointment({ id }: {id : string | undefined}) {
 			return;
 		}
 		if (!validateDate(date)) {
-			console.log("here");
 			setAlertInfo(() => ({
 				title: "Error setting date",
 				description: "Please select date and time and try again",
@@ -88,10 +86,9 @@ export default function Appointment({ id }: {id : string | undefined}) {
 		}
 		setAlertInfo(() => ({
 			title: "Successully requested appointment!",
-			description: "Please wait for mechanic to approve your appointment... You can see your appoitments in Manage Appointments. See you soon",
+			description: "Please wait for mechanic to approve your appointment... You can see your appoitments in Manage Appointments. See you soon! ",
 			active: true
 		}));
-		console.log(data);
 	}
 
 	return (
@@ -207,7 +204,7 @@ export default function Appointment({ id }: {id : string | undefined}) {
 							)} />
 					</TabsContent>
 					<TabsContent value="date">
-						<AppointmentDate date={date} setDate={setDate} />
+						<AppointmentDate activeAppointmentdates={activeAppointmentdates} date={date} setDate={setDate} />
 					</TabsContent>
 				</Tabs>
 				<Button className="m-auto flex" type="submit">Submit</Button>

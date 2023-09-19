@@ -9,8 +9,9 @@ import { UseFormReturn } from "react-hook-form";
  type AppointmentDateType = {
 	date: Date | undefined,
 	setDate: (date: Date | undefined) => void,
+	activeAppointmentdates: Date[],
  }
-export default function AppointmentDate({ date, setDate}: AppointmentDateType) {
+export default function AppointmentDate({ date, setDate, activeAppointmentdates}: AppointmentDateType) {
 	// Use a state variable to ensure CLIENT ONLY RENDER
 	const [shouldRender, setShouldRender] = useState(false);
 	useEffect(() => {
@@ -34,7 +35,7 @@ export default function AppointmentDate({ date, setDate}: AppointmentDateType) {
 				onSelect={setDate}
 				initialFocus />
 		 </div>
-		 {date && <AppointmentTime date={date} setDate={setDate} />}
+		 {date && <AppointmentTime date={date} setDate={setDate} activeAppointmentdates={activeAppointmentdates} />}
 		 {date?.toDateString()}
 			<br />
 		{dateToHours()}

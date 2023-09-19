@@ -9,8 +9,11 @@ import { handleComplete } from "@/lib/actions/manage.appointment.actions";
 import { AlertContinue } from "../alerts/Continue";
 import { useState } from "react";
 
-export default function Appointment({ appointmentSTRING }: { appointmentSTRING: string}  ) {
-	if (!appointmentSTRING) return;
+export default function Appointment({ appointmentSTRING, isAdmin }: {
+	appointmentSTRING: string,
+	isAdmin: boolean
+}  ) {
+	if (!appointmentSTRING) return (<div>{"Error getting data ... :("}</div>);
 
 	const [alertInfo, setAlertInfo] = useState<{
 		title: string;
@@ -23,16 +26,13 @@ export default function Appointment({ appointmentSTRING }: { appointmentSTRING: 
 	
 	async function handleOnDecline() {
 		setAlertInfo(await handleComplete(appointment._id, false));
-		console.log("handleondecline");
 	}
 	async function handleOnComplete() {
 		setAlertInfo(await handleComplete(appointment._id, false));
-		window.location.reload();
-
 	}
 
 	return (
-		<div className="grid grid-cols-8 gap-4 mb-4 shadow-sm shadow-foreground/50 p-4 items-center text-center rounded-3xl">
+		<div className={`grid ${isAdmin ? 'grid-cols-8' : 'grid-cols-7'}  gap-4 mb-4 shadow-sm shadow-foreground/50 p-4 items-center text-center rounded-3xl`}>
 			<AlertContinue alertInfo={alertInfo} setAlertInfo={setAlertInfo}/>
 			<h1>{appointment.username}</h1>
 			<div className='w-28'>{appointment.date.toDateString()} {appointment.date.getHours()}:00</div>
@@ -78,7 +78,9 @@ export default function Appointment({ appointmentSTRING }: { appointmentSTRING: 
 					<DropdownMenuItem className='justify-center'><p>{appointment.notes}</p></DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
-			<Button variant={'gradient'} onClick={handleOnComplete}>Completed</Button>
+			{
+				isAdmin && <Button variant={'gradient'} onClick={handleOnComplete}>Completed</Button>
+			}
 			<Button variant={'destructive'} onClick={handleOnDecline}>Cancel</Button>
     	</div>
 	)
