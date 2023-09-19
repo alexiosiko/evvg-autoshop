@@ -67,14 +67,15 @@ export async function addAppointmentToHistory(body: AppointmentDocument, db: Db)
 export async function handleComplete(objectId: ObjectId, completed: boolean): Promise<{
 	title: string,
 	description: string,
-	active: boolean
+	active: boolean,
+	reload: boolean
 }> {
 	console.log("handleDecline()");
 	const objectIdNew = new ObjectId(objectId);
 	try {
 		const db = await connectToMongoDB();
 		if (!db) {
-			return { title: "Could not connect to database", description: "It's not you, it's us. Please let IT know of this error", active: true};
+			return { title: "Could not connect to database", description: "It's not you, it's us. Please let IT know of this error", active: true, reload: false};
 		}
 
 		// Get collections
@@ -84,7 +85,7 @@ export async function handleComplete(objectId: ObjectId, completed: boolean): Pr
 		const foundDocument = await appointments.findOne({ _id: objectIdNew });
 
 		if (!foundDocument) {
-			return { title: "Could not find document", description: "It's not you, it's us. Please let IT know of this error", active: true};
+			return { title: "Could not find document", description: "It's not you, it's us. Please let IT know of this error", active: true, reload: false};
 		}
 
 		// Remove document from pendingAppointments
@@ -96,8 +97,8 @@ export async function handleComplete(objectId: ObjectId, completed: boolean): Pr
 		// Add document to history
 		addAppointmentToHistory(foundDocument, db);
 
-		return { title: "Successfully declined appointment!", description: "Appointment details: " + {...foundDocument}, active: true};
+		return { title: "Successfully declined appointment!", description: "Appointment details: " + {...foundDocument}, active: true, reload: true};
 	} catch (error) {
-		return { title: "Error with MongoDB", description: "It's not you, it's us. Please let IT know of this error", active: true};
+		return { title: "Error with MongoDB", description: "It's not you, it's us. Please let IT know of this error", active: true, reload: false};
 	}
 }

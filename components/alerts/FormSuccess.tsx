@@ -9,7 +9,7 @@ type ContinueAlertType = {
 		description: string,
 	} | undefined
 }
-export function FormSuccess({alertBox, setAlertBox, alertInfo} : ContinueAlertType) {
+function FormSuccess({alertBox, setAlertBox, alertInfo} : ContinueAlertType) {
 	const buttonRef = useRef<HTMLButtonElement | null>(null);
 	useEffect(() => {
 		// When the alertBox becomes true, trigger a click event on the button

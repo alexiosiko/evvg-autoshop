@@ -19,7 +19,8 @@ export default function Appointment({ appointmentSTRING, isAdmin }: {
 		title: string;
 		description: string;
 		active: boolean,
-	}>({ title: "", description: "", active: false });
+		reload: boolean
+	}>({ title: "", description: "", active: false, reload: false });
 
 	let appointment: AppointmentType = JSON.parse(appointmentSTRING);
 	appointment.date = new Date(appointment.date); // This resets the date type?

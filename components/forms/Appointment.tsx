@@ -30,7 +30,8 @@ export default function Appointment({ id, activeAppointmentdates }: {id : string
 		title: string;
 		description: string;
 		active: boolean,
-	}>({ title: "", description: "", active: false });
+		reload: boolean,
+	}>({ title: "", description: "", active: false, reload: false });
 	const form = useForm({
 		// resolver: zodResolver(UserValidation),
 		// THESE DEFAULT VALUES ARE REQUIRED
@@ -75,6 +76,7 @@ export default function Appointment({ id, activeAppointmentdates }: {id : string
 				title: "Error setting date",
 				description: "Please select date and time and try again",
 				active: true,
+				reload: false,
 			}));
 			return;
 		}
@@ -87,7 +89,8 @@ export default function Appointment({ id, activeAppointmentdates }: {id : string
 		setAlertInfo(() => ({
 			title: "Successully requested appointment!",
 			description: "Please wait for mechanic to approve your appointment... You can see your appoitments in Manage Appointments. See you soon! ",
-			active: true
+			active: true,
+			reload: true,
 		}));
 	}
 

@@ -6,12 +6,14 @@ type ContinueAlertType = {
 		title: string,
 		description: string,
 		active: boolean
+		reload: boolean,
 	} | undefined,
 	setAlertInfo: (alertInfo: {
 		title: string;
 		description: string;
 		active: boolean;
-	 }) => void;
+		reload: boolean
+	 }) => void
 }
 export function AlertContinue({ alertInfo, setAlertInfo } : ContinueAlertType) {
 
@@ -24,12 +26,15 @@ export function AlertContinue({ alertInfo, setAlertInfo } : ContinueAlertType) {
 	 }, [alertInfo?.active]);
 
 	function handleOnContinue() {
+		const reload = alertInfo?.reload;
 		setAlertInfo({
 			title: "",
 			description: "",
 			active: false,
+			reload: false,
 		})
-		window.location.reload();
+		if (reload)
+			window.location.reload();
 	}
 	return (
 		<AlertDialog>

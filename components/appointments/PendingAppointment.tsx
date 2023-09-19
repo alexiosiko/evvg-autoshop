@@ -32,7 +32,7 @@ export default function PendingAppointment ({ appointmentSTRING, isAdmin }: Pend
 	appointment.date = new Date(appointment.date); // This resets the date type?
 
 	return (
-    <div className={`${isAdmin ? 'grid-cols-9' : 'grid-cols-8'} grid p-4 mb-4 shadow-sm shadow-foreground/50 items-center text-center justify-center align-middle rounded-3xl `}>
+    <div className={`${isAdmin ? 'grid-cols-9' : 'grid-cols-7'} grid p-4 mb-4 shadow-sm shadow-foreground/50 items-center text-center justify-center align-middle rounded-3xl `}>
       <h1>{appointment.username}</h1>
 		<div>{appointment.date.toDateString()} {appointment.date.getHours()}:00</div>
 		<DropdownMenu>
@@ -75,9 +75,10 @@ export default function PendingAppointment ({ appointmentSTRING, isAdmin }: Pend
 				<DropdownMenuItem className='justify-center'><p>{appointment.notes}</p></DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
-		<div>{appointment.dateCreated.toString()}</div>
 		{isAdmin ?
 			<>
+		<div>{appointment.dateCreated.toString()}</div>
+
 				<Button onClick={() => handleOnApproveOrDecline(true)} variant={'gradient'} className="m-2">
 					Approve
 				</Button>

@@ -16,7 +16,7 @@ export default async function Page() {
 		<div>
 			<h1 className='text-4xl text-primary font-bold mb-8 text-center mt-8'>History</h1>
 			{appointments && appointments.map((appointment: AppointmentType, index: number) => 
-				<AppointmentHistory  key={index} appointmentSTRING={JSON.stringify(appointment)} />
+				<AppointmentHistory key={index} appointmentSTRING={JSON.stringify(appointment)} />
 			)}
 			{appointments.length == 0 && 
 			<h1>There are no history appointments</h1>}
