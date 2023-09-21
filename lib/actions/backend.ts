@@ -1,9 +1,9 @@
 "use server"
 
-import { AppointmentType, AppointmentTypeWithId } from "@/components/forms/Appointment";
 import { connectToMongoDB } from "../mongoDB";
 import { ObjectId } from "mongodb";
 import { alertInfoType, alertInfoType as continueAlertInfoType } from "@/components/alerts/Continue";
+import { AppointmentType, AppointmentTypeWithId } from "@/app/book/page";
 export async function getAppointments(): Promise<AppointmentTypeWithId[]> {
 	try {
 		const db = await connectToMongoDB();
