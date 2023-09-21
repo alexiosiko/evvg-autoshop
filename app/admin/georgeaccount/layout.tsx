@@ -1,4 +1,3 @@
-import SideNav from "@/components/appointments/SideNav"
 
 export const metadata = {
   title: 'Next.js',
