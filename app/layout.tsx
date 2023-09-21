@@ -1,7 +1,6 @@
 import { Metadata } from 'next/types'
 import './globals.css'
 import { Poppins } from 'next/font/google'
-import { ClerkProvider } from '@clerk/nextjs'
 import Nav from '@/components/Nav'
 
 const inter = Poppins({ subsets: ['latin'], weight: '400' })
@@ -17,14 +16,12 @@ export default function RootLayout({
 }) {
   return (
 		<html lang="en">
-			<ClerkProvider>
-				<body className={`${inter.className} bg-background`}>
-				<Nav />
-					<div className='m-auto '>
-						{children}
-					</div>
-				</body>
-			</ClerkProvider>
+			<body className={`${inter.className} bg-background`}>
+			<Nav />
+				<div className='m-auto '>
+					{children}
+				</div>
+			</body>
 		</html>
   )
 }

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from '@/components/ui/button';
-import { UserButton } from "@clerk/nextjs";
 
 const navButtonClass = 'text-primary transition hover:bg-foreground hover:text-secondary p-2 rounded-[--radius]';
 
@@ -17,9 +16,6 @@ export default async function Nav() {
 			<Link href="/admin/login" className='flex-col justify-center flex'>
 				<Button variant={'special'}>Admin</Button>
 			</Link>
-			<div className="flex items-center">
-				<UserButton afterSignOutUrl="/" />
-			</div>
 		</div>
 	)
 }
