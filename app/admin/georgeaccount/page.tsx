@@ -1,5 +1,5 @@
+import { AppointmentTypeWithId } from "@/app/book/page";
 import AppointmentsList from "@/components/appointments/AppointmentsList";
-import { AppointmentTypeWithId } from "@/components/forms/Appointment";
 import { getAppointments } from "@/lib/actions/backend";
 
 export default async function Page() {
