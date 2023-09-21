@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { ServicesGridData } from "@/contants/ServicesGridData";
 import Link from "next/link";
+import { ServicesGridData } from "@/constants/ServicesData";
 import { Button } from "@/components/ui/button";
 import MechanicPhoto1 from "@/assets/photos/mechanic-photo1.png";
 import MechanicPhoto2 from "@/assets/photos/mechanic-photo2.png";
