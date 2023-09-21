@@ -22,6 +22,8 @@ export default function RootLayout({
 			backgroundPosition: 'center',
 			backgroundSize: 'cover',
 			backgroundRepeat: 'no-repeat',
+			backgroundColor: 'red',
+			borderRadius: 15,
 			}}>
 		</div>
       <div className='max-w-screen-lg m-auto text-white '>
