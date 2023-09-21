@@ -21,7 +21,7 @@ import { Label } from "../ui/label";
 import AppointmentDate from "./Calendar";
 import { useState } from "react";
 import { AlertContinue } from "../alerts/Continue";
-import { requestAppointment } from "@/lib/actions/appointment.actions";
+import { insertAppointment } from "@/lib/actions/manage.appointment.actions";
 
 
 export default function Appointment({ id, activeAppointmentdates }: {id : string | undefined, activeAppointmentdates: Date[]}) {
@@ -80,7 +80,7 @@ export default function Appointment({ id, activeAppointmentdates }: {id : string
 			}));
 			return;
 		}
-		const response = await requestAppointment(data);
+		const response = await insertAppointment('pending', data);
 		if (response != 'success')
 		{
 			console.log("Error to upload");
@@ -104,7 +104,9 @@ export default function Appointment({ id, activeAppointmentdates }: {id : string
 						<TabsTrigger value="services">Services</TabsTrigger>
 						<TabsTrigger value="date">Date</TabsTrigger>
 					</TabsList>
-					<TabsContent value="information" className="grid grid-cols-2 gap-24 p-4">
+					<TabsContent value="information" className="grid grid-cols-2 gap-x-16 p-4">
+						<Label className="text-xl font-bold text-center">Person Info</Label>
+						<Label className="text-xl font-bold text-center">Car Info</Label>
 						<div className="gap-6 flex flex-col">
 							<FormField
 								control={form.control}

@@ -25,9 +25,6 @@ export default function PendingAppointment ({ appointmentSTRING, isAdmin }: Pend
 		alert(await handleApproveOrDecline(appointment._id, approved));
 		window.location.reload();
 	}
-	async function handleOnCancel() {
-		window.location.reload();
-	}
 	const appointment: AppointmentType = JSON.parse(appointmentSTRING);
 	appointment.date = new Date(appointment.date); // This resets the date type?
 
@@ -88,7 +85,7 @@ export default function PendingAppointment ({ appointmentSTRING, isAdmin }: Pend
 			</>
 			: // Is NOT admin
 			<>
-				<Button onClick={() => handleOnCancel()} variant={'destructive'} className="m-2">
+				<Button onClick={() => handleOnApproveOrDecline(false)} variant={'destructive'} className="m-2">
 					Cancel
 				</Button>
 			</>

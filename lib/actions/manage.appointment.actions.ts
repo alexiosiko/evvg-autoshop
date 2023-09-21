@@ -1,8 +1,8 @@
 "use server"
 
-import { Db, ObjectId, Document, WithId } from "mongodb"; // Import 'Document' type
+import { ObjectId, Document, WithId } from "mongodb"; // Import 'Document' type
 import { connectToMongoDB } from "../mongoDB";
-import { AppointmentType } from "@/contants/types/AppointmentTypes";
+import { AppointmentFormType, AppointmentType } from "@/contants/types/AppointmentTypes";
 
 // Define a type for the MongoDB document you're working with
 type AppointmentDocument = WithId<Document & AppointmentType>;
@@ -17,9 +17,9 @@ export async function handleApprove(objectId: ObjectId, approved: boolean): Prom
 		}
 
 		// Get collections
-		const pendingAppointments = db.collection<AppointmentDocument>('pending-appointments'); // Specify the type
+		const pendingAppointments = db.collection<AppointmentDocument>('pending'); // Specify the type
 
-		const targetCollection = db.collection<AppointmentDocument>('appointments'); // Specify the type
+		const activeCollection = db.collection<AppointmentDocument>('active'); // Specify the type
 
 		// Find document
 		const foundDocument = await pendingAppointments.findOne({ _id: objectIdNew });
@@ -31,7 +31,7 @@ export async function handleApprove(objectId: ObjectId, approved: boolean): Prom
 
 		if (approved)
 			// Insert document to appointments
-			await targetCollection.insertOne(foundDocument);
+			await activeCollection.insertOne(foundDocument);
 
 		// Remove document from pendingAppointments
 		await pendingAppointments.deleteOne(foundDocument);
@@ -44,24 +44,25 @@ export async function handleApprove(objectId: ObjectId, approved: boolean): Prom
 	}
 }
 
-export async function addAppointmentToHistory(body: AppointmentDocument, db: Db) {
-  if (!db) {
-    console.error("Failed to connect to MongoDB.");
-    return "Failed to connect to MongoDB.";
-  }
-  if (!body) {
-    console.error("Failed to get body to add to history.");
-    return "Failed to get body to add to history.";
-  }
+export async function insertAppointment(collection: string, body: AppointmentFormType): Promise<string> {
 
-  try {
-    const history = db.collection('history');
-    history.insertOne(body); // Insert the 'body' variable
+	console.log("getAppointments()");
+	try {
+		const db = await connectToMongoDB();
+		if (!db) {
+			console.error("Failed to connect to MongoDB.");
+			return "failed";
+		}
+		
+		const appointmentsCollection = db.collection(collection);
 
-    return "Successfully added to history";
-  } catch (error) {
-    return `Could not add ${body.firstname} to history`;
-  }
+		appointmentsCollection.insertOne(body);
+
+		return "success"
+		} catch (error) {
+			console.error("Error in getAppointments:", error);
+			return "failed";
+		}
 }
 
 export async function handleComplete(objectId: ObjectId, completed: boolean): Promise<{
@@ -79,23 +80,26 @@ export async function handleComplete(objectId: ObjectId, completed: boolean): Pr
 		}
 
 		// Get collections
-		const appointments = db.collection<AppointmentDocument>("appointments");
+		const activeAppointments = db.collection<AppointmentDocument>("active");
 
 		// Find document
-		const foundDocument = await appointments.findOne({ _id: objectIdNew });
+		const foundDocument = await activeAppointments.findOne({ _id: objectIdNew });
 
 		if (!foundDocument) {
 			return { title: "Could not find document", description: "It's not you, it's us. Please let IT know of this error", active: true, reload: false};
 		}
 
 		// Remove document from pendingAppointments
-		await appointments.deleteOne(foundDocument);
+		activeAppointments.deleteOne(foundDocument);
 
 		// Add complete boolean
 		foundDocument.completed = completed;
 
 		// Add document to history
-		addAppointmentToHistory(foundDocument, db);
+		const historyCollection = db.collection('history');
+
+		if (completed)
+			historyCollection.insertOne(foundDocument);
 
 		return { title: "Successfully declined appointment!", description: "Appointment details: " + {...foundDocument}, active: true, reload: true};
 	} catch (error) {

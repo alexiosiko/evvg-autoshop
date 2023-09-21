@@ -1,6 +1,3 @@
-import Nav from "@/components/Nav";
-import SideNav from "@/components/appointments/SideNav";
-import { ClerkProvider, RedirectToSignIn, SignedOut } from "@clerk/nextjs";
 
 export const metadata = {
   title: 'Next.js',

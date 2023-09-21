@@ -11,14 +11,16 @@ export default async function Page() {
 	if (!user)
 		return;
 
-	const isAdmin = user.id == process.env.ADMIN_USER_ID;
-	const appointments: AppointmentType[] = await getAppointments(user.id, isAdmin);
+	const _isAdmin = user.id == process.env.ADMIN_USER_ID;
+	const appointments: AppointmentType[] = await getAppointments('active', user.id, _isAdmin);
 	return (
 		<div>
-			{isAdmin && <Image src={Key} alt="admin" width={50} height={50} />}
-			<h1 className='text-4xl text-primary font-bold mb-8 text-center mt-8'>Active Appointments</h1>
+			<div className="grid grid-cols-2 items-center justify-start m-auto">
+				<h1 className='text-4xl text-primary font-bold mb-8 text-center mt-8'>Active Appointments</h1>
+				{_isAdmin && <Image src={Key} alt="admin" width={50} height={50} />}
+			</div>
 				{appointments && appointments.map((appointment: AppointmentType, index: number) => 
-				<Appointment key={index} isAdmin={isAdmin} appointmentSTRING={JSON.stringify(appointment)} />
+				<Appointment key={index} isAdmin={_isAdmin} appointmentSTRING={JSON.stringify(appointment)} />
 			)}
 			{appointments.length == 0 && 
 			<h1>There are no active appointments</h1>}
