@@ -1,19 +1,15 @@
 import { useEffect, useRef } from "react";
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
+export type alertInfoType = {
+	title: string,
+	description: string,
+	active: boolean
+	reload: boolean,
+}
 type ContinueAlertType = {
-	alertInfo: {
-		title: string,
-		description: string,
-		active: boolean
-		reload: boolean,
-	} | undefined,
-	setAlertInfo: (alertInfo: {
-		title: string;
-		description: string;
-		active: boolean;
-		reload: boolean
-	 }) => void
+	alertInfo: alertInfoType| undefined,
+	setAlertInfo: (alertInfo: alertInfoType) => void
 }
 export function AlertContinue({ alertInfo, setAlertInfo } : ContinueAlertType) {
 
@@ -43,7 +39,7 @@ export function AlertContinue({ alertInfo, setAlertInfo } : ContinueAlertType) {
 			</AlertDialogTrigger>
 			<AlertDialogContent>
 			<AlertDialogHeader>
-				<AlertDialogTitle>{alertInfo?.title}</AlertDialogTitle>
+				<AlertDialogTitle className="text-primary">{alertInfo?.title}</AlertDialogTitle>
 				<AlertDialogDescription>
 					{alertInfo?.description}
 				</AlertDialogDescription>

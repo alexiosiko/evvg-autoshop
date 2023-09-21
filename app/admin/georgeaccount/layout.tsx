@@ -11,8 +11,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-		<div className="flex gap-8 max-w-6xl m-auto">
-			<SideNav />
+		<div className="max-w-6xl m-auto">
 			<div>{children}</div>
 		</div>
   )
