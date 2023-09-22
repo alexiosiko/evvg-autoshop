@@ -49,7 +49,7 @@ export async function submitAppointment(
 		}
 	}
 }
-export async function changeAppointmentStatus(data: AppointmentTypeWithId, params: object, reload: boolean = true): Promise<continueAlertInfoType> {
+export async function changeAppointmentStatus(data: AppointmentTypeWithId, params: any, reload: boolean = true): Promise<continueAlertInfoType> {
 	data._id = new ObjectId(data._id);
 	try {
 		const db = await connectToMongoDB();
@@ -64,6 +64,7 @@ export async function changeAppointmentStatus(data: AppointmentTypeWithId, param
 		const updateOperation = {
 			$set: {...params},
 		 };
+		 console.log(updateOperation);
 		await collection?.updateOne(data, updateOperation);
 		return {
 			title: "Successfully updated status for " + data.firstname + "!",

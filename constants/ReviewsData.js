@@ -1,7 +1,7 @@
 export const ReviewsData = [
 	{
 		name: "Dylan Johnson",
-		photo: require('@/assets/reviews/Dylan Johnson.png'),
+		photo:  require('@/assets/reviews/Dylan Johnson.png'),
 		starCount: 5,
 		description: "I have known George for 17 years and have been using him ever since I’ve been driving. He will always shoot you straight and one of the most talented mechanics and always figures out the problem. He has never once come to me and said oh don’t know what the problem is well thatll be 700 bucks. Guys swamped and its for a reason!",
 	},

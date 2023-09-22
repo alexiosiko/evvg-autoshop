@@ -34,6 +34,6 @@ export const UserValidation = z.object({
 	notes: z.string(),
 	details: z.string().
 	refine(value => value != '', {
-		message: "A breif description about what you are looking for is required"
+		message: "A brief description about what you are looking for is required"
 	})
 })

@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import Link from "next/link";
 import { ServicesGridData } from "@/constants/ServicesData";
@@ -11,11 +13,11 @@ import Review from "@/components/Review";
 
 export default function Page() {
 	return (
-		<div>
+		<div className="p-2">
 			<hr className="mt-12 mb-24"/>
 			<section className="text-center mb-6 m-auto text-xl leading-8 text-primary">
 				<h1 className='text-5xl font-extrabold mb-12 text-primary'>EVVG's story</h1>
-				<div className="grid grid-cols-2 items-center">
+				<div className="grid lg:grid-cols-2 items-center">
 					<Image className="m-auto mt-0 rounded-md" src={MechanicPhoto3} width={300} alt="mechanic photo" />
 					<div>
 						EVVG Auto Services is a family owned business that has been operating for over 20 years. When George, the owner, was starting the business he thought of various names for the shop. He eventually decided on the name EVVG, which was inspired by the names of his four children: Elleni, Vassili, Vangeli, and Georgia.
@@ -25,7 +27,7 @@ export default function Page() {
 				</div>
 				<br /><br /><br /> <br /><br />
 				<h1 className='text-5xl font-extrabold mb-12 text-primary'>We Have You Covered</h1>
-				<div className="grid grid-cols-2">
+				<div className="grid lg:grid-cols-2">
 					<div className="m-8">
 						Whether you're coming in for a routine inspection or a repair service, we promise that you will be completely satisfied with our work. 
 						<br /><br />
@@ -35,7 +37,7 @@ export default function Page() {
 				</div>
 				<br /><br /><br /> <br /><br />
 				<h1 className='text-5xl font-extrabold mb-12 text-primary'>Our Quality Promise</h1>
-				<div className="grid grid-cols-2">
+				<div className="grid lg:grid-cols-2">
 					<Image className="m-auto rounded-md"  src={MechanicPhoto1} width={350} alt="mechanic photo" />
 					<div className="mt-8">
 						We're committed to providing a stress-free experience to both new and returning customers. Our shop only uses parts from reputable brands to ensure that your vehicle is always ready to drive.
@@ -46,7 +48,7 @@ export default function Page() {
 			<hr  className="mt-24"/>
 			<section>				
 				<h1 className="text-5xl mt-24 mb-24 font-extrabold text-center text-primary">Our Services</h1>
-				<div className="grid grid-cols-4 gap-6">
+				<div className="grid lg:grid-cols-4 grid-cols-2 gap-6">
 					{ServicesGridData.map((service, index: number) => 
 						<div className="h-52 text-center p-4 rounded-md outline outline-1 outline-primary bg-card" key={index}>
 							<Image className="m-auto mt-6 mb-4" width={50} height={50} src={service.img} alt="any" />
@@ -59,14 +61,16 @@ export default function Page() {
 				</div>
 				<hr  className="mt-24 mb-32"/>
 			</section>
-			<div className="grid grid-cols-3 gap-4 mb-24">
-				{ReviewsData.map((review) => 
+			<div className="grid lg:grid-cols-3 gap-4 mb-24">
+				{ReviewsData.map((review, index: number) => 
+				<div key={index}>
 					<Review
 						photo={review.photo}
 						name={review.name} 
 						starCount={review.starCount} 
 						description={review.description} 
 						/>
+						</div>
 				)}
 			</div>
 			<section className="text-center">
