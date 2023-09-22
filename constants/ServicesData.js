@@ -5,44 +5,24 @@ import tire from "@/assets/icons/services/tire.png";
 
 export const ServicesGridData = [
 	{
-		title: "Engine",
-		description: "Fixed engine stuff s",
+		title: "Repairs",
+		description: "Everything from mechanical ",
 		img: Engine,
 	},
 	{
-		title: "oil",
-		description: "change oil stuff",
-		img: Oil,
-	},
-	{
-		title: "steering",
-		description: "align wheel and stuff",
-		img: Steering,
-	},
-	{
-		title: "tire",
+		title: "Tire Services",
 		description: "replac witres and reubber and stuff",
 		img: tire,
 	},
 	{
-		title: "Engine",
-		description: "Fixed engine stuff s",
-		img: Engine,
-	},
-	{
-		title: "oil",
-		description: "change oil stuff",
+		title: "Oil Change",
+		description: "We offer both synthetic and conventional motor oil",
 		img: Oil,
 	},
 	{
-		title: "Engine",
-		description: "Fixed engine stuff s",
-		img: Engine,
+		title: "Steering",
+		description: "align wheel and stuff",
+		img: Steering,
 	},
-	{
-		title: "oil",
-		description: "change oil stuff",
-		img: Oil,
-	}
 ]
 	

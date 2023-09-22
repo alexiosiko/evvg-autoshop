@@ -5,7 +5,7 @@ const navButtonClass = 'text-primary transition hover:bg-foreground hover:text-s
 
 export default async function Nav() {
 	return (
-		<div className="flex mb-6 justify-center gap-2 p-2 bg-accent">
+		<div className="flex mb-6 justify-center gap-2 p-2">
 			<Link className={navButtonClass} href="/">Home</Link>
 			<Link className={navButtonClass} href="/">Services</Link>
 			<Link className={navButtonClass} href="/">Contact</Link>
