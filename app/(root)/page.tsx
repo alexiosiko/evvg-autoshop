@@ -50,7 +50,7 @@ export default function Page() {
 					{ServicesGridData.map((service, index: number) => 
 						<div className="h-52 text-center p-4 rounded-md outline outline-1 outline-primary bg-card" key={index}>
 							<Image className="m-auto mt-6 mb-4" width={50} height={50} src={service.img} alt="any" />
-							<h2 className="text-2xl pb-4 text-card-goreground font-extrabold ">{service.title}</h2>
+							<h2 className="text-2xl pb-4 text-card-foreground font-extrabold ">{service.title}</h2>
 							<p className="description text-secondary-foreground text-xs max-w-md m-auto max-h-16 h-full">
 								{service.description}
 							</p>
