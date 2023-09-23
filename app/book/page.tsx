@@ -83,26 +83,53 @@ export default function Appointment() {
 	}
 
 	return (
-		<Form {...form} >
-			<form onSubmit={form.handleSubmit(onSubmit)} className="h-[1500px]">
-				<AlertContinue alertInfo={alertInfo} setAlertInfo={setAlertInfo}/>
-				<Card className="p-4">
-					<CardHeader>
-						<CardTitle className="mb-4">Book an Appointment!</CardTitle>
-						<CardDescription>Please send us your questions, suggestions, ideas, requests or anything else that may be on your mind. Many of the improvements which take place at our shop are due to the input from our customers. We look forward to your comments. Thank you!</CardDescription>
-					</CardHeader>
-					<CardContent>
-						<Card className="p-6">
-							<Label className="text-lg">Personal Info</Label> <br />
-							<FormLabel className="mb-24">Name</FormLabel>
-							<div className="grid grid-cols-2 gap-x-4">
+		<>
+			<AlertContinue alertInfo={alertInfo} setAlertInfo={setAlertInfo}/>
+			<Form {...form} >
+				<form onSubmit={form.handleSubmit(onSubmit)} className="h-[1500px]">
+					<Card className="p-4">
+						<CardHeader>
+							<CardTitle className="mb-4">Book an Appointment!</CardTitle>
+							<CardDescription>Please send us your questions, suggestions, ideas, requests or anything else that may be on your mind. Many of the improvements which take place at our shop are due to the input from our customers. We look forward to your comments. Thank you!</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<Card className="p-6">
+								<Label className="text-lg">Personal Info</Label> <br />
+								<FormLabel className="mb-24">Name</FormLabel>
+								<div className="grid grid-cols-2 gap-x-4">
+									<FormField
+										control={form.control}
+										name="firstname"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Input placeholder="First name" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="lastname"
+										render={({ field }) => (
+											<FormItem>
+												<FormControl>
+													<Input placeholder="Last name" {...field} />
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+								</div>
 								<FormField
 									control={form.control}
-									name="firstname"
+									name="email"
 									render={({ field }) => (
 										<FormItem>
+											<FormLabel>Email</FormLabel>
 											<FormControl>
-												<Input placeholder="First name" {...field} />
+												<Input placeholder="example@hotmail.com" {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
@@ -110,170 +137,145 @@ export default function Appointment() {
 								/>
 								<FormField
 									control={form.control}
-									name="lastname"
+									name="phone"
 									render={({ field }) => (
 										<FormItem>
-											<FormControl>
-												<Input placeholder="Last name" {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-							</div>
-							<FormField
-								control={form.control}
-								name="email"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Email</FormLabel>
-										<FormControl>
-											<Input placeholder="example@hotmail.com" {...field} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="phone"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Phone</FormLabel>
-										<FormControl>
-											<Input {...field} />
-										</FormControl>
-										<FormDescription>
-											(000) 000-0000
-										</FormDescription>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</Card>
-						<br />
-						<Card className="p-6">
-							<Label className="text-lg">Vehicle Info</Label>
-							<div className="grid grid-cols-3 gap-x-4">
-								<FormField
-									control={form.control}
-									name="make"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Make</FormLabel>
+											<FormLabel>Phone</FormLabel>
 											<FormControl>
 												<Input {...field} />
 											</FormControl>
+											<FormDescription>
+												(000) 000-0000
+											</FormDescription>
 											<FormMessage />
 										</FormItem>
 									)}
 								/>
-								<FormField
-									control={form.control}
-									name="model"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Model</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-								<FormField
-									control={form.control}
-									name="year"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Year</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
-							</div>
-							<FormField
-								control={form.control}
-								name="plate"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Lisence plate (optional)</FormLabel>
-										<FormControl>
-											<Input {...field} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+							</Card>
 							<br />
-						</Card>
-						<br />
-						<Card className="p-6">
-							<Label className="text-lg">Service Info</Label>
-							<FormField
-								control={form.control}
-								name="urgency"
-								render={({ field }) => (
-									<FormItem className="space-y-3">
-									<FormLabel>How urgent do you need service</FormLabel>
-									<FormControl>
-										<RadioGroup
-											onValueChange={field.onChange}
-											defaultValue={field.value}
-											className="flex flex-col space-y-1"
-										>
-											<FormItem className="flex mb-0 items-center space-x-3 space-y-0">
+							<Card className="p-6">
+								<Label className="text-lg">Vehicle Info</Label>
+								<div className="grid grid-cols-3 gap-x-4">
+									<FormField
+										control={form.control}
+										name="make"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Make</FormLabel>
 												<FormControl>
-													<RadioGroupItem value="ASAP" />
+													<Input {...field} />
 												</FormControl>
-												<FormLabel className="font-normal">
-													Urgent
-												</FormLabel>
+												<FormMessage />
 											</FormItem>
-											<FormItem className="flex items-center space-x-3 space-y-0">
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="model"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Model</FormLabel>
 												<FormControl>
-													<RadioGroupItem value="Soon" />
+													<Input {...field} />
 												</FormControl>
-												<FormLabel className="font-normal">
-													Soon
-												</FormLabel>
+												<FormMessage />
 											</FormItem>
-											<FormItem className="flex items-center space-x-3 space-y-0">
+										)}
+									/>
+									<FormField
+										control={form.control}
+										name="year"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Year</FormLabel>
 												<FormControl>
-													<RadioGroupItem value="No rush" />
+													<Input {...field} />
 												</FormControl>
-												<FormLabel className="font-normal">
-													No rush
-												</FormLabel>
+												<FormMessage />
 											</FormItem>
-										</RadioGroup>
-									</FormControl>
-									<FormMessage />
-									</FormItem>
-								)}
-							/>
+										)}
+									/>
+								</div>
+								<FormField
+									control={form.control}
+									name="plate"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Lisence plate (optional)</FormLabel>
+											<FormControl>
+												<Input {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<br />
+							</Card>
 							<br />
-							<FormField
-								control={form.control}
-								name="details"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>What service are you looking for?</FormLabel>
+							<Card className="p-6">
+								<Label className="text-lg">Service Info</Label>
+								<FormField
+									control={form.control}
+									name="urgency"
+									render={({ field }) => (
+										<FormItem className="space-y-3">
+										<FormLabel>How urgent do you need service</FormLabel>
 										<FormControl>
-											<Textarea {...field} />
+											<RadioGroup
+												onValueChange={field.onChange}
+												defaultValue={field.value}
+												className="flex flex-col space-y-1"
+											>
+												<FormItem className="flex mb-0 items-center space-x-3 space-y-0">
+													<FormControl>
+														<RadioGroupItem value="ASAP" />
+													</FormControl>
+													<FormLabel className="font-normal">
+														Urgent
+													</FormLabel>
+												</FormItem>
+												<FormItem className="flex items-center space-x-3 space-y-0">
+													<FormControl>
+														<RadioGroupItem value="Soon" />
+													</FormControl>
+													<FormLabel className="font-normal">
+														Soon
+													</FormLabel>
+												</FormItem>
+												<FormItem className="flex items-center space-x-3 space-y-0">
+													<FormControl>
+														<RadioGroupItem value="No rush" />
+													</FormControl>
+													<FormLabel className="font-normal">
+														No rush
+													</FormLabel>
+												</FormItem>
+											</RadioGroup>
 										</FormControl>
 										<FormMessage />
-									</FormItem>
-								)}
-							/>
-						</Card>
-					<Button disabled={loading} className="mt-4">Submit</Button>
-					</CardContent>
-				</Card>
-			</form>
-		</Form>
+										</FormItem>
+									)}
+								/>
+								<br />
+								<FormField
+									control={form.control}
+									name="details"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>What service are you looking for?</FormLabel>
+											<FormControl>
+												<Textarea {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							</Card>
+						<Button disabled={loading} className="mt-4">Submit</Button>
+						</CardContent>
+					</Card>
+				</form>
+			</Form>
+		</>
 	);
 }

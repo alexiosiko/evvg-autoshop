@@ -27,16 +27,18 @@ export default function page() {
 
 	}
 	return (
-		<Card className="max-w-3xl m-auto">
+		<>
 			<AlertContinue alertInfo={alertInfo} setAlertInfo={setAlertInfo} />
-			<CardHeader>
-				<CardTitle>Admin login</CardTitle>
-				<CardDescription>Please enter admin code</CardDescription>
-			</CardHeader>
-			<CardContent className="flex gap-4">
-				<Input ref={codeRef} name="admin-password" placeholder="code" />
-				<Button variant={'special'} onClick={() => handleOnLogin()}>Login</Button>
-			</CardContent>
-		</Card>
+			<Card className="max-w-3xl m-auto">
+				<CardHeader>
+					<CardTitle>Admin login</CardTitle>
+					<CardDescription>Please enter admin code</CardDescription>
+				</CardHeader>
+				<CardContent className="flex gap-4">
+					<Input ref={codeRef} name="admin-password" placeholder="code" />
+					<Button variant={'special'} onClick={() => handleOnLogin()}>Login</Button>
+				</CardContent>
+			</Card>
+		</>
 	)
 }
