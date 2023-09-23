@@ -4,6 +4,7 @@ import { getAppointments } from "@/lib/actions/backend";
 
 export default async function Page() {
 	const appointments: AppointmentTypeWithId[] = await getAppointments();
+	console.log(appointments);
 	return (
 		<div>
 			{appointments.length == 0 ? 

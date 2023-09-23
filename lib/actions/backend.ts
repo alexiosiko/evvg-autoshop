@@ -8,12 +8,16 @@ export async function getAppointments(): Promise<AppointmentTypeWithId[]> {
 	try {
 		const db = await connectToMongoDB();
 		const collection = db?.collection('appointments');
-		if (!collection) return [];
+		if (!collection) {
+			console.log("empty collection");
+			return [];
+		}
 
 		const unknown =  await collection?.find({}).toArray() as unknown;
 		const appointments = unknown as AppointmentTypeWithId[];
 		return appointments;
 	} catch (e) {
+		console.log(e);
 		return [];
 	}
 }
