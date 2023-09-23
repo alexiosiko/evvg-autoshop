@@ -74,7 +74,7 @@ export default function Appointment() {
 			plate:		formData.plate,
 			urgency:		formData.urgency,
 			details:		formData.details,
-			status:     "waiting",
+			status:     "No Action",
 			notes: 	"",
 		} 
 		setLoading(true);

@@ -17,6 +17,9 @@ import { Textarea } from "../ui/textarea";
 import { handleDelete, changeAppointmentStatus as updateAppointment } from "@/lib/actions/backend";
 import { ObjectId } from "mongodb";
 import { AppointmentTypeWithId } from "@/app/book/page";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import { Input } from "../ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 export default function AppointmentsList({ appointmentSTRING }: {
 	appointmentSTRING: string
@@ -29,11 +32,11 @@ export default function AppointmentsList({ appointmentSTRING }: {
 	const [alertInfo, setAlertInfo] = useState<alertInfoType>({ title: "", description: "", active: false, reload: false });
 
 	let appointment: AppointmentTypeWithId[] = JSON.parse(appointmentSTRING);
-	
 	async function handleOnDelete(_id: ObjectId) {
 		setAlertInfo(await handleDelete(_id, "appointments"));
 	}
 	async function handleOnChangeStatus(appointment: AppointmentTypeWithId, status: string) {
+		console.log(status);
 		if (appointment.status == status)
 			return;
 		setAlertInfo(await updateAppointment(appointment , { status: status }));
@@ -49,87 +52,79 @@ export default function AppointmentsList({ appointmentSTRING }: {
 	}
 
 	return (
-		<div>
-			<AlertContinue alertInfo={alertInfo} setAlertInfo={setAlertInfo} />
-			{appointment.map((appointment: AppointmentTypeWithId, index) => 
-				<Collapsible key={index} >
-					<Card tabIndex={index} className="grid grid-cols-8 justify-evenly p-4 items-center text-center">
-						<CardTitle className="col-span-2">{appointment.firstname} {appointment.lastname}</CardTitle>
-						<DropdownMenu>
-							<DropdownMenuTrigger className="flex justify-center items-center gap-4">
-								<CardTitle>Contact</CardTitle>
-								<Image src={Plus} alt="plus" width={25} height={25} />
-							</DropdownMenuTrigger>
-							<DropdownMenuContent>
-								<DropdownMenuItem className="justify-center">{appointment.email}</DropdownMenuItem>
-								<DropdownMenuItem className="justify-center">{appointment.phone}</DropdownMenuItem>
-							</DropdownMenuContent>
-						</DropdownMenu>
-						<DropdownMenu>
-							<DropdownMenuTrigger className="flex justify-center items-center gap-4">
-								<CardTitle>Car</CardTitle>
-								<Image src={Plus} alt="plus" width={25} height={25} />
-							</DropdownMenuTrigger>
-							<DropdownMenuContent>
-								<DropdownMenuItem className="justify-center">{appointment.make}</DropdownMenuItem>
-								<DropdownMenuItem className="justify-center">{appointment.model}</DropdownMenuItem>
-								<DropdownMenuItem className="justify-center">{appointment.year}</DropdownMenuItem>
-							</DropdownMenuContent>
-						</DropdownMenu>
-						<DropdownMenu>
-							<DropdownMenuTrigger className="flex justify-center items-center gap-4">
-								<CardTitle>Services</CardTitle>
-								<Image src={Plus} alt="plus" width={25} height={25} />
-							</DropdownMenuTrigger>
-							<DropdownMenuContent >
-								<DropdownMenuItem className="justify-center">{appointment.urgency}</DropdownMenuItem>
-								<DropdownMenuItem className="justify-center">{appointment.details}</DropdownMenuItem>
-							</DropdownMenuContent>
-						</DropdownMenu>
-						<DropdownMenu>
-							<DropdownMenuTrigger>
-								<div className="hover:bg-accent-foreground transition w-14 p-4 rounded-md justify-center m-auto">
-									<Image className="m-auto" src={statusToImage(appointment.status)} width={25} height={25} alt="status-image" />
-								</div>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent>
-								<Button variant={'ghost'} onClick={() => handleOnChangeStatus(appointment, "checked")}>
-									<Image src={Checked} width={25} height={25} alt="checked" />
-								</Button>
-								<Button variant={'ghost'} onClick={() => handleOnChangeStatus(appointment, "waiting")}>
-									<Image src={Waiting} width={25} height={25} alt="waiting" />
-								</Button>
-								<Button variant={'ghost'} onClick={() => handleOnChangeStatus(appointment, "cancelled")}>
-									<Image src={Cancelled} width={25} height={25} alt="cancelled" />
-								</Button>
-							</DropdownMenuContent>
-						</DropdownMenu>
-						<CollapsibleTrigger>
-							<div className="hover:bg-accent-foreground transition w-14 p-4 rounded-md justify-center m-auto">
-								<Image src={FileEdit} width={25} height={25} alt="edit" />
-							</div>
-						</CollapsibleTrigger>
-						<DropdownMenu>
-							<DropdownMenuTrigger>
-								<div className="hover:bg-accent-foreground transition w-14 p-4 rounded-md justify-center m-auto">
-									<Image src={TrashCan}  width={25} height={25} alt="trashCan" />
-								</div>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent>
-								<Button className="flex w-full" variant={'destructive'} onClick={() => handleOnDelete(appointment._id)}>Delete</Button>
-							</DropdownMenuContent>
-						</DropdownMenu>
-					</Card>
-				<CollapsibleContent className="flex gap-x-4 p-4 pt-0 items-center ">
-					<Textarea
-					className="rounded-t-none "
-						ref={notesRef}
-						defaultValue={appointment.notes}
-						placeholder="Your personal notes for this client" />
-					<Button onClick={() => handleOnUpdateNotes(appointment)}>Update</Button>
-				</CollapsibleContent>
-			</Collapsible>
-			)}
-    	</div>
+		<Table>
+			<AlertContinue alertInfo={alertInfo} setAlertInfo={setAlertInfo}/>
+			<TableCaption>List of all appointments</TableCaption>
+			<TableHeader>
+				<TableRow>
+					<TableHead>Name</TableHead>
+					<TableHead>Contact</TableHead>
+					<TableHead>Car</TableHead>
+					<TableHead>Services</TableHead>
+					<TableHead>When</TableHead>
+					<TableHead>Status</TableHead>
+					<TableHead>Notes</TableHead>
+				</TableRow>
+			</TableHeader>
+			<TableBody>
+					{appointment.map((appointment, index: number) => 
+					<TableRow key={index}>
+						<TableCell>{appointment.firstname} {appointment.lastname}</TableCell>
+						<TableCell>
+							<>{appointment.email} </>
+							<>{appointment.phone} </>
+						</TableCell>
+						<TableCell>
+							<>{appointment.make} </>
+							<>{appointment.model} </>
+							<>{appointment.year} </>
+						</TableCell>
+						<TableCell>
+							<DropdownMenu>
+								<DropdownMenuTrigger className="items-center gap-4">
+									<div className="left-1.5 relative ">Services +</div>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent >
+									<DropdownMenuItem className="justify-center">{appointment.details}</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						</TableCell>
+						<TableCell>
+							{appointment.urgency}
+						</TableCell>
+						<TableCell>
+							<Popover>
+								<PopoverTrigger>
+									{appointment.status}
+								</PopoverTrigger>
+								<PopoverContent className="grid grid-cols-3 gap-2">
+									<Button onClick={() => handleOnChangeStatus(appointment, "Cancelled")}>Cancelled</Button>
+									<Button onClick={() => handleOnChangeStatus(appointment, "Waiting")}>Waiting</Button>
+									<Button onClick={() => handleOnChangeStatus(appointment, "Finished")}>Finished</Button>
+								</PopoverContent>
+							</Popover>
+						</TableCell>
+						<TableCell>
+							<Collapsible>
+							<CollapsibleTrigger>
+								Click to Open
+							</CollapsibleTrigger>
+							<CollapsibleContent className="">
+								<Textarea
+									className="rounded-t-none m-2"
+									ref={notesRef}
+									defaultValue={appointment.notes}
+									placeholder="Your personal notes for this client" />
+								<Button className="self-center" onClick={() => handleOnUpdateNotes(appointment)}>Update</Button>
+							</CollapsibleContent>
+							</Collapsible>
+						</TableCell>
+						<TableCell>
+							<Button onClick={() => handleOnDelete(appointment._id)} variant={'destructive'}>Delete</Button>
+						</TableCell>
+					</TableRow>
+					)}
+			</TableBody>
+		</Table>
 	)
 }

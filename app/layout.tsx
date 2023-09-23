@@ -1,9 +1,9 @@
 import { Metadata } from 'next/types'
 import './globals.css'
-import { Poppins } from 'next/font/google'
+import { Mooli as text } from 'next/font/google'
 import Nav from '@/components/Nav'
 
-const inter = Poppins({ subsets: ['latin'], weight: '400' })
+const inter = text({ subsets: ['latin'], weight: '400' })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
 		<html lang="en">
-			<body className={`${inter.className} bg-background`}>
+			<body className={`${inter.className}`}>
 			<Nav />
 				<div className='m-auto '>
 					{children}

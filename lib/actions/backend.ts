@@ -68,7 +68,6 @@ export async function changeAppointmentStatus(data: AppointmentTypeWithId, param
 		const updateOperation = {
 			$set: {...params},
 		 };
-		 console.log(updateOperation);
 		await collection?.updateOne(data, updateOperation);
 		return {
 			title: "Successfully updated status for " + data.firstname + "!",
