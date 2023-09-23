@@ -68,13 +68,16 @@ export async function changeAppointmentStatus(data: AppointmentTypeWithId, param
 		const updateOperation = {
 			$set: {...params},
 		 };
-		await collection?.updateOne(data, updateOperation);
-		return {
-			title: "Successfully updated status for " + data.firstname + "!",
-			description: "",
-			active: true,
-			reload: reload,
-		}
+		const result = await collection?.updateOne(data, updateOperation);
+		if (result.acknowledged)
+			return {
+				title: "Successfully updated status for " + data.firstname + "!",
+				description: "",
+				active: true,
+				reload: true,
+			}
+		else
+			throw Error("Error");
 	} catch (error) {
 		return {
 			title: "Oops! Something went wrong when trying to update status of this client",
