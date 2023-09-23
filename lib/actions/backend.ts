@@ -1,15 +1,14 @@
 "use server"
 
-import { connectToMongoDB } from "../mongoDB";
 import { ObjectId } from "mongodb";
 import { alertInfoType, alertInfoType as continueAlertInfoType } from "@/components/alerts/Continue";
 import { AppointmentType, AppointmentTypeWithId } from "@/app/book/page";
+import DB from "../mongoDB";
 export async function getAppointments(): Promise<AppointmentTypeWithId[]> {
 	try {
-		const db = await connectToMongoDB();
+		const db = await DB;
 		const collection = db?.collection('appointments');
 		if (!collection) {
-			console.log("empty collection");
 			return [];
 		}
 
@@ -17,7 +16,6 @@ export async function getAppointments(): Promise<AppointmentTypeWithId[]> {
 		const appointments = unknown as AppointmentTypeWithId[];
 		return appointments;
 	} catch (e) {
-		console.log(e);
 		return [];
 	}
 }
@@ -25,8 +23,8 @@ export async function submitAppointment(
 	data: AppointmentType
 ): Promise<continueAlertInfoType> {
 	try {
-		const db = await connectToMongoDB();
-		
+		const db = await DB;
+
 		const collection = db?.collection('appointments');
 		const existing = await collection?.findOne(data);
 		if (existing) {
@@ -56,7 +54,7 @@ export async function submitAppointment(
 export async function changeAppointmentStatus(data: AppointmentTypeWithId, params: any, reload: boolean = true): Promise<continueAlertInfoType> {
 	data._id = new ObjectId(data._id);
 	try {
-		const db = await connectToMongoDB();
+		const db = await DB;
 		const collection = db?.collection("appointments");
 		if (!collection) return {
 			title: "Oops!",
@@ -90,7 +88,7 @@ export async function changeAppointmentStatus(data: AppointmentTypeWithId, param
 export async function handleDelete(id: ObjectId, collection: string): Promise<alertInfoType> {
 	const objectId = new ObjectId(id);
 	try {
-		const db = await connectToMongoDB();
+		const db = await DB;
 		const _collection = db?.collection(collection);
 		
 		_collection?.deleteOne({_id: objectId})

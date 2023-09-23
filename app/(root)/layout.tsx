@@ -22,7 +22,6 @@ export default function RootLayout({
 			backgroundPosition: 'center',
 			backgroundSize: 'cover',
 			backgroundRepeat: 'no-repeat',
-			backgroundColor: 'red',
 			borderRadius: 15,
 			}}>
 		</div>
