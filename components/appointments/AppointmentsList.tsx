@@ -28,6 +28,8 @@ export default function AppointmentsList({ appointmentSTRING }: {
 	const [alertInfo, setAlertInfo] = useState<alertInfoType>({ title: "", description: "", active: false, reload: false });
 
 	let appointment: AppointmentTypeWithId[] = JSON.parse(appointmentSTRING);
+	console.log(appointment);
+
 	async function handleOnDelete(_id: ObjectId) {
 		setAlertInfo(await handleDelete(_id, "appointments"));
 	}
