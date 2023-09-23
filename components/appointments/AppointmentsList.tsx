@@ -32,13 +32,12 @@ export default function AppointmentsList({ appointmentSTRING }: {
 		setAlertInfo(await handleDelete(_id, "appointments"));
 	}
 	async function handleOnChangeStatus(appointment: AppointmentTypeWithId, status: string) {
-		console.log(status);
 		if (appointment.status == status)
 			return;
-		console.log(await updateAppointment(appointment , { status: status }));
+		setAlertInfo(await updateAppointment(appointment , { status: status }));
 	}
 	async function handleOnUpdateNotes(appointment: AppointmentTypeWithId) {
-		console.log(await updateAppointment(appointment , { notes: notesRef.current.value }, false));
+		setAlertInfo(await updateAppointment(appointment , { notes: notesRef.current.value }, false));
 	}
 
 	function statusToImage(status: string): StaticImageData{
