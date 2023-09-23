@@ -6,5 +6,5 @@ if (!url)
 	throw new Error("Please add MONGODB_URL to .env.local");
 
 let client = new MongoClient(url);
-let DB = client.connect().then(client => client.db("evvg-auto"))
+let DB = new MongoClient(url).connect().then(client => client.db("evvg-auto"))
 export default DB;
