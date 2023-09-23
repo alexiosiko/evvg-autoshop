@@ -35,10 +35,10 @@ export default function AppointmentsList({ appointmentSTRING }: {
 		console.log(status);
 		if (appointment.status == status)
 			return;
-		setAlertInfo(await updateAppointment(appointment , { status: status }));
+		console.log(await updateAppointment(appointment , { status: status }));
 	}
 	async function handleOnUpdateNotes(appointment: AppointmentTypeWithId) {
-		setAlertInfo(await updateAppointment(appointment , { notes: notesRef.current.value }, false));
+		console.log(await updateAppointment(appointment , { notes: notesRef.current.value }, false));
 	}
 
 	function statusToImage(status: string): StaticImageData{
@@ -64,7 +64,7 @@ export default function AppointmentsList({ appointmentSTRING }: {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-						{appointment.map((appointment, index: number) => 
+					{appointment.map((appointment, index: number) => 
 						<TableRow key={index}>
 							<TableCell>{appointment.firstname} {appointment.lastname}</TableCell>
 							<TableCell>
@@ -120,7 +120,7 @@ export default function AppointmentsList({ appointmentSTRING }: {
 								<Button onClick={() => handleOnDelete(appointment._id)} variant={'destructive'}>Delete</Button>
 							</TableCell>
 						</TableRow>
-						)}
+					)}
 				</TableBody>
 			</Table>
 		</>
