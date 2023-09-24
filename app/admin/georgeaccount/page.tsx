@@ -1,10 +1,10 @@
-import { AppointmentTypeWithId } from "@/app/book/page";
+import { AppointmentSchemaType } from "@/app/book/page";
 import AppointmentsList from "@/components/appointments/AppointmentsList";
 import { getAppointments } from "@/lib/actions/backend";
 
 
 export default async function Page() {
-	const appointments: AppointmentTypeWithId[] = await getAppointments();
+	const appointments: AppointmentSchemaType[] = await getAppointments();
 	return (
 		<div>
 			{appointments.length == 0 ? 

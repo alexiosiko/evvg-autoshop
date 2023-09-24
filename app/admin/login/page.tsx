@@ -1,34 +1,30 @@
 "use client"
 
-import { AlertContinue, alertInfoType } from "@/components/alerts/Continue";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/components/ui/use-toast";
 import { isAdmin } from "@/lib/actions/backend";
 import { useRouter } from 'next/navigation'
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 export default function page() {
 	const router = useRouter();
 	
-	const [alertInfo, setAlertInfo] = useState<alertInfoType>();
 	const codeRef = useRef<any>(null);
 	async function handleOnLogin() {
 		if (await isAdmin(codeRef.current.value))
 			router.push('/admin/georgeaccount')
 		else
-			setAlertInfo({
+			toast({
 				title: "Invalid code",
-				description: "Please try again...",
-				active: true,
-				reload: false,
+				description: "Please try again..."
 			})
 
 	}
 	return (
 		<>
-			<AlertContinue alertInfo={alertInfo} setAlertInfo={setAlertInfo} />
 			<Card className="max-w-3xl m-auto">
 				<CardHeader>
 					<CardTitle>Admin login</CardTitle>

@@ -12,9 +12,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { AlertContinue, alertInfoType } from "@/components/alerts/Continue";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { z } from "zod";
+import { date, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
@@ -23,68 +22,72 @@ import { Button } from "@/components/ui/button";
 import { submitAppointment } from "@/lib/actions/backend";
 import { UserValidation } from "@/lib/validations/user";
 import { ObjectId } from "mongodb";
+import { toast } from "@/components/ui/use-toast";
 
 
-export type AppointmentType = {
-	firstname: 	string,
-	lastname: 	string,
-	email: 		string,
-	phone: 		string,
-	make: 		string,
-	model: 		string,
-	year: 		string,
-	plate: 		string | undefined,
-	urgency:  	string,
-	details:		string,
-	status:		string,
-	notes:  		string,
+export type AppointmentFormType = {
+	firstname: 		string,
+	lastname: 		string,
+	email: 				string,
+	phone: 				string,
+	make: 				string,
+	model: 				string,
+	year: 				string,
+	urgency:  		string,
+	details:			string,
+	vin: 					string,
+	dateCreated: 	Date,
 }
-export type AppointmentTypeWithId = AppointmentType & {
-	_id: ObjectId;
+export type AppointmentSchemaType = AppointmentFormType & {
+	_id: 		ObjectId | null;
+	status:	string,
+	notes: 	string,
+	date: 	Date,
 }
 export default function Appointment() {
-	const [alertInfo, setAlertInfo] = useState<alertInfoType>({ title: "", description: "", active: false, reload: false });
 	const [loading, setLoading] = useState<boolean>(false);
 	const form = useForm<z.infer<typeof UserValidation>>({
 		resolver: zodResolver(UserValidation),
 		// THESE DEFAULT VALUES ARE REQUIRED
 		defaultValues: {
-			firstname: "",
-			lastname: "",
-			email: "",
-			phone: "",
-			make: "",
-			model: "",
-			year: "",
-			details: "",
-			plate: "",
-			notes: "",
+			firstname: 		"",
+			lastname: 		"",
+			email: 				"",
+			phone: 				"",
+			make: 				"",
+			model: 				"",
+			year: 				"",
+			details: 			"",
+			dateCreated: 	new Date(),
 		}
 	});
 
 	async function onSubmit(formData: any) {
-		const data: AppointmentType = {
-			firstname:	formData.firstname,
-			lastname:	formData.lastname,
-			email:		formData.email,
-			phone:		formData.phone,
-			make:			formData.make,
-			model:		formData.model,
-			year:			formData.year,
-			plate:		formData.plate,
-			urgency:		formData.urgency,
-			details:		formData.details,
-			status:     "No Action",
-			notes: 	"",
+		const data: AppointmentFormType = {
+			firstname:		formData.firstname,
+			lastname:			formData.lastname,
+			email:				formData.email,
+			phone:				formData.phone,
+			make:					formData.make,
+			model:				formData.model,
+			year:					formData.year,
+			urgency:			formData.urgency,
+			details:			formData.details,
+			vin: 					formData.vin,
+			dateCreated: 	new Date(),
 		} 
 		setLoading(true);
-			setAlertInfo(await submitAppointment(data));
+			submitAppointment(data).then(res => {
+				toast({
+					title: res.title,
+					description: res.description
+				})
+			});
 		setLoading(false);
+		form.reset();
 	}
-
 	return (
 		<>
-			<AlertContinue alertInfo={alertInfo} setAlertInfo={setAlertInfo}/>
 			<Form {...form} >
 				<form onSubmit={form.handleSubmit(onSubmit)} className="h-[1500px]">
 					<Card className="p-4">
@@ -144,9 +147,6 @@ export default function Appointment() {
 											<FormControl>
 												<Input {...field} />
 											</FormControl>
-											<FormDescription>
-												(000) 000-0000
-											</FormDescription>
 											<FormMessage />
 										</FormItem>
 									)}
@@ -155,7 +155,7 @@ export default function Appointment() {
 							<br />
 							<Card className="p-6">
 								<Label className="text-lg">Vehicle Info</Label>
-								<div className="grid grid-cols-3 gap-x-4">
+								<div className="grid grid-cols-2 gap-x-4">
 									<FormField
 										control={form.control}
 										name="make"
@@ -186,29 +186,36 @@ export default function Appointment() {
 										control={form.control}
 										name="year"
 										render={({ field }) => (
-											<FormItem>
+											<FormItem> 
 												<FormLabel>Year</FormLabel>
 												<FormControl>
-													<Input {...field} />
+													<Input {...field}  />
 												</FormControl>
 												<FormMessage />
 											</FormItem>
 										)}
 									/>
+									<FormField
+										control={form.control}
+										name="vin"
+										render={({ field }) => (
+											<FormItem >
+												<div className="flex items-center">
+													<FormLabel>VIN Number</FormLabel>
+													<a onClick={() => window.open('https://www.autocheck.com/vehiclehistory/vin-basics', '_blank')}
+														className="hover:cursor-pointer m-2 pl-2 pr-2 rounded h-2 flex justify-center items-center"
+														>?
+													</a>
+												</div>
+												<FormControl>
+													<Input {...field} />
+												</FormControl>
+												<FormDescription>Example: 1HGBH41JXMN109186</FormDescription>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
 								</div>
-								<FormField
-									control={form.control}
-									name="plate"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Lisence plate (optional)</FormLabel>
-											<FormControl>
-												<Input {...field} />
-											</FormControl>
-											<FormMessage />
-										</FormItem>
-									)}
-								/>
 								<br />
 							</Card>
 							<br />
@@ -224,8 +231,7 @@ export default function Appointment() {
 											<RadioGroup
 												onValueChange={field.onChange}
 												defaultValue={field.value}
-												className="flex flex-col space-y-1"
-											>
+												className="flex flex-col space-y-1">
 												<FormItem className="flex mb-0 items-center space-x-3 space-y-0">
 													<FormControl>
 														<RadioGroupItem value="ASAP" />
@@ -262,7 +268,7 @@ export default function Appointment() {
 									name="details"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>What service are you looking for?</FormLabel>
+											<FormLabel>How can we help you?</FormLabel>
 											<FormControl>
 												<Textarea {...field} />
 											</FormControl>

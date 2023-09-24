@@ -2,44 +2,47 @@
 
 import Image, { StaticImageData } from 'next/image';
 import { Button } from "../ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { AlertContinue, alertInfoType } from "../alerts/Continue";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { useRef, useState } from "react";
 import Cancelled from "@/assets/icons/cancelled.png";
 import Checked from "@/assets/icons/checked.png";
 import Waiting from "@/assets/icons/waiting.png";
-import FileEdit from "@/assets/icons/file-edit.png";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
-import { Textarea } from "../ui/textarea";
-import { handleDelete, changeAppointmentStatus as updateAppointment } from "@/lib/actions/backend";
-import { ObjectId } from "mongodb";
-import { AppointmentTypeWithId } from "@/app/book/page";
+import { handleDelete, updateAppointment as updateAppointment } from "@/lib/actions/backend";
+import { AppointmentSchemaType } from "@/app/book/page";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { DayAndTimePicker } from '../DateAndTimePicker';
+import { formateDate } from '@/lib/utils';
+import { DropdownMenuLabel } from '@radix-ui/react-dropdown-menu';
+import { toast } from '../ui/use-toast';
+import DownArrow from "@/assets/icons/downarrow.png";
+import Alert, { infoType } from '../ui/alert-custom';
+import CreateAppointment from './CreateAppointment';
 
 export default function AppointmentsList({ appointmentSTRING }: {
 	appointmentSTRING: string
 }  ) {
+	const [alertInfo, setAlertInfo] = useState<infoType | null>(null)
 	if (!appointmentSTRING) return (
 		<div>{"Error getting data ... :("}</div>
 	);
-
 	const notesRef = useRef<any>(null);
-	const [alertInfo, setAlertInfo] = useState<alertInfoType>({ title: "", description: "", active: false, reload: false });
+	let appointment: AppointmentSchemaType[] = JSON.parse(appointmentSTRING);
 
-	let appointment: AppointmentTypeWithId[] = JSON.parse(appointmentSTRING);
-	console.log(appointment);
+ function handleOnDelete(appointment: AppointmentSchemaType) {
+		setAlertInfo({
+			title: `Are you sure you want to delete ${appointment.firstname} ${appointment.lastname}`,
+			description: "This cannot be undone",
+			callbackFunction: handleDelete(appointment?._id, 'appointments'),
+		})
+	}
 
-	async function handleOnDelete(_id: ObjectId) {
-		setAlertInfo(await handleDelete(_id, "appointments"));
-	}
-	async function handleOnChangeStatus(appointment: AppointmentTypeWithId, status: string) {
-		if (appointment.status == status)
-			return;
-		setAlertInfo(await updateAppointment(appointment , { status: status }));
-	}
-	async function handleOnUpdateNotes(appointment: AppointmentTypeWithId) {
-		setAlertInfo(await updateAppointment(appointment , { notes: notesRef.current.value }, false));
+	async function handleOnUpdateNotes(appointment: AppointmentSchemaType) {
+		updateAppointment(appointment , { notes: notesRef.current.value }, false).then(res =>
+			toast({
+				title: res.title,
+				description: res.description,
+			})
+		)
 	}
 
 	function statusToImage(status: string): StaticImageData{
@@ -50,17 +53,16 @@ export default function AppointmentsList({ appointmentSTRING }: {
 
 	return (
 		<>
-			<AlertContinue alertInfo={alertInfo} setAlertInfo={setAlertInfo}/>
+			<Alert info={alertInfo} />
 			<Table>
 				<TableCaption>List of all appointments</TableCaption>
 				<TableHeader>
 					<TableRow>
 						<TableHead>Name</TableHead>
+						<TableHead>Appointment</TableHead>
 						<TableHead>Contact</TableHead>
 						<TableHead>Car</TableHead>
-						<TableHead>Services</TableHead>
-						<TableHead>When</TableHead>
-						<TableHead>Status</TableHead>
+						<TableHead>Date Created</TableHead>
 						<TableHead>Notes</TableHead>
 					</TableRow>
 				</TableHeader>
@@ -68,60 +70,56 @@ export default function AppointmentsList({ appointmentSTRING }: {
 					{appointment.map((appointment, index: number) => 
 						<TableRow key={index}>
 							<TableCell>{appointment.firstname} {appointment.lastname}</TableCell>
-							<TableCell>
-								<>{appointment.email} </>
-								<>{appointment.phone} </>
-							</TableCell>
-							<TableCell>
-								<>{appointment.make} </>
-								<>{appointment.model} </>
-								<>{appointment.year} </>
+							<TableCell className='min-wassd-[22ss0px]'>
+								<DayAndTimePicker appointment={appointment} />
 							</TableCell>
 							<TableCell>
 								<DropdownMenu>
-									<DropdownMenuTrigger className="items-center gap-4">
-										<div className="left-1.5 relative ">Services +</div>
+									<DropdownMenuTrigger>
+										<Image src={DownArrow} width={15} height={15} alt='drop-down' />
 									</DropdownMenuTrigger>
-									<DropdownMenuContent >
-										<DropdownMenuItem className="justify-center">{appointment.details}</DropdownMenuItem>
+									<DropdownMenuContent className='text-center gap-1 grid'>
+										<a className='hover:bg-primary-foreground p-2 rounded-md' href={`mailto:${appointment.email}`}>{appointment.email}</a>
+										<div className='p-2'>{appointment.phone} </div>
+									</DropdownMenuContent>
+								</DropdownMenu>
+							</TableCell>
+							<TableCell className=''>
+								<DropdownMenu>
+									<DropdownMenuTrigger>
+										<Image src={DownArrow} width={15} height={15} alt='drop-down' />
+									</DropdownMenuTrigger>
+									<DropdownMenuContent>
+										<DropdownMenuLabel className='text-center'>Car</DropdownMenuLabel>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem>{appointment.make} </DropdownMenuItem>
+										<DropdownMenuItem>{appointment.model} </DropdownMenuItem>
+										<DropdownMenuItem>{appointment.year} </DropdownMenuItem>
+										<DropdownMenuItem 
+											onClick={() => {
+												toast({
+													title: `Copied ${appointment.vin} to clipboard!`
+												})
+												navigator.clipboard.writeText(appointment.vin)
+											}}
+											className='hover:cursor-pointer hover:bg-secondary hover:text-secondary-foreground'
+											>
+												{appointment.vin} </DropdownMenuItem>
+										<DropdownMenuLabel className='text-center mt-2'> How Soon?</DropdownMenuLabel>
+										<DropdownMenuSeparator />
+										<DropdownMenuItem>{appointment.urgency} </DropdownMenuItem>
 									</DropdownMenuContent>
 								</DropdownMenu>
 							</TableCell>
 							<TableCell>
-								{appointment.urgency}
+								{formateDate(appointment.dateCreated)}
 							</TableCell>
 							<TableCell>
-								<Popover>
-									<PopoverTrigger>
-										{appointment.status}
-									</PopoverTrigger>
-									<PopoverContent className="grid grid-cols-3 gap-2">
-										<Button onClick={() => handleOnChangeStatus(appointment, "Cancelled")}>Cancelled</Button>
-										<Button onClick={() => handleOnChangeStatus(appointment, "Waiting")}>Waiting</Button>
-										<Button onClick={() => handleOnChangeStatus(appointment, "Finished")}>Finished</Button>
-									</PopoverContent>
-								</Popover>
-							</TableCell>
-							<TableCell>
-								<Collapsible>
-								<CollapsibleTrigger>
-									<Image src={FileEdit} width={25} height={25} alt='Click to Edit' />
-								</CollapsibleTrigger>
-								<CollapsibleContent className="">
-									<Textarea
-										className="rounded-t-none m-2"
-										ref={notesRef}
-										defaultValue={appointment.notes}
-										placeholder="Your personal notes for this client" />
-									<Button className="self-center" onClick={() => handleOnUpdateNotes(appointment)}>Update</Button>
-								</CollapsibleContent>
-								</Collapsible>
-							</TableCell>
-							<TableCell>
-								<Button onClick={() => handleOnDelete(appointment._id)} variant={'destructive'}>Delete</Button>
+								<Button onClick={() => handleOnDelete(appointment)} variant={'destructive'}>Delete</Button>
 							</TableCell>
 						</TableRow>
 					)}
+						<CreateAppointment />
 				</TableBody>
 			</Table>
 		</>

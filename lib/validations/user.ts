@@ -29,11 +29,11 @@ export const UserValidation = z.object({
 	.refine(value => value != '', {
 		message: "Year is required"
 	}),
-	plate: z.string().optional(),
+	dateCreated: z.date().nullable(),
+	vin: z.string(),
 	urgency: z.enum(["ASAP", "Soon", "No rush"]),
-	notes: z.string(),
-	details: z.string().
-	refine(value => value != '', {
+	details: z.string()
+	.refine(value => value != '', {
 		message: "A brief description about what you are looking for is required"
 	})
 })

@@ -1,10 +1,13 @@
 "use server"
 
 import { ObjectId } from "mongodb";
-import { alertInfoType, alertInfoType as continueAlertInfoType } from "@/components/alerts/Continue";
-import { AppointmentType, AppointmentTypeWithId } from "@/app/book/page";
+import { AppointmentFormType, AppointmentSchemaType } from "@/app/book/page";
 import DB from "../mongoDB";
-export async function getAppointments(): Promise<AppointmentTypeWithId[]> {
+export type responseType = {
+	title: string,
+	description: string
+}
+export async function getAppointments(): Promise<AppointmentSchemaType[]> {
 	try {
 		const db = await DB;
 		const collection = db?.collection('appointments');
@@ -13,15 +16,15 @@ export async function getAppointments(): Promise<AppointmentTypeWithId[]> {
 		}
 
 		const unknown =  await collection?.find({}).toArray() as unknown;
-		const appointments = unknown as AppointmentTypeWithId[];
+		const appointments = unknown as AppointmentSchemaType[];
 		return appointments;
 	} catch (e) {
 		return [];
 	}
 }
 export async function submitAppointment(
-	data: AppointmentType
-): Promise<continueAlertInfoType> {
+	data: any
+): Promise<responseType> {
 	try {
 		const db = await DB;
 
@@ -31,48 +34,41 @@ export async function submitAppointment(
 			return {
 				title: "There is already a request sent with this exact information!",
 				description: "Please wait to recieve an email/phone call from a service representative",
-				active: true,
-				reload: true,
 			}
 		}
 		collection?.insertOne(data);
 		return {
 			title: "Successfully submitted your request!",
 			description: "Please wait to recieve an email/phone call from a service representative",
-			active: true,
-			reload: true,
 		}
 	} catch (error) {
 		return {
 			title: "Oops, something went wrong... ",
 			description: "Please try again later",
-			active: true,
-			reload: false,
 		}
 	}
 }
-export async function changeAppointmentStatus(data: AppointmentTypeWithId, params: any, reload: boolean = true): Promise<continueAlertInfoType> {
-	data._id = new ObjectId(data._id);
+export async function updateAppointment(data: AppointmentSchemaType, params: any, reload: boolean = true): Promise<responseType> {
 	try {
+		if (data._id == null)
+			throw new Error("WTFF");
+		data._id = new ObjectId(data._id);
 		const db = await DB;
 		const collection = db?.collection("appointments");
 		if (!collection) return {
 			title: "Oops!",
 			description: "Something went wrong accessing collection",
-			active: true,
-			reload: reload,
 		};
 		// Define the update operation
 		const updateOperation = {
 			$set: {...params},
-		 };
-		const result = await collection?.updateOne(data, updateOperation);
+		};
+		
+		const result = await collection?.updateOne({_id: data._id}, updateOperation);
 		if (result.acknowledged)
 			return {
 				title: "Successfully updated status for " + data.firstname + "!",
 				description: "",
-				active: true,
-				reload: true,
 			}
 		else
 			throw Error("Error");
@@ -80,14 +76,14 @@ export async function changeAppointmentStatus(data: AppointmentTypeWithId, param
 		return {
 			title: "Oops! Something went wrong when trying to update status of this client",
 			description: "Call Alexi",
-			active: true,
-			reload: false,
 		}
 	}
 }
-export async function handleDelete(id: ObjectId, collection: string): Promise<alertInfoType> {
-	const objectId = new ObjectId(id);
+export async function handleDelete(id: ObjectId | null, collection: string): Promise<responseType> {
 	try {
+		if (id == null)
+			throw new Error("Wtf");
+		const objectId = new ObjectId(id);
 		const db = await DB;
 		const _collection = db?.collection(collection);
 		
@@ -95,16 +91,12 @@ export async function handleDelete(id: ObjectId, collection: string): Promise<al
 		return {
 			title: "Successfully deleted appointment!",
 			description: "Page will refresh",
-			active: true,
-			reload: true
 		}
 
 	} catch (e) {
 		return {
 			title: "Something went wrong!",
 			description: "Call Alexi",
-			active: true,
-			reload: true
 		}
 	}
 }

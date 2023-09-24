@@ -2,6 +2,7 @@ import { Metadata } from 'next/types'
 import './globals.css'
 import { Mooli as text } from 'next/font/google'
 import Nav from '@/components/Nav'
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = text({ subsets: ['latin'], weight: '400' })
 
@@ -18,9 +19,10 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${inter.className}`}>
 			<Nav />
-				<div className='m-auto '>
+				<main className='m-auto '>
 					{children}
-				</div>
+				</main>
+				<Toaster />
 			</body>
 		</html>
   )
