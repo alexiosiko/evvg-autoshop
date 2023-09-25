@@ -23,8 +23,9 @@ export default function Login() {
 					title: "Invalid password",
 					description: "Please try again..."
 				})
-			else
-				router.push("/")
+			else {
+				window.location.reload();
+			}
 		})
 	}
 	return (

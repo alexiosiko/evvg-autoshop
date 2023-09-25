@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { AppointmentSchemaType } from "@/app/book/page";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-import Alert, { infoType } from '../ui/alert-custom';
+import Alert, { alertInfoType } from '../ui/alert-custom';
 import CreateAppointment from './CreateAppointment'
 import Appointment from './Appointment';
 
 export default function AppointmentsList({ appointmentSTRING }: {
 	appointmentSTRING: string
 }  ) {
-	const [alertInfo, setAlertInfo] = useState<infoType | null>(null)
+	const [alertInfo, setAlertInfo] = useState<alertInfoType | null>(null)
 	if (!appointmentSTRING) return (
 		<div>{"Error getting data ... :("}</div>
 	);

@@ -11,23 +11,23 @@ import {
 } from "./alert-dialog";
 import { Button } from "./button";
 
-export type infoType = {
-  title: string;
-  description: string;
-  callbackFunction: any;
+export type alertInfoType = {
+	title: string;
+	description: string;
+	callbackFunction?: any;
 	back?: boolean,
-	refresh?: boolean,
 	destructive?: boolean,
 } | null;
 
-export default function Alert({ info }: { info: infoType }) {
+export default function Alert({ info }: { info: alertInfoType }) {
 	const buttonRef = useRef<any>(null);
 	useEffect(() => {
 		buttonRef.current?.click();
 	}, [info])
 
 	async function handleContinue() {
-		await info?.callbackFunction();
+		if (info && info.callbackFunction)
+			await info.callbackFunction();
 		location.reload();
 	}
 

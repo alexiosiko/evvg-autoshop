@@ -12,13 +12,13 @@ import { AppointmentSchemaType } from "@/app/book/page"
 import DownArrow from "@/assets/icons/downarrow.png"
 import { useState } from "react"
 import { handleDelete, updateAppointment } from "@/lib/actions/backend"
-import { infoType } from "../ui/alert-custom"
+import { alertInfoType } from "../ui/alert-custom"
 import TrashIcon from "@/assets/icons/trash.png"
 import SaveIcon from "@/assets/icons/save.png"
 
 export default function Appointment({ appointment, setAlertInfo }: { 
 	appointment: AppointmentSchemaType,
-	setAlertInfo: (alertInfo: infoType) => void,
+	setAlertInfo: (alertInfo: alertInfoType) => void,
 
 }) {
 	const [notes, setNotes] = useState<string>(appointment.notes);

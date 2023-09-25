@@ -23,6 +23,7 @@ import { submitAppointment } from "@/lib/actions/backend";
 import { UserValidation } from "@/lib/validations/user";
 import { ObjectId } from "mongodb";
 import { toast } from "@/components/ui/use-toast";
+import Alert, { alertInfoType } from "@/components/ui/alert-custom";
 
 
 export type AppointmentFormType = {
@@ -50,6 +51,8 @@ export type AppointmentCreateType = AppointmentFormType & {
 }
 export default function Appointment() {
 	const [loading, setLoading] = useState<boolean>(false);
+	const [alertInfo, setAlertInfo] = useState<alertInfoType>(null)
+
 	const form = useForm<z.infer<typeof UserValidation>>({
 		resolver: zodResolver(UserValidation),
 		// THESE DEFAULT VALUES ARE REQUIRED
@@ -83,9 +86,9 @@ export default function Appointment() {
 		} 
 		setLoading(true);
 			submitAppointment(data).then(res => {
-				toast({
+				setAlertInfo({
 					title: res.title,
-					description: res.description
+					description: res.description,
 				})
 			});
 		setLoading(false);
@@ -93,6 +96,7 @@ export default function Appointment() {
 	}
 	return (
 		<>
+		<Alert info={alertInfo} />
 			<Form {...form} >
 				<form onSubmit={form.handleSubmit(onSubmit)} className="h-[1500px]">
 					<Card className="p-4">
