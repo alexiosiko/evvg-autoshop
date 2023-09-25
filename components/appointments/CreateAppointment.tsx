@@ -9,6 +9,8 @@ import { ScrollArea } from "../ui/scroll-area";
 import { useRef, useState } from "react";
 import { formateDate, getHighlightDate } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { submitAppointment } from "@/lib/actions/backend";
+import { toast } from "../ui/use-toast";
 
 const appointment: AppointmentSchemaType = {
 	firstname:		"",
@@ -70,7 +72,7 @@ export default function CreateAppointment() {
 		};
 	}
 
-	function handleOnSubmit() {
+	async function handleOnSubmit() {
 		const appointment: AppointmentFormType = {
 			firstname: firstnameRef.current ? firstnameRef.current.value : "",
 			lastname: lastnameRef.current ? lastnameRef.current.value : "",
@@ -84,6 +86,12 @@ export default function CreateAppointment() {
 			vin: vinRef.current ? vinRef.current.value : "",
 			dateCreated: new Date(),
 		}
+		submitAppointment(appointment).then(res => 
+			toast({
+				title: res.title,
+				description: res.description,
+			})
+		)
 	}
 	
 

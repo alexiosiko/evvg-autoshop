@@ -8,7 +8,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
-export default function page() {
+export default function Login() {
 	const passwordRef = useRef<any>(null);
 	const router = useRouter();
 

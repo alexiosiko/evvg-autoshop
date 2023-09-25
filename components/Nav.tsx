@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import SignOutButton from "./SignOutButton";
+import { useEffect } from "react";
 
 const navButtonClass = 'text-primary transition hover:bg-foreground hover:text-secondary p-2 rounded-[--radius]';
 
@@ -17,19 +18,15 @@ export default async function Nav() {
 			<Link href="/book" className='flex-col justify-center flex'>
 				<Button variant={'default'}>Book Online</Button>
 			</Link>
-			{session && 
-				<>
-					<Link href="/api/manage">
-						<Button>Manage</Button>
-					</Link>	
-					<Link href="/api/auth/signout">
-						<SignOutButton />
-					</Link>	
-				</>
+			<Link href="/api/manage">
+				<Button>Manage</Button>
+			</Link>	
+			{session?.user && 
+				<Link href="/api/auth/signout">
+					<SignOutButton />
+				</Link>	
 			}
-			<Link href="/api/auth/login" className='flex-col justify-center flex'>
-				<Button variant={'special'}>Login</Button>
-			</Link>
+
 		</div>
 	)
 }
