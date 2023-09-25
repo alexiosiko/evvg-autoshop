@@ -6,38 +6,14 @@ import { ScrollArea } from "./ui/scroll-area";
 import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { AppointmentSchemaType } from "@/app/book/page";
-import { updateAppointment } from "@/lib/actions/backend";
-import { formatTime, formateDate } from "@/lib/utils";
-import { toast } from "./ui/use-toast";
+import { formateDate, getHighlightDate } from "@/lib/utils";
 
-export function DayAndTimePicker({ appointment }: {
-appointment: AppointmentSchemaType
+export function DayAndTimePicker({ appointment, date, setDate }: {
+appointment: AppointmentSchemaType,
+date: Date | null,
+setDate: (date: Date) => void,
 }) {
-	const [date, setDate] = useState<Date>(appointment.date ? new Date(appointment.date) : new Date());
 
-	async function handleUpdateAppointment() {
-		updateAppointment(appointment, {
-			date: date
-		}).then(res => {
-			toast({
-				title: res.title,
-				description: res.description,
-			})
-
-			// Update current date in local client, so we don't have to refresh
-			console.log(appointment.date);
-			appointment.date = new Date(date);
-			console.log(appointment.date);
-		})
-	}
-
-
-	
-	function getHighlight(time: string): string {
-		if (formatTime(date.toTimeString()) == time)
-			return "bg-primary text-primary-foreground";
-		return "";
-	}
 	function handleOnSetDate(newDate: Date) {
 		let mergedDate;
 		try {
@@ -63,7 +39,12 @@ appointment: AppointmentSchemaType
 			setDate(new Date(updatedDate));
 		};
 	}
-	function calculateHighlighted(): string {
+	
+	function calculateHighlightedDate(): string {
+		if (!date)
+			return "";
+		if (!appointment.date) // If we have a date selected, but store date is NULL, then it's not equal
+			return "bg-red-200";
 		if (new Date(appointment.date).toString() != date.toString())
 			return "bg-red-200";
 		return "";
@@ -73,7 +54,7 @@ appointment: AppointmentSchemaType
 	return (
 		<Popover>
 			<PopoverTrigger>
-				<div className={`hover:bg-secondary hover:text-secondary-foreground transition rounded-md p-4 ${calculateHighlighted()}`}>
+				<div className={`hover:bg-secondary hover:text-secondary-foreground transition rounded-md p-4 ${calculateHighlightedDate()}`}>
 					{date != null
 						? formateDate(date)
 						: "Select Date"
@@ -89,55 +70,53 @@ appointment: AppointmentSchemaType
 				/>
 				<ScrollArea className="h-48 mt-4 p-2">
 					<div className="grid grid-cols-4">
-						<Button onClick={() => handleSetTime( 9, 0)}  className={`${buttonClass} ${getHighlight('9:00 AM')}` }>9:00 AM </Button>
-						<Button onClick={() => handleSetTime( 9, 15)} className={`${buttonClass} ${getHighlight('9:15 AM')}` }>9:15 AM </Button>
-						<Button onClick={() => handleSetTime( 9, 30)} className={`${buttonClass} ${getHighlight('9:30 AM')}` }>9:30 AM </Button>
-						<Button onClick={() => handleSetTime( 9, 45)} className={`${buttonClass} ${getHighlight('9:45 AM')}` }>9:45 AM </Button>
-						<Button onClick={() => handleSetTime(10, 0)} 	className={`${buttonClass} ${getHighlight('10:00 AM')}`}>10:00 AM</Button>
-						<Button onClick={() => handleSetTime(10, 15)} className={`${buttonClass} ${getHighlight('10:15 AM')}`}>10:15 AM</Button>
-						<Button onClick={() => handleSetTime(10, 30)} className={`${buttonClass} ${getHighlight('10:30 AM')}`}>10:30 AM</Button>
-						<Button onClick={() => handleSetTime(10, 45)} className={`${buttonClass} ${getHighlight('10:45 AM')}`}>10:45 AM</Button>
-						<Button onClick={() => handleSetTime(11, 0)} 	className={`${buttonClass} ${getHighlight('11:00 AM')}`}>11:00 AM</Button>
-						<Button onClick={() => handleSetTime(11, 15)} className={`${buttonClass} ${getHighlight('11:15 AM')}`}>11:15 AM</Button>
-						<Button onClick={() => handleSetTime(11, 30)} className={`${buttonClass} ${getHighlight('11:30 AM')}`}>11:30 AM</Button>
-						<Button onClick={() => handleSetTime(11, 45)} className={`${buttonClass} ${getHighlight('11:45 AM')}`}>11:45 AM</Button>
-						<Button onClick={() => handleSetTime(12, 0)} 	className={`${buttonClass} ${getHighlight('12:00 PM')}`}>12:00 PM</Button>
-						<Button onClick={() => handleSetTime(12, 15)} className={`${buttonClass} ${getHighlight('12:15 PM')}`}>12:15 PM</Button>
-						<Button onClick={() => handleSetTime(12, 30)} className={`${buttonClass} ${getHighlight('12:30 PM')}`}>12:30 PM</Button>
-						<Button onClick={() => handleSetTime(12, 45)} className={`${buttonClass} ${getHighlight('12:45 PM')}`}>12:45 PM</Button>
-						<Button onClick={() => handleSetTime(13, 0)} 	className={`${buttonClass} ${getHighlight('1:00 PM')}` }>1:00 PM </Button>
-						<Button onClick={() => handleSetTime(13, 15)} className={`${buttonClass} ${getHighlight('1:15 PM')}` }>1:15 PM </Button>
-						<Button onClick={() => handleSetTime(13, 30)} className={`${buttonClass} ${getHighlight('1:30 PM')}` }>1:30 PM </Button>
-						<Button onClick={() => handleSetTime(13, 45)} className={`${buttonClass} ${getHighlight('1:45 PM')}` }>1:45 PM </Button>
-						<Button onClick={() => handleSetTime(14, 0)} 	className={`${buttonClass} ${getHighlight('2:00 PM')}` }>2:00 PM </Button>
-						<Button onClick={() => handleSetTime(14, 15)} className={`${buttonClass} ${getHighlight('2:15 PM')}` }>2:15 PM </Button>
-						<Button onClick={() => handleSetTime(14, 30)} className={`${buttonClass} ${getHighlight('2:30 PM')}` }>2:30 PM </Button>
-						<Button onClick={() => handleSetTime(14, 45)} className={`${buttonClass} ${getHighlight('2:45 PM')}` }>2:45 PM </Button>
-						<Button onClick={() => handleSetTime(15, 0)} 	className={`${buttonClass} ${getHighlight('3:00 PM')}` }>3:00 PM </Button>
-						<Button onClick={() => handleSetTime(15, 15)} className={`${buttonClass} ${getHighlight('3:15 PM')}` }>3:15 PM </Button>
-						<Button onClick={() => handleSetTime(15, 30)} className={`${buttonClass} ${getHighlight('3:30 PM')}` }>3:30 PM </Button>
-						<Button onClick={() => handleSetTime(15, 45)} className={`${buttonClass} ${getHighlight('3:45 PM')}` }>3:45 PM </Button>
-						<Button onClick={() => handleSetTime(16, 0)} 	className={`${buttonClass} ${getHighlight('4:00 PM')}` }>4:00 PM </Button>
-						<Button onClick={() => handleSetTime(16, 15)} className={`${buttonClass} ${getHighlight('4:15 PM')}` }>4:15 PM </Button>
-						<Button onClick={() => handleSetTime(16, 30)} className={`${buttonClass} ${getHighlight('4:30 PM')}` }>4:30 PM </Button>
-						<Button onClick={() => handleSetTime(16, 45)} className={`${buttonClass} ${getHighlight('4:45 PM')}` }>4:45 PM </Button>
-						<Button onClick={() => handleSetTime(17, 0)} 	className={`${buttonClass} ${getHighlight('5:00 PM')}` }>5:00 PM </Button>
-						<Button onClick={() => handleSetTime(17, 15)} className={`${buttonClass} ${getHighlight('5:15 PM')}` }>5:15 PM </Button>
-						<Button onClick={() => handleSetTime(17, 30)} className={`${buttonClass} ${getHighlight('5:30 PM')}` }>5:30 PM </Button>
-						<Button onClick={() => handleSetTime(17, 45)} className={`${buttonClass} ${getHighlight('5:45 PM')}` }>5:45 PM </Button>
-						<Button onClick={() => handleSetTime(18, 0)} 	className={`${buttonClass} ${getHighlight('6:00 PM')}` }>6:00 PM </Button>
-						<Button onClick={() => handleSetTime(18, 15)} className={`${buttonClass} ${getHighlight('6:15 PM')}` }>6:15 PM </Button>
-						<Button onClick={() => handleSetTime(18, 30)} className={`${buttonClass} ${getHighlight('6:30 PM')}` }>6:30 PM </Button>
-						<Button onClick={() => handleSetTime(18, 45)} className={`${buttonClass} ${getHighlight('6:45 PM')}` }>6:45 PM </Button>
-						<Button onClick={() => handleSetTime(19, 0)} 	className={`${buttonClass} ${getHighlight('7:00 PM')}` }>7:00 PM </Button>
-						<Button onClick={() => handleSetTime(19, 15)} className={`${buttonClass} ${getHighlight('7:15 PM')}` }>7:15 PM </Button>
-						<Button onClick={() => handleSetTime(19, 30)} className={`${buttonClass} ${getHighlight('7:30 PM')}` }>7:30 PM </Button>
-						<Button onClick={() => handleSetTime(19, 45)} className={`${buttonClass} ${getHighlight('7:45 PM')}` }>7:45 PM </Button>
+						<Button onClick={() => handleSetTime( 9, 0)}  className={`${buttonClass} ${getHighlightDate('9:00 AM', date)}` }>9:00 AM </Button>
+						<Button onClick={() => handleSetTime( 9, 15)} className={`${buttonClass} ${getHighlightDate('9:15 AM', date)}` }>9:15 AM </Button>
+						<Button onClick={() => handleSetTime( 9, 30)} className={`${buttonClass} ${getHighlightDate('9:30 AM', date)}` }>9:30 AM </Button>
+						<Button onClick={() => handleSetTime( 9, 45)} className={`${buttonClass} ${getHighlightDate('9:45 AM', date)}` }>9:45 AM </Button>
+						<Button onClick={() => handleSetTime(10, 0)} 	className={`${buttonClass} ${getHighlightDate('10:00 AM', date)}`}>10:00 AM</Button>
+						<Button onClick={() => handleSetTime(10, 15)} className={`${buttonClass} ${getHighlightDate('10:15 AM', date)}`}>10:15 AM</Button>
+						<Button onClick={() => handleSetTime(10, 30)} className={`${buttonClass} ${getHighlightDate('10:30 AM', date)}`}>10:30 AM</Button>
+						<Button onClick={() => handleSetTime(10, 45)} className={`${buttonClass} ${getHighlightDate('10:45 AM', date)}`}>10:45 AM</Button>
+						<Button onClick={() => handleSetTime(11, 0)} 	className={`${buttonClass} ${getHighlightDate('11:00 AM', date)}`}>11:00 AM</Button>
+						<Button onClick={() => handleSetTime(11, 15)} className={`${buttonClass} ${getHighlightDate('11:15 AM', date)}`}>11:15 AM</Button>
+						<Button onClick={() => handleSetTime(11, 30)} className={`${buttonClass} ${getHighlightDate('11:30 AM', date)}`}>11:30 AM</Button>
+						<Button onClick={() => handleSetTime(11, 45)} className={`${buttonClass} ${getHighlightDate('11:45 AM', date)}`}>11:45 AM</Button>
+						<Button onClick={() => handleSetTime(12, 0)} 	className={`${buttonClass} ${getHighlightDate('12:00 PM', date)}`}>12:00 PM</Button>
+						<Button onClick={() => handleSetTime(12, 15)} className={`${buttonClass} ${getHighlightDate('12:15 PM', date)}`}>12:15 PM</Button>
+						<Button onClick={() => handleSetTime(12, 30)} className={`${buttonClass} ${getHighlightDate('12:30 PM', date)}`}>12:30 PM</Button>
+						<Button onClick={() => handleSetTime(12, 45)} className={`${buttonClass} ${getHighlightDate('12:45 PM', date)}`}>12:45 PM</Button>
+						<Button onClick={() => handleSetTime(13, 0)} 	className={`${buttonClass} ${getHighlightDate('1:00 PM', date)}` }>1:00 PM </Button>
+						<Button onClick={() => handleSetTime(13, 15)} className={`${buttonClass} ${getHighlightDate('1:15 PM', date)}` }>1:15 PM </Button>
+						<Button onClick={() => handleSetTime(13, 30)} className={`${buttonClass} ${getHighlightDate('1:30 PM', date)}` }>1:30 PM </Button>
+						<Button onClick={() => handleSetTime(13, 45)} className={`${buttonClass} ${getHighlightDate('1:45 PM', date)}` }>1:45 PM </Button>
+						<Button onClick={() => handleSetTime(14, 0)} 	className={`${buttonClass} ${getHighlightDate('2:00 PM', date)}` }>2:00 PM </Button>
+						<Button onClick={() => handleSetTime(14, 15)} className={`${buttonClass} ${getHighlightDate('2:15 PM', date)}` }>2:15 PM </Button>
+						<Button onClick={() => handleSetTime(14, 30)} className={`${buttonClass} ${getHighlightDate('2:30 PM', date)}` }>2:30 PM </Button>
+						<Button onClick={() => handleSetTime(14, 45)} className={`${buttonClass} ${getHighlightDate('2:45 PM', date)}` }>2:45 PM </Button>
+						<Button onClick={() => handleSetTime(15, 0)} 	className={`${buttonClass} ${getHighlightDate('3:00 PM', date)}` }>3:00 PM </Button>
+						<Button onClick={() => handleSetTime(15, 15)} className={`${buttonClass} ${getHighlightDate('3:15 PM', date)}` }>3:15 PM </Button>
+						<Button onClick={() => handleSetTime(15, 30)} className={`${buttonClass} ${getHighlightDate('3:30 PM', date)}` }>3:30 PM </Button>
+						<Button onClick={() => handleSetTime(15, 45)} className={`${buttonClass} ${getHighlightDate('3:45 PM', date)}` }>3:45 PM </Button>
+						<Button onClick={() => handleSetTime(16, 0)} 	className={`${buttonClass} ${getHighlightDate('4:00 PM', date)}` }>4:00 PM </Button>
+						<Button onClick={() => handleSetTime(16, 15)} className={`${buttonClass} ${getHighlightDate('4:15 PM', date)}` }>4:15 PM </Button>
+						<Button onClick={() => handleSetTime(16, 30)} className={`${buttonClass} ${getHighlightDate('4:30 PM', date)}` }>4:30 PM </Button>
+						<Button onClick={() => handleSetTime(16, 45)} className={`${buttonClass} ${getHighlightDate('4:45 PM', date)}` }>4:45 PM </Button>
+						<Button onClick={() => handleSetTime(17, 0)} 	className={`${buttonClass} ${getHighlightDate('5:00 PM', date)}` }>5:00 PM </Button>
+						<Button onClick={() => handleSetTime(17, 15)} className={`${buttonClass} ${getHighlightDate('5:15 PM', date)}` }>5:15 PM </Button>
+						<Button onClick={() => handleSetTime(17, 30)} className={`${buttonClass} ${getHighlightDate('5:30 PM', date)}` }>5:30 PM </Button>
+						<Button onClick={() => handleSetTime(17, 45)} className={`${buttonClass} ${getHighlightDate('5:45 PM', date)}` }>5:45 PM </Button>
+						<Button onClick={() => handleSetTime(18, 0)} 	className={`${buttonClass} ${getHighlightDate('6:00 PM', date)}` }>6:00 PM </Button>
+						<Button onClick={() => handleSetTime(18, 15)} className={`${buttonClass} ${getHighlightDate('6:15 PM', date)}` }>6:15 PM </Button>
+						<Button onClick={() => handleSetTime(18, 30)} className={`${buttonClass} ${getHighlightDate('6:30 PM', date)}` }>6:30 PM </Button>
+						<Button onClick={() => handleSetTime(18, 45)} className={`${buttonClass} ${getHighlightDate('6:45 PM', date)}` }>6:45 PM </Button>
+						<Button onClick={() => handleSetTime(19, 0)} 	className={`${buttonClass} ${getHighlightDate('7:00 PM', date)}` }>7:00 PM </Button>
+						<Button onClick={() => handleSetTime(19, 15)} className={`${buttonClass} ${getHighlightDate('7:15 PM', date)}` }>7:15 PM </Button>
+						<Button onClick={() => handleSetTime(19, 30)} className={`${buttonClass} ${getHighlightDate('7:30 PM', date)}` }>7:30 PM </Button>
+						<Button onClick={() => handleSetTime(19, 45)} className={`${buttonClass} ${getHighlightDate('7:45 PM', date)}` }>7:45 PM </Button>
 					</div>
 				</ScrollArea>
-				<Button onClick={handleUpdateAppointment} className="m-auto flex">
-					Update
-				</Button>
+
 			</PopoverContent>
 		</Popover>
 	)

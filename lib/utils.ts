@@ -17,3 +17,11 @@ export function formatTime(time: string): string {
 		hours -= 12;
 	return `${hours}:${minutes} ${amOrPM}`;
 }
+
+export function getHighlightDate(time: string, date: Date | null): string {
+	if (!date)
+		return "";
+	if (formatTime(date.toTimeString()) == time)
+		return "bg-primary text-primary-foreground";
+	return "";
+}

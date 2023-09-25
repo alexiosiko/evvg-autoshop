@@ -17,24 +17,26 @@ export type infoType = {
   callbackFunction: any;
 	back?: boolean,
 	refresh?: boolean,
+	destructive?: boolean,
 } | null;
 
 export default function Alert({ info }: { info: infoType }) {
-	const buttonRef = useRef<HTMLButtonElement | null>(null);
+	const buttonRef = useRef<any>(null);
 	useEffect(() => {
 		buttonRef.current?.click();
 	}, [info])
 
 	async function handleContinue() {
-		await info?.callbackFunction;
+		// await info?.callbackFunction;
 		location.reload();
 	}
+
 	
-	if (info == undefined) return;
+	if (!info) return;
   return (
     <AlertDialog>
 			<AlertDialogTrigger>
-				<Button className="hidden" ref={buttonRef}></Button>
+				<input ref={buttonRef} />
 			</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -48,7 +50,14 @@ export default function Alert({ info }: { info: infoType }) {
 					}
           {
 						info.callbackFunction &&
-						<AlertDialogAction onClick={handleContinue}>Continue</AlertDialogAction>
+						info.destructive == true ?
+						<Button variant="destructive" onClick={handleContinue}>
+							Delete
+						</Button>
+						: 
+						<Button onClick={handleContinue}>
+							Continue
+						</Button>
 					}
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -1,6 +1,9 @@
 import { AppointmentSchemaType } from "@/app/book/page";
 import AppointmentsList from "@/components/appointments/AppointmentsList";
+import CreateAppointment from "@/components/appointments/CreateAppointment";
+import { Button } from "@/components/ui/button";
 import { getAppointments } from "@/lib/actions/backend";
+import Link from "next/link";
 
 
 export default async function Page() {
@@ -14,6 +17,9 @@ export default async function Page() {
 					:
 				<AppointmentsList appointmentSTRING={JSON.stringify(appointments)} />
 			}
+			<Link href='/admin/create' className="flex justify-center mt-8">
+				<Button>Create</Button>
+			</Link>
 		</div>
 	)
 }

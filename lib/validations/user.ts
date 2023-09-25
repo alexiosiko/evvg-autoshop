@@ -30,7 +30,10 @@ export const UserValidation = z.object({
 		message: "Year is required"
 	}),
 	dateCreated: z.date().nullable(),
-	vin: z.string(),
+	vin: z.string()
+	.refine(value => value != '', {
+		message: 'VIN is required. To learn how to find your VIN number, click the "?"'
+	}),
 	urgency: z.enum(["ASAP", "Soon", "No rush"]),
 	details: z.string()
 	.refine(value => value != '', {

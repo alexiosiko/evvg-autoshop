@@ -42,7 +42,11 @@ export type AppointmentSchemaType = AppointmentFormType & {
 	_id: 		ObjectId | null;
 	status:	string,
 	notes: 	string,
-	date: 	Date,
+	date: 	Date | null,
+}
+export type AppointmentCreateType = AppointmentFormType & {
+	date: Date,
+	notes: string
 }
 export default function Appointment() {
 	const [loading, setLoading] = useState<boolean>(false);
@@ -58,6 +62,7 @@ export default function Appointment() {
 			model: 				"",
 			year: 				"",
 			details: 			"",
+			vin: 					"",
 			dateCreated: 	new Date(),
 		}
 	});

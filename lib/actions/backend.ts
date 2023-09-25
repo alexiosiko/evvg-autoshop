@@ -48,7 +48,7 @@ export async function submitAppointment(
 		}
 	}
 }
-export async function updateAppointment(data: AppointmentSchemaType, params: any, reload: boolean = true): Promise<responseType> {
+export async function updateAppointment(data: AppointmentSchemaType, updateParams: any): Promise<responseType> {
 	try {
 		if (data._id == null)
 			throw new Error("WTFF");
@@ -61,13 +61,13 @@ export async function updateAppointment(data: AppointmentSchemaType, params: any
 		};
 		// Define the update operation
 		const updateOperation = {
-			$set: {...params},
+			$set: {...updateParams},
 		};
 		
 		const result = await collection?.updateOne({_id: data._id}, updateOperation);
 		if (result.acknowledged)
 			return {
-				title: "Successfully updated status for " + data.firstname + "!",
+				title: "Successfully updated appointment for " + data.firstname + "!",
 				description: "",
 			}
 		else
