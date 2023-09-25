@@ -10,7 +10,7 @@ export const options: NextAuthOptions = {
 				label: "Enter admin password:",
 				type: "text",
 				placeholder: "Enter password",
-			},
+			}, 
 			},
 			async authorize(credentials) {
 				const user = { id: "george" };
