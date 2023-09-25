@@ -83,7 +83,7 @@ export default function CreateAppointment() {
 			vin: vinRef.current ? vinRef.current.value : "",
 			dateCreated: new Date(),
 		}
-		submitAppointment(appointment).then(res => 
+		submitAppointment({...appointment, date: date}).then(res => 
 			toast({
 				title: res.title,
 				description: res.description,
