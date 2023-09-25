@@ -1,5 +1,3 @@
-import { getServerSession } from "next-auth"
-import { options } from "./auth/[...nextauth]/options";
 
 export const metadata = {
   title: 'Next.js',
