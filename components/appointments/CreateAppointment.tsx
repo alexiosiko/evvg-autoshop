@@ -41,7 +41,9 @@ export default function CreateAppointment() {
 	const detailsRef = useRef<HTMLInputElement>(null);
 	const vinRef = useRef<HTMLInputElement>(null);
 
-	function handleOnSetDate(newDate: Date) {
+	function handleOnSetDate(newDate: Date| undefined): void {
+		if (!newDate)
+			return;
 		let mergedDate;
 		try {
 			if (date == null)
