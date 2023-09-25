@@ -18,7 +18,7 @@ export function formatTime(time: string): string {
 	return `${hours}:${minutes} ${amOrPM}`;
 }
 
-export function getHighlightDate(time: string, date: Date | null): string {
+export function getHighlightDate(time: string, date: Date | undefined): string {
 	if (!date)
 		return "";
 	if (formatTime(date.toTimeString()) == time)

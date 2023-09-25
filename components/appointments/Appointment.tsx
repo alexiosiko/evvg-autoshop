@@ -22,7 +22,7 @@ export default function Appointment({ appointment, setAlertInfo }: {
 
 }) {
 	const [notes, setNotes] = useState<string>(appointment.notes);
-	const [date, setDate] = useState<Date | null>(appointment.date ? new Date(appointment.date) : null);
+	const [date, setDate] = useState<Date | undefined>(appointment.date ? new Date(appointment.date) : undefined);
 	const [reload, setReload] = useState<boolean>(false);
 
 	function handleOnUpdate() {

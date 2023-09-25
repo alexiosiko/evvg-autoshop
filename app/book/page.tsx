@@ -42,7 +42,7 @@ export type AppointmentSchemaType = AppointmentFormType & {
 	_id: 		ObjectId | null;
 	status:	string,
 	notes: 	string,
-	date: 	Date | null,
+	date: 	Date | undefined,
 }
 export type AppointmentCreateType = AppointmentFormType & {
 	date: Date,

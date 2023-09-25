@@ -10,7 +10,7 @@ import { formateDate, getHighlightDate } from "@/lib/utils";
 
 export function DayAndTimePicker({ appointment, date, setDate }: {
 appointment: AppointmentSchemaType,
-date: Date | null,
+date: Date | undefined,
 setDate: (date: Date) => void,
 }) {
 
