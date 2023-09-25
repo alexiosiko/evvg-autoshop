@@ -102,5 +102,5 @@ export async function handleDelete(id: ObjectId | null, collection: string): Pro
 }
 
 export async function isAdmin(code: string): Promise<boolean> { 
-	return code == process.env.ADMIN_CODE;
+	return code == process.env.ADMIN_PASSWORD;
 }
