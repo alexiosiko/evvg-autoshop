@@ -27,7 +27,7 @@ export default function Alert({ info }: { info: infoType }) {
 	}, [info])
 
 	async function handleContinue() {
-		// await info?.callbackFunction;
+		await info?.callbackFunction();
 		location.reload();
 	}
 
@@ -36,7 +36,7 @@ export default function Alert({ info }: { info: infoType }) {
   return (
     <AlertDialog>
 			<AlertDialogTrigger>
-				<input ref={buttonRef} />
+				<input hidden={true} ref={buttonRef} />
 			</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

@@ -7,7 +7,7 @@ export const options: NextAuthOptions = {
 			name: "Credentials",
 			credentials: {
 			password: {
-				label: "Enter admin code:",
+				label: "Enter admin password:",
 				type: "text",
 				placeholder: "Enter password",
 			},

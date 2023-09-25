@@ -43,9 +43,6 @@ export default function Appointment({ appointment, setAlertInfo }: {
 		// Reload component
 		setReload(!reload);
 	}
-	function junk() {
-
-	}
 	function handleOnDelete() {
 		setAlertInfo({
 			title: `Are you sure you want to DELETE ${appointment.firstname} ${appointment.lastname}`,
