@@ -14,7 +14,7 @@ export default async function Page() {
 	const session = await getServerSession(options);
 	return (
 		<>
-			{/* {session ? */}
+			{session ?
 			<div>
 				{appointments.length == 0 ? 
 					<h1 className="text-primary text-center text-3xl font-bold">
@@ -27,9 +27,9 @@ export default async function Page() {
 					<Button>Create</Button>
 				</Link>
 			</div>
-			{/* :
+			:
 				<Login />
-			} */}
+			}
 		</>
 	)
 }
