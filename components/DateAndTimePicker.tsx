@@ -66,7 +66,7 @@ setDate: (date: Date) => void,
 			<PopoverContent>
 				<Calendar 
 					mode="single"
-					selected={date}
+					selected={date ? date : new Date()}
 					onSelect={handleOnSetDate}
 					className="rounded-md border p-0"
 				/>
