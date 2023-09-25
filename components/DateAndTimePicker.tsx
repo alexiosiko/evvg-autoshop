@@ -7,6 +7,7 @@ import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { AppointmentSchemaType } from "@/app/book/page";
 import { formateDate, getHighlightDate } from "@/lib/utils";
+import { ActiveModifiers } from "react-day-picker";
 
 export function DayAndTimePicker({ appointment, date, setDate }: {
 appointment: AppointmentSchemaType,
@@ -14,7 +15,7 @@ date: Date | undefined,
 setDate: (date: Date) => void,
 }) {
 
-	function handleOnSetDate(day: Date | undefined) {
+	function handleOnSetDate(day: Date | undefined, selectedDay: Date, activeModifiers: ActiveModifiers, e: React.MouseEvent) {
 		if (!day)
 			return;
 		let mergedDate;

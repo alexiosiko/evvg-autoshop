@@ -11,9 +11,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
-	const session = await getServerSession(options);
-	console.log("session: " + session?.user?.name);
   return (
 		<div className="max-w-6xl m-auto">
 			<div>{children}</div>
