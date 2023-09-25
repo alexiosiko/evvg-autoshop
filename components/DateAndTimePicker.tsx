@@ -14,14 +14,16 @@ date: Date | null,
 setDate: (date: Date) => void,
 }) {
 
-	function handleOnSetDate(newDate: Date) {
+	function handleOnSetDate(day: Date | undefined) {
+		if (!day)
+			return;
 		let mergedDate;
 		try {
 			if (date == null)
 				mergedDate = new Date();
 			else
 				mergedDate = new Date(date);
-			mergedDate.setDate(newDate.getDate());
+			mergedDate.setDate(day.getDate());
 			setDate(mergedDate);
 		} catch (e) {}
 
