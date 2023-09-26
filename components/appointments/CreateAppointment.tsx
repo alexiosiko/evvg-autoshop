@@ -43,19 +43,16 @@ export default function CreateAppointment() {
 	const detailsRef = useRef<HTMLInputElement>(null);
 	const vinRef = useRef<HTMLInputElement>(null);
 
-	function handleOnSetDate(newDate: Date| undefined): void {
-		if (!newDate)
+	function handleOnSetDate(day: Date | undefined): void {
+		if (!day)
 			return;
-		let mergedDate;
-		try {
-			if (date == null)
-				mergedDate = new Date();
-			else
-				mergedDate = new Date(date);
-			mergedDate.setDate(newDate.getDate());
-			setDate(mergedDate);
-		} catch (e) {}
+		let mergedDate = new Date(day);
 
+		if (date != null) {
+			mergedDate.setHours(date.getHours());
+			mergedDate.setMinutes(date.getMinutes());
+		}
+		setDate(mergedDate);
 	}
 
 	function handleSetTime(hours: number, minutes: number) {
@@ -86,7 +83,7 @@ export default function CreateAppointment() {
 			vin: vinRef.current ? vinRef.current.value : "",
 			dateCreated: new Date(),
 		}
-		submitAppointment(appointment).then(res => 
+		submitAppointment({...appointment, date: date}).then(res => 
 			toast({
 				title: res.title,
 				description: res.description,

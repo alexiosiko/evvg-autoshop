@@ -1,32 +1,30 @@
 "use client"
 
-import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { ScrollArea } from "./ui/scroll-area";
 import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { AppointmentSchemaType } from "@/app/book/page";
 import { formateDate, getHighlightDate } from "@/lib/utils";
-import { ActiveModifiers, SelectSingleEventHandler } from "react-day-picker";
 
 export function DayAndTimePicker({ appointment, date, setDate }: {
 appointment: AppointmentSchemaType,
 date: Date | undefined,
 setDate: (date: Date | undefined) => void,
 }) {
+	// date is current
+	// day is the new selected day
 
 	function handleOnSetDate(day: Date | undefined): void {
 		if (!day)
 			return;
-		let mergedDate;
-		
-		if (date == null)
-			mergedDate = new Date();
-		else
-			mergedDate = new Date(date);
-		mergedDate.setDate(day.getDate());
-		setDate(mergedDate);
+		let mergedDate = new Date(day);
 
+		if (date != null) {
+			mergedDate.setHours(date.getHours());
+			mergedDate.setMinutes(date.getMinutes());
+		}
+		setDate(mergedDate);
 	}
 	function handleSetTime(hours: number, minutes: number) {
 		if (date == undefined) {
