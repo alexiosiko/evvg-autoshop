@@ -29,4 +29,11 @@ export const ReviewsData = [
 		starCount: 5,
 		description: "I recomment that place for your car service or for tires replacement.",
 	},
+	{
+		name: "Vitorya Anna",
+		photo: require('@/assets/reviews/viktorya.png'),
+		starCount: 5,
+		description: "",
+	},
+
 ]

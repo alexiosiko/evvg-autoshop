@@ -7,13 +7,13 @@ export const metadata = {
 }
 
 export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
+  	children,
+}:	{
+  	children: React.ReactNode
 }) {
-  return (
-		<div className="max-w-6xl m-auto">
-			<div>{children}</div>
-		</div>
-  )
+	return (
+			<div className="max-w-6xl m-auto">
+				<div>{children}</div>
+			</div>
+	)
 }

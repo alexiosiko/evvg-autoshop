@@ -48,11 +48,11 @@ export default function Page() {
 			<hr  className="mt-24"/>
 			<section>				
 				<h1 className="text-5xl mt-24 mb-24 font-extrabold text-center text-primary">Our Services</h1>
-				<div className="grid lg:grid-cols-4 grid-cols-2 gap-6">
+				<div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
 					{ServicesGridData.map((service, index: number) => 
-						<div className="h-52 text-center p-4 rounded-md outline outline-1 outline-primary bg-card" key={index}>
-							<Image className="m-auto mt-6 mb-4" width={50} height={50} src={service.img} alt="any" />
-							<h2 className="text-2xl pb-4 text-card-foreground font-extrabold ">{service.title}</h2>
+						<div className=" text-center p-2 pb-8 rounded-md  shadow-md bg-card" key={index}>
+							<Image className="m-auto mt-6 mb-4" width={25} height={25} src={service.img} alt="any" />
+							<h2 className="text-xl pb-4 text-card-foreground font-extrabold ">{service.title}</h2>
 							<p className="description text-secondary-foreground text-xs max-w-md m-auto max-h-16 h-full">
 								{service.description}
 							</p>
@@ -61,18 +61,19 @@ export default function Page() {
 				</div>
 				<hr  className="mt-24 mb-32"/>
 			</section>
-			<div className="grid lg:grid-cols-3 gap-4 mb-24">
-				{ReviewsData.map((review, index: number) => 
-				<div key={index}>
-					<Review
-						photo={review.photo}
-						name={review.name} 
-						starCount={review.starCount} 
-						description={review.description} 
-						/>
+				<h1 className="text-5xl mt-24 mb-24 font-extrabold text-center text-primary">What others think!</h1>
+				<div className="grid lg:grid-cols-3 gap-4 mb-24">
+					{ReviewsData.map((review, index: number) => 
+						<div key={index}>
+							<Review
+								photo={review.photo}
+								name={review.name} 
+								starCount={review.starCount} 
+								description={review.description} 
+								/>
 						</div>
-				)}
-			</div>
+					)}
+				</div>
 			<section className="text-center">
 				<h1 className="text-primary text-5xl mb-12">Book with us Now!</h1>
 				<p className="text-primary">Send us a message letting us know what is going on with your vehicle, and we will get back to you soon with a quote. </p>
