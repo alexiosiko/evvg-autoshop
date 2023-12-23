@@ -21,11 +21,11 @@ export default async function Nav() {
 					<Button>Manage</Button>
 				</Link>	 */}
 			</div>
-				{session && 
+				{/* {session && 
 					<Link className="flex mr-0 absolute right-0" href="/api/auth/signout">
 						<SignOutButton />
 					</Link>	
-				}
+				} */}
 		</div>
 	)
 }
