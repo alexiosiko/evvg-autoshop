@@ -13,7 +13,7 @@ import Review from "@/components/Review";
 
 export default function Page() {
 	return (
-		<div className="p-2">
+		<div className="p-2" >
 			<hr className="mt-12 mb-24"/>
 			<section className="text-center mb-6 m-auto text-xl leading-8 text-primary">
 				<h1 className='text-5xl font-extrabold mb-12 text-primary'>EVVG's story</h1>
@@ -46,7 +46,7 @@ export default function Page() {
 				</div>
 			</section>
 			<hr  className="mt-24"/>
-			<section>				
+			<section id="services">				
 				<h1 className="text-5xl mt-24 mb-24 font-extrabold text-center text-primary">Our Services</h1>
 				<div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
 					{ServicesGridData.map((service, index: number) => 
@@ -74,15 +74,15 @@ export default function Page() {
 						</div>
 					)}
 				</div>
-			<section className="text-center">
+			{/* <section className="text-center">
 				<h1 className="text-primary text-5xl mb-12">Book with us Now!</h1>
 				<p className="text-primary">Send us a message letting us know what is going on with your vehicle, and we will get back to you soon with a quote. </p>
 				<Link href="/book" >
 					<Button variant={'default'} className="m-12 mb-24">Book Online</Button>
 				</Link>
-			</section>
+			</section> */}
 			<hr  className="mb-24"/>
-			<section>
+			<section id="contact">
 				<h1 className="text-primary text-5xl font-bold text-center mb-8">Find us on the map!</h1>
 				<p className="text-center text-primary mb-8">5658 Production Way, V3A 4N4 - Langley BC</p>
 				<Link 

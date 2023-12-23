@@ -13,8 +13,8 @@ export const options: NextAuthOptions = {
 			}, 
 			},
 			async authorize(credentials) {
+				console.log(process.env.ADMIN_PASSWORD)
 				const user = { id: "george" };
-				console.log(credentials?.password);
 				if (credentials?.password == process.env.ADMIN_PASSWORD) 
 					return user;
 				

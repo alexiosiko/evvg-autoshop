@@ -5,19 +5,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useRef } from "react";
 
 export default function Login() {
 	const passwordRef = useRef<any>(null);
-	const router = useRouter();
-
 	async function handleOnLogin() {
 		signIn("credentials", { 
-				password: passwordRef.current.value,
-				redirect: false,
+			password: passwordRef.current.value,
+			redirect: false,
 		}).then(res => {
-			console.log(res);
 			if (res?.error)
 				toast({
 					title: "Invalid password",

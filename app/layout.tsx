@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-		<html lang="en">
+		<html id='home' lang="en" style={{ scrollBehavior: 'smooth'}}>
 			<body className={`${inter.className}`}>
 			<Nav />
 				<main className='m-auto '>
