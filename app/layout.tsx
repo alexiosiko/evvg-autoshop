@@ -19,7 +19,7 @@ export default function RootLayout({
 		<html id='home' lang="en" style={{ scrollBehavior: 'smooth'}}>
 			<title>EVVG Auto</title>
 			<body className={`${inter.className}`}>
-			<Nav />
+				<Nav />
 				<main className='m-auto '>
 					{children}
 				</main>

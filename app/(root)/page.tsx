@@ -10,68 +10,85 @@ import MechanicPhoto2 from "@/assets/photos/mechanic-photo2.png";
 import MechanicPhoto3 from "@/assets/photos/mechanic-photo3.png";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Review from "@/components/Review";
+import { motion } from 'framer-motion';
+import backgroundImage from '@/assets/photos/evvg-background.png'
+import Vertical from "@/components/framer/vertical";
+import LeftRight from "@/components/framer/leftRight";
+import Service from "@/components/Service";
+import TextAnim from "@/components/text-test";
 
 export default function Page() {
 	return (
 		<div className="p-2" >
+			<div style={{ height: 1, width: 1}} />
+			<motion.div 
+			initial={{ opacity: 0 }}
+			animate={{ y: -200, opacity: 100 }}
+			
+				style={{
+					translateY: 200,
+				marginTop: 30,
+				backgroundImage: `url(${backgroundImage.src})`,
+				aspectRatio: 16/12,
+				margin: 'auto',
+				maxHeight: 800,
+				backgroundPosition: 'center',
+				backgroundSize: 'cover',
+				backgroundRepeat: 'no-repeat',
+				borderRadius: 15,
+			}} />
 			<hr className="mt-12 mb-24"/>
 			<section className="text-center mb-6 m-auto text-xl leading-8 text-primary">
-				<h1 className='text-5xl font-extrabold mb-12 text-primary'>EVVG's story</h1>
-				<div className="grid lg:grid-cols-2 items-center">
+					<Vertical className='text-5xl font-extrabold mb-12 text-primary'>EVVG's story</Vertical>
+				<LeftRight>
 					<Image className="m-auto mt-0 rounded-md" src={MechanicPhoto3} width={300} alt="mechanic photo" />
 					<div>
 						EVVG Auto Services is a family owned business that has been operating for over 20 years. When George, the owner, was starting the business he thought of various names for the shop. He eventually decided on the name EVVG, which was inspired by the names of his four children: Elleni, Vassili, Vangeli, and Georgia.
 						<br /> <br />
 						We welcome you all to the shop with open arms. Come say hello, we would love to meet you and welcome you to the EVVG Auto family!
 					</div>
-				</div>
+				</LeftRight>
 				<br /><br /><br /> <br /><br />
-				<h1 className='text-5xl font-extrabold mb-12 text-primary'>We Have You Covered</h1>
-				<div className="grid lg:grid-cols-2">
+				<Vertical className='text-5xl font-extrabold mb-12 text-primary'>We Have You Covered</Vertical>
+				<LeftRight >
 					<div className="m-8">
 						Whether you're coming in for a routine inspection or a repair service, we promise that you will be completely satisfied with our work. 
 						<br /><br />
 						We welcome you all to the shop with open arms. Come say hello, we would love to meet you and welcome you to the EVVG Auto family!
 					</div>
 					<Image className="m-auto rounded-md"  src={MechanicPhoto2} width={450} alt="mechanic photo" />
-				</div>
+				</LeftRight>
 				<br /><br /><br /> <br /><br />
-				<h1 className='text-5xl font-extrabold mb-12 text-primary'>Our Quality Promise</h1>
-				<div className="grid lg:grid-cols-2">
-					<Image className="m-auto rounded-md"  src={MechanicPhoto1} width={350} alt="mechanic photo" />
+				<Vertical className='text-5xl font-extrabold mb-12 text-primary'>Our Quality Promise</Vertical>
+				<LeftRight>
+					<Image className="m-auto rounded-md w-full h-full"  src={MechanicPhoto1} width={350} alt="mechanic photo" />
 					<div className="mt-8">
 						We're committed to providing a stress-free experience to both new and returning customers. Our shop only uses parts from reputable brands to ensure that your vehicle is always ready to drive.
 						<br /><br />
 					</div>
-				</div>
+				</LeftRight>
 			</section>
 			<hr  className="mt-24"/>
 			<section id="services">				
-				<h1 className="text-5xl mt-24 mb-24 font-extrabold text-center text-primary">Our Services</h1>
+				<Vertical className="text-5xl mt-24 mb-24 font-extrabold text-center text-primary">Our Services</Vertical>
 				<div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
 					{ServicesGridData.map((service, index: number) => 
-						<div className=" text-center p-2 pb-8 rounded-md  shadow-md bg-card" key={index}>
-							<Image className="m-auto mt-6 mb-4" width={25} height={25} src={service.img} alt="any" />
-							<h2 className="text-xl pb-4 text-card-foreground font-extrabold ">{service.title}</h2>
-							<p className="description text-secondary-foreground text-xs max-w-md m-auto max-h-16 h-full">
-								{service.description}
-							</p>
-						</div>
+						<Service index={index} service={service} key={index} />
 					)}
 				</div>
 				<hr  className="mt-24 mb-32"/>
 			</section>
-				<h1 className="text-5xl mt-24 mb-24 font-extrabold text-center text-primary">What others think!</h1>
+				<Vertical className="text-5xl mt-24 mb-24 font-extrabold text-center text-primary">What others think!</Vertical>
 				<div className="grid lg:grid-cols-3 gap-4 mb-24">
 					{ReviewsData.map((review, index: number) => 
-						<div key={index}>
 							<Review
+								key={index}
+								index={index}
 								photo={review.photo}
 								name={review.name} 
 								starCount={review.starCount} 
 								description={review.description} 
 								/>
-						</div>
 					)}
 				</div>
 			{/* <section className="text-center">
@@ -83,17 +100,21 @@ export default function Page() {
 			</section> */}
 			<hr  className="mb-24"/>
 			<section id="contact">
-				<h1 className="text-primary text-5xl font-bold text-center mb-8">Find us on the map!</h1>
-				<p className="text-center text-primary mb-8">5658 Production Way, V3A 4N4 - Langley BC</p>
-				<Link 
-					href={"https://www.google.com/maps/place/EVVG+Auto/@49.1049958,-122.6875521,14.75z/data=!4m6!3m5!1s0x5485cf3f5a0861cf:0xe79195f7b09bdb8e!8m2!3d49.1052476!4d-122.6762051!16s%2Fg%2F11m_n7wgrw?entry=ttu"}
-					target="_blank"
-					className="flex justify-center"
-					>
-					<Button variant={'special'}>
-						Open Map
-					</Button>
-				</Link>			
+				<Vertical>
+					<div className="text-primary text-5xl font-bold text-center mb-8">Find us on the map!</div>
+					<TextAnim className= "ml-[320px] text-primary">5658 Production Way, V3A 4N4 - Langley BC</TextAnim>
+					<div>
+						<Link 
+							href={"https://www.google.com/maps/place/EVVG+Auto/@49.1049958,-122.6875521,14.75z/data=!4m6!3m5!1s0x5485cf3f5a0861cf:0xe79195f7b09bdb8e!8m2!3d49.1052476!4d-122.6762051!16s%2Fg%2F11m_n7wgrw?entry=ttu"}
+							target="_blank"
+							className="flex justify-center mt-8"
+							>
+							<Button variant={'special'}>
+								Open Map
+							</Button>
+						</Link>			
+					</div>
+				</Vertical>
 			</section>
 			<br /><br /><br />
 			<section className="text-center">

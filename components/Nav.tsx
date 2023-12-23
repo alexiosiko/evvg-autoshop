@@ -8,7 +8,7 @@ const navButtonClass = 'text-primary transition hover:bg-foreground hover:text-s
 export default async function Nav() {
 	const session = await getServerSession(options);
 	return (
-		<div className="flex justify-center items-center mb-6 sticky top-0 bg-background outline outline-1">
+		<div className=" z-10 flex justify-center items-center mb-6 sticky top-0 bg-background outline outline-1">
 			<div className="flex justify-center gap-2 p-2">
 				<Link className={navButtonClass} href="#home">Home</Link>
 				<Link className={navButtonClass} href="#services">Services</Link>
