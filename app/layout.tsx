@@ -1,30 +1,29 @@
-import { Metadata } from 'next/types'
+import type { Metadata } from 'next'
+import { Inter, Oswald } from 'next/font/google'
 import './globals.css'
-import { Mooli as text } from 'next/font/google'
-import Nav from '@/components/Nav'
-import { Toaster } from '@/components/ui/toaster'
+import Nav from '@/components/sections/nav'
 
-const inter = text({ subsets: ['latin'], weight: '400' })
+const inter = Oswald({
+	subsets: ['latin']
+})
 
 export const metadata: Metadata = {
-  title: 'EVVG AUTO',
-  description: 'Automotive mechanic shop located in Langley',
+  title: 'EVVG Auto',
+  description: 'Mechanic automotive shop based in Langley',
 }
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-		<html id='home' lang="en" style={{ scrollBehavior: 'smooth'}}>
-			<title>EVVG Auto</title>
-			<body className={`${inter.className}`}>
-				<Nav />
-				<main className='m-auto '>
-					{children}
-				</main>
-				<Toaster />
-			</body>
-		</html>
+    <html lang="en" style={{ scrollBehavior: 'smooth'}} className='bg-[var(--background)] text-[var(--text)]'>
+		<body className={inter.className}>
+			<Nav />
+			{children}
+			
+		</body>
+    </html>
   )
 }

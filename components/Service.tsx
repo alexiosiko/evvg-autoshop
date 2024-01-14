@@ -1,27 +1,23 @@
-import Image, { StaticImageData } from "next/image";
-import { animate, motion, useAnimate } from 'framer-motion';
+import Image from "next/image";
+import { motion, useAnimate } from "framer-motion";
 
-type ServiceType = {
-	service: {
-		title: string;
-		description: string;
-		img: StaticImageData;
-	},
-	index: number
-} 
-export default function Service({service, index}: ServiceType) {
+export default function Service({ service, index }: {
+	service: any,
+	index: number,
+}) {
 	const [scope, animate] = useAnimate();
+	const delay = index / 10 + 0.3;
 	return (
-		<motion.div className="text-center p-6 pb-8 rounded-md shadow-md bg-card" key={index}
-			ref={scope}	
-			initial={{ y: 200, opacity: 0 }}
-			onViewportEnter={() => animate(scope.current, { y: 0, opacity: 100}, { delay: index / 7})}
+		<motion.div
+			key={index}
+			className="bg-[var(--background-other)] rounded-md p-4 h-[320px] w-[250px] flex-col flex items-center gap-4 justify-center"
+			ref={scope}
+			initial={{ y: 150, opacity: 0 }}
+			onViewportEnter={() => animate(scope.current, { y: 0, opacity: 100}, { delay: delay })}
 			>
-			<Image className="m-auto"  width={25} height={25} src={service.img} alt="any" />
-			<h2 className="text-xl pb-4 text-card-foreground font-extrabold ">{service.title}</h2>
-			<p className="description text-secondary-foreground text-xs max-w-md m-auto max-h-16 h-full">
-				{service.description}
-			</p>
+			<Image src={service.img} width={50} height={50} alt="service-icon" />
+			<h1 className="text-2xl">{service.header}</h1>
+			<p className="text-center text-[15px] text-[var(--text-other)]">{service.description}</p>
 		</motion.div>
 	)
 }
