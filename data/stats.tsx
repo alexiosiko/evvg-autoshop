@@ -13,7 +13,7 @@ export const stats = [
 	{
 		img: require("@/images/icons/car.png"),
 		header: "1000+",
-		description: "Cars Serviced"
+		description: "Cars Serviced Every Year"
 	},
 
 ]

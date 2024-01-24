@@ -1,7 +1,7 @@
 import { services } from "@/data/services";
 import Header from "../header";
 import Image from "next/image";
-import Service from "../sservice";
+import Service from "../service";
 import { motion, useAnimate } from "framer-motion";
 
 export default function Services() {
