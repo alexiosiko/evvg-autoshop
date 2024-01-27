@@ -23,9 +23,9 @@ export default function Home() {
 			<Wallpaper className='translate-y-44 !h-[1900px]' svg={middle}/>
 			<About />
 			<div id='services' />
-			<Br  size={3} />
+			<Br  size={6 } />
 			<Services />
-			<Br size={2} />
+			<Br size={4} />
 			<Stats />
 			<Br size={12} />
 			<OurStory />
@@ -34,8 +34,8 @@ export default function Home() {
 			<Br size={4} />
 			<Contact />
 			<Br size={12} />
-			<Footer />	
 			<Contributions />
+			<Footer />	
 		</main>
 	)
 }
