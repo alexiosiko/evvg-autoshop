@@ -9,7 +9,7 @@ export default function OurStory() {
 	return (
 		<LeftRight>
 			<Image className="rounded-lg" src={img} alt="mechanic-image" />
-			<div className="w-[80%]">
+			<div className="sm:w-[80%] max-sm:mt-12">
 				<SubHeader>Who Are We</SubHeader>
 				<Header>Our Story</Header>
 				<br />

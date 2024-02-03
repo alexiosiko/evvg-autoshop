@@ -11,7 +11,7 @@ export default function Stat({ stat }: {
 	const [scope, animate] = useAnimate();
 	return (
 		<motion.div 
-			className="w-[250px] flex gap-4 justify-center"
+			className="w-[250px] m-auto max-sm:pb-8 flex gap-4 justify-center"
 			ref={scope}
 			initial={{ y: 50, opacity: 0 }}
 			onViewportEnter={() => animate(scope.current, { y: 0, opacity: 100 }, { delay: 0.3 })}

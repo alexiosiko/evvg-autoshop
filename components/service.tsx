@@ -10,7 +10,7 @@ export default function Service({ service, index }: {
 	return (
 		<motion.div
 			key={index}
-			className="bg-[var(--background-other)] shadow-xl m-auto rounded-md p-4 h-[320px] w-[250px] flex-col flex items-center gap-4"
+			className="bg-[var(--background-other)] max-sm:mb-8 shadow-xl m-auto rounded-md p-4 h-[320px] w-[250px] flex-col flex items-center gap-4"
 			ref={scope}
 			initial={{ y: 150, opacity: 0 }}
 			onViewportEnter={() => animate(scope.current, { y: 0, opacity: 100}, { delay: delay })}

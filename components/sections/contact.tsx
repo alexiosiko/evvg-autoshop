@@ -11,7 +11,6 @@ export default function Contact() {
 	return (
 		<section id="contact">
 			<LeftRight>
-				{/* <Image src={location} alt="contact-image" height={400} /> */}
 				<div className="m-auto ml-0 text-[var(--text-accent)]">
 					<SubHeader>Let's Get Started</SubHeader>
 					<Header className="text-[var(--text-accent)]">Contact Us</Header>
