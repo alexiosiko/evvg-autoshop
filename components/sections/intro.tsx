@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 export default function Intro() {
   return (
     <section className="flex items-center h-[700px]">
-		<div className="w-[50%]">
+		<div className="sm:w-[50%] max-sm:text-center">
 			<motion.div
-				className="text-[100px] text-[var(--text-accent)] font-bold"
+				className="text-[100px]  text-[var(--text-accent)] font-bold"
 				style={{ lineHeight: 1.1}}
 				initial={{ y: 50, opacity: 0}}
 				animate={{ y: 0, opacity: 100 }}

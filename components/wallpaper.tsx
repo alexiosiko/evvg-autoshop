@@ -11,8 +11,9 @@ export default function Wallpaper({ svg, className }: {
 			height: '1400px', // Adjust the height as needed
 			position: 'absolute',
 			zIndex: -10,
-			width: '99.65vw',
+			width: '150vw',
 			left: 'calc(-50vw + 50%)',
+			overflow: 'visible'
 		  }} />
 		)
 }

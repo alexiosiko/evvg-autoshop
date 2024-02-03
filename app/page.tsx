@@ -16,8 +16,9 @@ import bottomWallpaper from "@/images/image3.jpg"
 
 export default function Home() {
 	return (
-		<main id='home' className='max-w-7xl m-auto' >
+		<main id='home' className='max-w-7xl  m-auto w-full' >
 			<Wallpaper className="-top-[550px] " svg={wallpaperSVG} />
+			<Br  size={3}/>
 			<Intro />
 			<Br size={6} />
 			<Wallpaper className='translate-y-44 !h-[1900px]' svg={middle}/>
