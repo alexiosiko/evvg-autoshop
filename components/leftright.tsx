@@ -8,7 +8,7 @@ export default function LeftRight({ children, className }: {
 }) {
 	const [scope, animate] = useAnimate();
 	return (
-		<div className={`${className} flex justify-center items-center w-[80%] m-auto gap-24`}>
+		<div className={`${className} sm:flex justify-center items-center sm:w-[80%] m-auto gap-24`}>
 			{React.Children.map(children, (child: React.ReactNode, index: number) => 
 				<AnimatedDiv child={child} index={index} />
 			)}

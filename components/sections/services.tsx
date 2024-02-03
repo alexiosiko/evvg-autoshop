@@ -19,7 +19,7 @@ export default function Services() {
 			<br />
 			<br />
 			<br />
-			<div className="flex justify-center gap-8 ">
+			<div className="sm:flex justify-center gap-8 ">
 				{services.map((service, index) => 
 					<Service index={index} service={service} />
 				)}

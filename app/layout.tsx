@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
-import { Inter, Oswald } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/sections/nav'
 
-const inter = Oswald({
-	subsets: ['latin']
+const inter = Roboto({
+	subsets: ['latin'],
+	weight: '700'
 })
 
 export const metadata: Metadata = {
@@ -22,7 +23,6 @@ export default function RootLayout({
 		<body className={inter.className}>
 			<Nav />
 			{children}
-			
 		</body>
     </html>
   )
