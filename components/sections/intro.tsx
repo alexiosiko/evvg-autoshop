@@ -21,7 +21,7 @@ export default function Intro() {
 				animate={{ y: 0, opacity: 100 }}
 				transition={{ delay: 0.5, duration: 0.5 }}
 				
-				className="text-[var(--text-accent)]">
+				className="max-sm:pb-24 text-[var(--text-accent)]">
         Welcome to EVVG Auto Services, a family-owned mechanic business with over 30 years of dedicated service. Our commitment to quality and customer satisfaction has made us a reliable choice for all your automotive needs. Join the EVVG family and experience excellence in auto repair.
 			</motion.div>
 		</div>
