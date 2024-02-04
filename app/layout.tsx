@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" style={{ scrollBehavior: 'smooth'}} className='bg-[var(--background)] text-[var(--text)]'>
-		<body className={`${inter.className}`}>
+		<body className={`${inter.className} `}>
 			<Nav />
 			{children}
 		</body>
