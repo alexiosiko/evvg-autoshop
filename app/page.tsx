@@ -16,8 +16,8 @@ import bottomWallpaper from "@/images/image3.jpg"
 
 export default function Home() {
 	return (
-		<main id='home' className='max-w-7xl  m-auto w-full' >
-			<Wallpaper className="-top-[550px] " svg={wallpaperSVG} />
+		<main id='home' className='max-w-7xl overflow-x-hidden  m-auto w-full' >
+			<Wallpaper className="-top-[500px]" svg={wallpaperSVG} />
 			<Br  size={3}/>
 			<Intro />
 			<Br size={6} />

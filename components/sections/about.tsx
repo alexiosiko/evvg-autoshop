@@ -7,7 +7,7 @@ import IMG from "@/images/image1.jpg";
 
 export default function About() {
 	return (
-		<LeftRight>
+		<LeftRight >
 			<div className="flex flex-col justify-center">
 				<SubHeader>About Us</SubHeader>
 				<Header>We are Qualified & Professional</Header>
