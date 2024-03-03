@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/sections/nav'
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Roboto({
 	subsets: ['latin'],
@@ -24,6 +25,7 @@ export default function RootLayout({
 			<Nav />
 			{children}
 		</body>
+		<Analytics />
     </html>
   )
 }
