@@ -18,7 +18,7 @@ export default function Contact() {
 					<div className="flex flex-col justify-around text-center ">
 						<div className="flex flex-col gap-8">
 							<Title className="text-white">Hours</Title>
-							<Description className="mt-4 text-slate-200">Monday — Friday <br /> 8am — 5pm</Description>
+							<Description className="mt-4 text-slate-200">Monday — Friday <br /> 9am — 7pm</Description>
 							<Description className="text-slate-200">Saturday<br />10am — 5pm</Description>
 							<Description className="text-slate-200">Sunday<br/>Closed</Description>
 						</div>

@@ -7,9 +7,9 @@ import IMG from "@/images/evvg-background.png";
 
 export default function About() {
 	return (
-		<LeftRight	>
+		<LeftRight>
 			<div className="flex flex-col justify-center bg-slate-900 h-full  max-md:pt-6 pb-6">
-				<div className="max-w-xl m-auto p-4">
+				<div className="max-w-xl m-auto">
 
 					<SubHeader>Who Are We</SubHeader>
 					<Title className="!text-white">About EVVG Auto Services</Title>
