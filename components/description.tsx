@@ -5,8 +5,8 @@ export default function Description({ children, className }: {
 	className?: string
 }) {
 	return (
-		<p className={`${className} text-lg text-[var(--text-other)]`}>
+		<div className={`${className} text-2xl text-[var(--text-other)]`}>
 			{children}
-		</p>
+		</div>
 	)
 }

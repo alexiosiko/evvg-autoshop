@@ -5,7 +5,7 @@ export default function SubHeader({ children, className }: {
 	className?: string
 }) {
 	return (
-		<p className={`${className} text-[var(--accent)]`}>
+		<p className={`${className} text-[var(--accent)] mb-2`}>
 			{children}
 		</p>
 	)

@@ -9,8 +9,18 @@
 
   --accent: #D81324;
   --text-accent: #ffffff;
-  --text-accent-other: #b6b6b6;
+  --text-accent-other: #d3d3d3;
 
   --text: #000000;
-  --text-other: #2c2c2c;
+  --text-other: #2e2e2e;
+}
+
+section {
+	padding-top: 100px;
+}
+
+li {
+	list-style-type: disc;
+	margin-top: 1.3rem;
+	margin-left: 2rem;
 }

@@ -5,6 +5,6 @@ export default function Header({ children, className }: {
 	className?: string
 }) {
 	return (
-		<h1 className={` text-6xl text-[var(--text)] ${className}`}>{children}</h1>
+		<h1 className={` text-4xl text-[var(--text)] ${className}`}>{children}</h1>
 	)
 }

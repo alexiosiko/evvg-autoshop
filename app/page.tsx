@@ -6,37 +6,40 @@ import Contact from '@/components/sections/contact'
 import Contributions from '@/components/sections/contributions'
 import Footer from '@/components/sections/footer'
 import Intro from '@/components/sections/intro'
-import OurStory from '@/components/sections/ourstory'
+import HowItStarted from '@/components/sections/ourstory'
 import Services from '@/components/sections/services'
-import Stats from '@/components/sections/stats'
 import Wallpaper from '@/components/wallpaper'
-import middle from "@/images/svgs/middle.svg";
 import wallpaperSVG from "@/images/image5.jpg"
-import bottomWallpaper from "@/images/image3.jpg"
+import WhyUs from '@/components/sections/whyus'
 
 export default function Home() {
 	return (
-		<main id='home' className='max-w-7xl overflow-x-hidden  m-auto w-full' >
-			<Wallpaper className="-top-[500px]" svg={wallpaperSVG} />
-			<Br  size={3}/>
+		<main id='home' className='overflow-x-hidden flex flex-col	place-items-center ' >
+			<Wallpaper className="-top-[00px]" svg={wallpaperSVG} />
 			<Intro />
+			<About />	
+			<Br  size={6}/>
+			<HowItStarted />
+			<Services />
+			<Br  size={6}/>
+			<WhyUs />
+			<Contact />
+			<Footer />
+			{/* <Wallpaper className="-top-[500px]" svg={wallpaperSVG} />
+			<Br  size={3}/>
 			<Br size={6} />
 			<Wallpaper className='translate-y-44 !h-[1900px]' svg={middle}/>
-			<About />
 			<div id='services' />
 			<Br  size={6 } />
-			<Services />
 			<Br size={4} />
 			<Stats />
 			<Br size={12} />
-			<OurStory />
 			<Br size={7} />
 			<Wallpaper className='!h-[1000px] !bg-bottom' svg={bottomWallpaper}  />
 			<Br size={4} />
-			<Contact />
 			<Br size={12} />
 			<Contributions />
-			<Footer />	
+				 */}
 		</main>
 	)
 }

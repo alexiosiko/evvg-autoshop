@@ -1,5 +1,5 @@
 import { services } from "@/data/services";
-import Header from "../header";
+import Title from "../title";
 import Image from "next/image";
 import Service from "../service";
 import { motion, useAnimate } from "framer-motion";
@@ -13,7 +13,7 @@ export default function Services() {
 				initial={{ y: 50, opacity: 0}}
 				onViewportEnter={() => animate(scope.current, { y: 0, opacity: 100 }, { delay: 0.3})}
 			>
-				<Header className="text-center">Our Services</Header>
+				<Title className="text-center">Our Services</Title>
 			</motion.div>
 			<br />
 			<br />
@@ -21,7 +21,7 @@ export default function Services() {
 			<br />
 			<div className="sm:flex justify-center gap-8 ">
 				{services.map((service, index) => 
-					<Service index={index} service={service} />
+					<Service key={index} index={index} service={service} />
 				)}
 			</div>
 		</section>

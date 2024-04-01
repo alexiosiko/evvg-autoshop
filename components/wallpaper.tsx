@@ -6,13 +6,12 @@ export default function Wallpaper({ svg, className }: {
 		<div className={className} style={{
 			backgroundImage: `url(${svg.src})`,
 			backgroundSize: 'cover',
-			backgroundPosition: 'top',
+			backgroundPosition:'center',
 			fill: "true",
-			height: '1400px', // Adjust the height as needed
+			height: '110vh', // Adjust the height as needed
 			position: 'absolute',
 			zIndex: -10,
-			width: '100vw',
-			left: 'calc(-50vw + 50%)',
+			width: '100%',
 			overflow: 'hidden'
 		  }} />
 		)

@@ -1,24 +1,28 @@
 import icon from "@/images/icons/tire-and-wheel-services.svg";
+import { FaOilCan } from "react-icons/fa";
+import { FiStopCircle } from "react-icons/fi";
+import { GiCarWheel } from "react-icons/gi";
+import { MdEngineering } from "react-icons/md";
 
 export const services = [
 	{
-		img: require('@/images/icons/wheel.png'),
+		img: GiCarWheel,
 		header: "Tire and Wheels",
-		description: "Enhance your vehicle's performance with comprehensive tire and wheel services. Our offerings include precision alignments and rotations for a smoother and more efficient ride.",
+		description: "Get the most out of your vehicle's performance with our complete tire and wheel services. We offer precise alignments and rotations to give you a smoother and more efficient ride.",
 	},
 	{
-		img: require('@/images/icons/oil.png'),
+		img: FaOilCan,
 		header: "Oils",
-		description: "Ensure your engine's longevity with our specialized oil services. From routine changes to thorough fluid checks, we prioritize your vehicle's fuel efficiency and overall health.",
+		description: "Keep your engine running smoothly and lasting longer with our specialized oil services. Whether it's a regular oil change or a thorough fluid check, we're here to keep your vehicle fuel-efficient and healthy.",
 	},
 	{
-		img: require("@/images/icons/engine.png"),
+		img: MdEngineering,
 		header: "Engine Diagnostics",
-		description: "Swiftly identify and address engine issues with our cutting-edge diagnostics. Trust our expert technicians to provide reliable solutions for optimal engine performance.",
+		description: "Quickly pinpoint and solve engine problems with our advanced diagnostics. You can trust our skilled technicians to find reliable solutions for keeping your engine in top shape.",
 	},
 	{
-		img: require("@/images/icons/brakes.png"),
+		img: FiStopCircle,
 		header: "Brakes and Suspensions",
-		description: "Prioritize safety with our expert brake and suspension services. We guarantee reliable stopping power and stability, ensuring a secure driving experience for you and your passengers.",
+		description: "Safety comes first with our expert brake and suspension services. We ensure your vehicle has dependable stopping power and stability, providing you and your passengers with a secure driving experience.",
 	},
 ];
