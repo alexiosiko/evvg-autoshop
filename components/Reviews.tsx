@@ -47,7 +47,6 @@ const Reviews: React.FC = () => {
                 <Star key={star} fill="currentColor" size={18} />
               ))}
             </div>
-            <span className="font-bold text-slate-700 text-base">5.0 Average Rating</span>
           </div>
         </motion.div>
 
