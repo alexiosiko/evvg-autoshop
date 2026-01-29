@@ -17,7 +17,7 @@ export const IMAGES = {
 };
 
 export const COMPANY_INFO = {
-  name: "EVG Auto Services",
+  name: "EVVG Auto Services",
   address: "5658 Production Way, Langley BC V3A 4N4",
   phone: "(604) 514-0152",
   email: "evvgauto@gmail.com",

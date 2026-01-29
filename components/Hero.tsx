@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Wrench } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { IMAGES } from '../constants';
 
@@ -23,15 +23,7 @@ const Hero: React.FC = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex flex-col items-center"
         >
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-accent/10 border border-brand-accent/30 text-brand-accent text-sm font-bold tracking-wide mb-6 backdrop-blur-sm shadow-lg"
-          >
-            <Wrench size={14} />
-            <span className="uppercase">Langley's Trusted Mechanics</span>
-          </motion.div>
+          {/* Badge removed as requested to keep top area clear for background image title */}
           
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
